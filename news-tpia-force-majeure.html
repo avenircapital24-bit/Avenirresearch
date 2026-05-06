@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TPIA Cabut Force Majeure — Avenir Research</title>
+  <link rel="stylesheet" href="shared.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<nav class="nav"><div class="nav-in">
+<a href="#" onclick="event.preventDefault();window.location.href='index.html'" style="display:flex;align-items:center;text-decoration:none">
+  <img data-avlogo="1" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="nav-logo" alt="Avenir">
+</a>
+<div style="display:flex;gap:9px;align-items:center;margin-left:auto">
+  <!-- Cart -->
+  <button onclick="CART.open()" class="nav-cart-btn" title="Keranjang">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    <span class="cart-badge" id="cart-badge" style="display:none">0</span>
+  </button>
+  <!-- Single dropdown untuk guest DAN logged-in -->
+  <div class="nav-auth-drop-wrap" id="nav-menu-wrap">
+    <button class="nav-auth-main-btn" id="nav-menu-btn" onclick="NAV.toggleDrop()">
+      MENU <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="nav-drop" id="nav-drop">
+      <div class="nav-drop-section">Avenir Research</div>
+      <button class="nav-drop-item" onclick="window.location.href='index.html';NAV.closeDrop()">Home</button>
+      <button class="nav-drop-item" onclick="window.location.href='tentang.html';NAV.closeDrop()">Tentang Avenir Research</button>
+      <button class="nav-drop-item" onclick="window.location.href='mitra.html';NAV.closeDrop()">Mitra Terverifikasi</button>
+      <button class="nav-drop-item" onclick="window.location.href='pengguna.html';NAV.closeDrop()">Panduan Pengguna</button>
+      <button class="nav-drop-item" onclick="window.location.href='katalog.html';NAV.closeDrop()">Katalog Riset</button>
+      <button class="nav-drop-item" onclick="window.location.href='news.html';NAV.closeDrop()">Market News</button>
+
+      <!-- Guest only -->
+      <div class="nav-drop-divider" data-auth="guest"></div>
+      <div class="nav-drop-section" data-auth="guest">Belum Punya Akun</div>
+      <button class="nav-drop-item" data-auth="guest" onclick="AUTH.open('register');NAV.closeDrop()">Daftar Gratis</button>
+      <button class="nav-drop-item" data-auth="guest" onclick="AUTH.open('analyst');NAV.closeDrop()">Daftar Mitra Analis</button>
+      <div class="nav-drop-divider" data-auth="guest"></div>
+      <button class="nav-drop-item" data-auth="guest" onclick="AUTH.open('login');NAV.closeDrop()">Sign In</button>
+
+      <!-- Logged-in only -->
+      <div class="nav-drop-divider" data-auth="user" style="display:none"></div>
+      <div class="nav-drop-section" data-auth="user" style="display:none" id="nav-user-section">Akun Saya</div>
+      <button class="nav-drop-item" data-auth="user" style="display:none" id="nav-user-name-item">👤 –</button>
+      <button class="nav-drop-item" data-auth="user" style="display:none;color:#e53e3e" onclick="AUTH.logout();NAV.closeDrop()">Keluar →</button>
+    </div>
+  </div>
+</div>
+</div></nav>
+
+<div id="page-news-tpia-force-majeure" class="page">
+<div class="news-article">
+  <button class="news-article-back" onclick="window.location.href='news.html'">← Kembali ke News</button>
+  <div class="news-article-tag">Korporasi · Petrokimia · IDX · 5 Mei 2026</div>
+  <h1>Chandra Asri (TPIA) Cabut Status Force Majeure — Pasokan Polymer dan Monomer Kembali Aman</h1>
+  <div class="news-article-meta">
+    <span>Tim Avenir Research</span>
+    <span>·</span>
+    <span style="font-family:'JetBrains Mono',monospace">5 Mei 2026, 17:25 WIB</span>
+    <span>·</span>
+    <span style="color:var(--grn);font-weight:600">Akses Gratis</span>
+  </div>
+  <div class="news-article-body">
+
+    <div class="highlight">
+      PT Chandra Asri Pacific Tbk (TPIA) resmi mencabut status force majeure per Selasa, 5 Mei 2026. Pencabutan ini menandai berakhirnya gangguan pasokan yang dipicu oleh ketegangan geopolitik di Selat Hormuz, sekaligus memastikan ketersediaan polymer dan monomer bagi industri domestik kembali normal.
+    </div>
+
+    <h2>Pencabutan Resmi dan Konteksnya</h2>
+
+    <p>Jakarta, 5 Mei 2026 — PT Chandra Asri Pacific Tbk (TPIA), emiten petrokimia terbesar di Indonesia milik konglomerat Prajogo Pangestu, hari ini secara resmi mencabut status force majeure yang sebelumnya diberlakukan atas sejumlah kontrak pasokan bahan baku. Langkah ini diumumkan manajemen perseroan melalui keterangan resmi pada Selasa siang.</p>
+
+    <p>"Berakhirnya status Force Majeure menandai langkah penting Perseroan dalam memastikan keandalan pasokan bagi sektor industri nasional," ujar Direktur TPIA Suryandi. "Sebagai Mitra Pertumbuhan industri Indonesia, prioritas kami adalah memastikan industri domestik tetap memperoleh bahan baku yang dibutuhkan."</p>
+
+    <p>Status force majeure sebelumnya diberlakukan sebagai respons atas gangguan rantai pasok global yang dipicu oleh eskalasi konflik militer di Selat Hormuz — jalur pelayaran strategis yang menghubungkan produsen minyak dan petrokimia Timur Tengah dengan pasar Asia. Lebih dari 20 persen perdagangan LNG global dan volume signifikan nafta — bahan baku utama produksi petrokimia — melewati selat tersebut.</p>
+
+    <h2>Strategi Pengamanan Bahan Baku Alternatif</h2>
+
+    <p>Proses pencabutan force majeure tidak datang secara instan. TPIA menjalankan serangkaian langkah strategis untuk memastikan kesinambungan pasokan sebelum mencabut status tersebut secara resmi:</p>
+
+    <table>
+      <tr><th>Langkah</th><th>Detail</th><th>Tantangan</th></tr>
+      <tr><td>Diversifikasi sumber bahan baku</td><td>Pengadaan nafta dari berbagai pasar internasional di luar Timur Tengah</td><td>Biaya pengadaan lebih tinggi</td></tr>
+      <tr><td>Pasokan dari Amerika Serikat</td><td>Nafta AS di kisaran USD150–200 per metrik ton</td><td>Lead time 50–70 hari vs 15–20 hari dari Timur Tengah</td></tr>
+      <tr><td>Optimalisasi kilang Singapura</td><td>Dukungan pasokan monomer dan ethylene dari fasilitas grup</td><td>Kapasitas terbatas, membutuhkan koordinasi ketat</td></tr>
+      <tr><td>Prioritas produksi internal</td><td>Ethylene dari olefin cracker diprioritaskan untuk polymer plant internal</td><td>Mengurangi fleksibilitas penjualan ethylene ke pihak ketiga</td></tr>
+    </table>
+
+    <p>Pengiriman bahan baku dari Amerika Serikat memerlukan waktu 50 hingga 70 hari — jauh lebih panjang dari pasokan Timur Tengah yang biasanya 15 hingga 20 hari. Meski demikian, TPIA memilih jalur ini untuk menjamin kebutuhan pelanggan domestik tetap terpenuhi di tengah ketidakpastian geopolitik yang belum mereda.</p>
+
+    <h2>Dampak pada Rantai Nilai Industri Domestik</h2>
+
+    <p>Pencabutan force majeure TPIA berdampak langsung pada ekosistem industri hilir yang bergantung pada pasokan polymer dan monomer dari perseroan. Produk utama yang kembali mengalir secara normal meliputi polypropylene (PP) dan polyethylene (PE) — dua jenis plastik dasar yang menjadi bahan baku bagi sektor kemasan, otomotif, konstruksi, logistik, kesehatan, dan barang konsumsi.</p>
+
+    <p>Gangguan pasokan yang terjadi sebelumnya telah memaksa sebagian industri hilir mencari alternatif impor dengan harga yang lebih tinggi. Normalisasi pasokan dari TPIA diperkirakan akan memberikan tekanan ke bawah pada harga bahan baku plastik domestik dalam beberapa pekan ke depan.</p>
+
+    <h2>Konteks Keuangan: Laba Bersih Q1-2026 Positif</h2>
+
+    <p>Pencabutan force majeure ini terjadi di tengah kinerja keuangan TPIA yang terbilang solid. Perseroan sebelumnya mencatat laba bersih sebesar USD205 juta pada kuartal pertama 2026 — sebuah capaian yang menunjukkan ketahanan operasional meskipun menghadapi tekanan rantai pasok. Angka laba ini juga menjadi sinyal bahwa biaya pengadaan bahan baku alternatif yang lebih tinggi berhasil diserap tanpa mengganggu profitabilitas secara material.</p>
+
+    <p>Perseroan juga mencatat adanya dukungan dari investor institusi asing. Vanguard Group tercatat membeli 490.259 saham TPIA pada akhir April 2026 — sinyal bahwa investor global masih memandang prospek jangka menengah TPIA secara positif meskipun ketidakpastian geopolitik belum sepenuhnya mereda.</p>
+
+    <h2>Konteks Makro: Selat Hormuz dan Rantai Pasok Global</h2>
+
+    <p>Krisis pasokan yang memicu force majeure TPIA adalah bagian dari dampak lanjutan eskalasi konflik di Selat Hormuz sejak akhir Februari 2026. Serangan militer AS-Israel terhadap Iran, disusul respons Iran yang memperketat kontrol atas Selat Hormuz, telah menciptakan gangguan besar pada pelayaran komersial internasional. Ratusan kapal tanker dan bulk carrier memilih memutar rute menghindari selat tersebut, mendorong lonjakan biaya pengiriman dan memanjangnya waktu transit.</p>
+
+    <p>Dampaknya terasa luas di berbagai industri berbasis impor komoditas energi dan petrokimia. Indonesia, sebagai net importer nafta dan bahan baku petrokimia, menjadi salah satu negara yang paling terdampak dari gangguan ini — dengan TPIA berada di garis terdepan sebagai produsen petrokimia terintegrasi terbesar domestik.</p>
+
+    <div class="highlight">
+      <strong>Perspektif Avenir Research:</strong> Pencabutan force majeure TPIA adalah kabar positif bagi rantai nilai industri manufaktur dan kemasan domestik. Namun, biaya pengadaan yang lebih tinggi dari sumber alternatif — terutama nafta AS di USD150–200 per metrik ton vs Timur Tengah — berpotensi menekan margin produksi di kuartal mendatang jika situasi geopolitik tidak membaik. Investor perlu mencermati guidance manajemen pada rilis laporan keuangan Q1 terkait dampak biaya bahan baku dan apakah kondisi Selat Hormuz sudah memungkinkan normalisasi sumber pasokan ke arah yang lebih cost-efficient.
+    </div>
+
+  </div>
+  <div class="news-disclaimer">
+    <strong>Disclaimer:</strong> Konten ini bersifat informatif dan edukatif, bukan merupakan rekomendasi investasi. Avenir Research tidak bertanggung jawab atas keputusan investasi yang diambil berdasarkan informasi di atas. Selalu lakukan riset mandiri dan konsultasikan dengan profesional keuangan sebelum mengambil keputusan investasi.
+  </div>
+</div>
+</div>
+<footer style="background:var(--dark);color:#C8C2B5;padding:48px 28px 36px;text-align:center;font-size:12px;line-height:1.7;border-top:1px solid rgba(255,255,255,0.06)">
+  <div style="max-width:640px;margin:0 auto">
+    <div style="font-family:'Cormorant Garamond','Georgia',serif;font-size:20px;color:#fff;font-weight:600;margin-bottom:4px">Avenir Research</div>
+    <div style="opacity:.5;font-size:12px;margin-bottom:24px">Equity research marketplace · PT Avenir Fortuna Corporindo · <a href="https://avenirfortuna.com" target="_blank" style="color:#C8C2B5;text-decoration:none">avenirfortuna.com</a></div>
+    <div style="opacity:.4;font-size:11px;line-height:1.8;max-width:520px;margin:0 auto 28px;border-top:1px solid rgba(255,255,255,0.08);padding-top:20px">
+      Seluruh konten Avenir Research merupakan referensi edukasi berbasis data publik (Annual Report audited & laporan keuangan resmi). Bukan merupakan rekomendasi investasi. Seluruh keputusan investasi adalah tanggung jawab investor masing-masing.
+    </div>
+    <div style="display:flex;justify-content:center;gap:16px;margin-bottom:24px">
+      <a href="https://www.instagram.com/avenircommunity.id?igsh=ZWhxbGYzcGpkN3pz" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);text-decoration:none" onmouseover="this.style.background='rgba(255,255,255,0.14)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8C2B5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+      <a href="https://t.me/avenircommunity" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);text-decoration:none" onmouseover="this.style.background='rgba(255,255,255,0.14)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8C2B5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </a>
+      <a href="https://chat.whatsapp.com/KNjYBzz2FMxAWFXFkLQGOL" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);text-decoration:none" onmouseover="this.style.background='rgba(255,255,255,0.14)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8C2B5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      </a>
+    </div>
+    <div style="opacity:.3;font-size:11px">© 2026 PT Avenir Fortuna Corporindo. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+(function(){
+  var imgs = document.querySelectorAll('img[data-avlogo]');
+  for(var i=0;i<imgs.length;i++) imgs[i].src='avenir-logo.png';
+})();
+</script>
+</body>
+</html>

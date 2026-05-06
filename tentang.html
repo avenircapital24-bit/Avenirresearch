@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Tentang Avenir — Avenir Research</title>
+  <link rel="stylesheet" href="shared.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<nav class="nav"><div class="nav-in">
+<a href="#" onclick="event.preventDefault();window.location.href='index.html'" style="display:flex;align-items:center;text-decoration:none">
+  <img data-avlogo="1" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="nav-logo" alt="Avenir">
+</a>
+<div style="display:flex;gap:9px;align-items:center;margin-left:auto">
+  <!-- Cart -->
+  <button onclick="CART.open()" class="nav-cart-btn" title="Keranjang">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    <span class="cart-badge" id="cart-badge" style="display:none">0</span>
+  </button>
+  <!-- Single dropdown untuk guest DAN logged-in -->
+  <div class="nav-auth-drop-wrap" id="nav-menu-wrap">
+    <button class="nav-auth-main-btn" id="nav-menu-btn" onclick="NAV.toggleDrop()">
+      MENU <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="nav-drop" id="nav-drop">
+      <div class="nav-drop-section">Avenir Research</div>
+      <button class="nav-drop-item" onclick="window.location.href='index.html';NAV.closeDrop()">Home</button>
+      <button class="nav-drop-item" onclick="window.location.href='tentang.html';NAV.closeDrop()">Tentang Avenir Research</button>
+      <button class="nav-drop-item" onclick="window.location.href='mitra.html';NAV.closeDrop()">Mitra Terverifikasi</button>
+      <button class="nav-drop-item" onclick="window.location.href='pengguna.html';NAV.closeDrop()">Panduan Pengguna</button>
+      <button class="nav-drop-item" onclick="window.location.href='katalog.html';NAV.closeDrop()">Katalog Riset</button>
+      <button class="nav-drop-item" onclick="window.location.href='news.html';NAV.closeDrop()">Market News</button>
+
+      <!-- Guest only -->
+      <div class="nav-drop-divider" data-auth="guest"></div>
+      <div class="nav-drop-section" data-auth="guest">Belum Punya Akun</div>
+      <button class="nav-drop-item" data-auth="guest" onclick="AUTH.open('register');NAV.closeDrop()">Daftar Gratis</button>
+      <button class="nav-drop-item" data-auth="guest" onclick="AUTH.open('analyst');NAV.closeDrop()">Daftar Mitra Analis</button>
+      <div class="nav-drop-divider" data-auth="guest"></div>
+      <button class="nav-drop-item" data-auth="guest" onclick="AUTH.open('login');NAV.closeDrop()">Sign In</button>
+
+      <!-- Logged-in only -->
+      <div class="nav-drop-divider" data-auth="user" style="display:none"></div>
+      <div class="nav-drop-section" data-auth="user" style="display:none" id="nav-user-section">Akun Saya</div>
+      <button class="nav-drop-item" data-auth="user" style="display:none" id="nav-user-name-item">👤 –</button>
+      <button class="nav-drop-item" data-auth="user" style="display:none;color:#e53e3e" onclick="AUTH.logout();NAV.closeDrop()">Keluar →</button>
+    </div>
+  </div>
+</div>
+</div></nav>
+
+<div id="page-tentang" class="page">
+<div class="info-page">
+ <div class="ip-eyebrow">◆ Tentang Kami</div>
+ <h1>Riset Ekuitas yang <span class="hl">Jujur</span> dan Terverifikasi</h1>
+ <p class="ip-lead">Avenir Research adalah divisi riset independen PT Avenir Fortuna Corporindo. Kami memproduksi laporan riset ekuitas mendalam untuk emiten-emiten Indonesia — berbasis data laporan keuangan audited, tanpa rekomendasi harga.</p>
+
+ <div class="ip-grid">
+  <div class="ip-card">
+   <div class="ic-icon">🎯</div>
+   <h3>Misi Kami</h3>
+   <p>Menyediakan analisis fundamental berkualitas institusi yang dapat diakses oleh semua kalangan investor — mulai dari ritel hingga fund manager.</p>
+  </div>
+  <div class="ip-card">
+   <div class="ic-icon">📋</div>
+   <h3>Metodologi</h3>
+   <p>Setiap riset berbasis Annual Report audited dan laporan keuangan resmi IDX. Tidak ada data yang dikira-kira. Valuasi menggunakan FCFE DCF tiga skenario.</p>
+  </div>
+  <div class="ip-card">
+   <div class="ic-icon">⚖️</div>
+   <h3>Independen</h3>
+   <p>Kami tidak menerima bayaran dari emiten yang kami teliti. Tidak ada conflict of interest. Tidak ada rekomendasi beli/jual.</p>
+  </div>
+  <div class="ip-card">
+   <div class="ic-icon"></div>
+   <h3>Model Marketplace</h3>
+   <p>Platform terbuka untuk analis bersertifikasi yang ingin mempublikasikan riset dan mendapatkan penghasilan dari keahlian mereka.</p>
+  </div>
+ </div>
+
+ <div class="ip-rev-box">
+  <div class="ip-rev-num grn">12</div>
+  <div class="ip-rev-text"><strong>Riset Aktif Saat Ini</strong><p>Mencakup 8 sektor: Mining, Consumer, Banking, Technology, Telco, Manufacturing, Agribusiness, dan US-listed stocks.</p></div>
+ </div>
+
+ <div class="ip-cta-box">
+  <h3>Mulai Jelajahi Riset</h3>
+  <p>Semua riset tersedia dengan akses selamanya setelah pembelian.</p>
+  <button class="ip-cta-btn" onclick="window.location.href='katalog.html'">Lihat Semua Riset →</button>
+ </div>
+</div>
+</div>
+<footer style="background:var(--dark);color:#C8C2B5;padding:48px 28px 36px;text-align:center;font-size:12px;line-height:1.7;border-top:1px solid rgba(255,255,255,0.06)">
+  <div style="max-width:640px;margin:0 auto">
+    <div style="font-family:'Cormorant Garamond','Georgia',serif;font-size:20px;color:#fff;font-weight:600;margin-bottom:4px">Avenir Research</div>
+    <div style="opacity:.5;font-size:12px;margin-bottom:24px">Equity research marketplace · PT Avenir Fortuna Corporindo · <a href="https://avenirfortuna.com" target="_blank" style="color:#C8C2B5;text-decoration:none">avenirfortuna.com</a></div>
+    <div style="opacity:.4;font-size:11px;line-height:1.8;max-width:520px;margin:0 auto 28px;border-top:1px solid rgba(255,255,255,0.08);padding-top:20px">
+      Seluruh konten Avenir Research merupakan referensi edukasi berbasis data publik (Annual Report audited & laporan keuangan resmi). Bukan merupakan rekomendasi investasi. Seluruh keputusan investasi adalah tanggung jawab investor masing-masing.
+    </div>
+    <div style="display:flex;justify-content:center;gap:16px;margin-bottom:24px">
+      <a href="https://www.instagram.com/avenircommunity.id?igsh=ZWhxbGYzcGpkN3pz" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);text-decoration:none" onmouseover="this.style.background='rgba(255,255,255,0.14)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8C2B5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+      <a href="https://t.me/avenircommunity" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);text-decoration:none" onmouseover="this.style.background='rgba(255,255,255,0.14)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8C2B5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </a>
+      <a href="https://chat.whatsapp.com/KNjYBzz2FMxAWFXFkLQGOL" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);text-decoration:none" onmouseover="this.style.background='rgba(255,255,255,0.14)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8C2B5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      </a>
+    </div>
+    <div style="opacity:.3;font-size:11px">© 2026 PT Avenir Fortuna Corporindo. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+(function(){
+  var imgs = document.querySelectorAll('img[data-avlogo]');
+  for(var i=0;i<imgs.length;i++) imgs[i].src='avenir-logo.png';
+})();
+</script>
+</body>
+</html>

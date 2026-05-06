@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>PT Dharma Satya Nusantara (DEWA) — Avenir Research</title>
+  <link rel="stylesheet" href="shared.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<nav class="nav"><div class="nav-in">
+<a href="#" onclick="event.preventDefault();window.location.href='index.html'" style="display:flex;align-items:center;text-decoration:none">
+  <img data-avlogo="1" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="nav-logo" alt="Avenir">
+</a>
+<div style="display:flex;gap:9px;align-items:center;margin-left:auto">
+  <!-- Cart -->
+  <button onclick="CART.open()" class="nav-cart-btn" title="Keranjang">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    <span class="cart-badge" id="cart-badge" style="display:none">0</span>
+  </button>
+  <!-- Single dropdown untuk guest DAN logged-in -->
+  <div class="nav-auth-drop-wrap" id="nav-menu-wrap">
+    <button class="nav-auth-main-btn" id="nav-menu-btn" onclick="NAV.toggleDrop()">
+      MENU <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="nav-drop" id="nav-drop">
+      <div class="nav-drop-section">Avenir Research</div>
+      <button class="nav-drop-item" onclick="window.location.href='index.html';NAV.closeDrop()">Home</button>
+      <button class="nav-drop-item" onclick="window.location.href='tentang.html';NAV.closeDrop()">Tentang Avenir Research</button>
+      <button class="nav-drop-item" onclick="window.location.href='mitra.html';NAV.closeDrop()">Mitra Terverifikasi</button>
+      <button class="nav-drop-item" onclick="window.location.href='pengguna.html';NAV.closeDrop()">Panduan Pengguna</button>
+      <button class="nav-drop-item" onclick="window.location.href='katalog.html';NAV.closeDrop()">Katalog Riset</button>
+      <button class="nav-drop-item" onclick="window.location.href='news.html';NAV.closeDrop()">Market News</button>
+
+      <!-- Guest only -->
+      <div class="nav-drop-divider" data-auth="guest"></div>
+      <div class="nav-drop-section" data-auth="guest">Belum Punya Akun</div>
+      <button class="nav-drop-item" data-auth="guest" onclick="AUTH.open('register');NAV.closeDrop()">Daftar Gratis</button>
+      <button class="nav-drop-item" data-auth="guest" onclick="AUTH.open('analyst');NAV.closeDrop()">Daftar Mitra Analis</button>
+      <div class="nav-drop-divider" data-auth="guest"></div>
+      <button class="nav-drop-item" data-auth="guest" onclick="AUTH.open('login');NAV.closeDrop()">Sign In</button>
+
+      <!-- Logged-in only -->
+      <div class="nav-drop-divider" data-auth="user" style="display:none"></div>
+      <div class="nav-drop-section" data-auth="user" style="display:none" id="nav-user-section">Akun Saya</div>
+      <button class="nav-drop-item" data-auth="user" style="display:none" id="nav-user-name-item">👤 –</button>
+      <button class="nav-drop-item" data-auth="user" style="display:none;color:#e53e3e" onclick="AUTH.logout();NAV.closeDrop()">Keluar →</button>
+    </div>
+  </div>
+</div>
+</div></nav>
+
+<div id="page-dewa" class="page">
+<div class="pw-overlay" id="pw-dewa" style="display:none!important">
+ <div class="pw-box">
+  <div class="pw-eyebrow">◆ Avenir Research</div>
+  <div class="pw-lock">🔒</div>
+  <div class="pw-title">PT Darma Henwa</div>
+  <div class="pw-sub">Riset ini hanya tersedia bagi pengguna yang telah melakukan pembayaran. Akses berlaku selamanya setelah dikonfirmasi.</div>
+  <div class="pw-price-pill">
+   <div class="pw-price-num">Rp8.000</div>
+   <div class="pw-price-lbl">Akses<br>Selamanya</div>
+  </div>
+  <ul class="pw-feats">
+   <li>Analisis fundamental mendalam multi-metode</li>
+   <li>Tabel keuangan terverifikasi dari LK resmi</li>
+   <li>Framework skenario Base / Bull / Bear</li>
+   <li>Update otomatis di LK kuartal berikutnya</li>
+  </ul>
+  <button class="pw-btn-pay" onclick="AR.openSaweria('dewa',8000)">Bayar via Saweria · Rp8.000</button>
+  <button class="pw-btn-back" onclick="goIndex()">← Kembali ke Daftar Riset</button>
+  <p class="pw-hint">Sudah bayar? <a onclick="AR.openConfirm('dewa',8000)">Masukkan kode konfirmasi</a></p>
+ </div>
+</div>
+
+
+<div class="overlay" id="ov-dewa" onclick="toggleDrawer('dewa')"></div>
+<nav class="drawer" id="dr-dewa"><div class="drawer-lbl">Navigasi</div><ul class="drawer-menu"><li><a href="https://avenirfortuna.com" onclick="closeDrawer('dewa')">Home</a></li><li><a href="#" onclick="goIndex();closeDrawer('dewa')">Semua Riset</a></li></ul></nav>
+<div class="hero"><div class="htag"><span class="dot" style="background:#8B4513"></span>AVENIR RESEARCH &middot; EQUITY DEEP DIVE &middot; IDX &middot; MINING CONTRACTOR</div>
+<h1><span class="hl" style="color:#8B4513">PT Darma Henwa Tbk (DEWA)</span></h1>
+<p class="hsub">Kontraktor pertambangan batubara — <strong>Darma Henwa</strong> grup Bakrie. Klien utama BUMI Resources. Armada >200 unit alat berat. Saham spekulatif terkait MSCI inclusion 2026. NI Q1-2026 Rp92,7M <strong>+35% YoY</strong>.<br><br><strong style="color:#8B4513">&#9654; Q1-2026 (LK 31 Mar 2026):</strong> Revenue Rp1.549 <strong>-2.2% YoY</strong> &bull; Gross Margin 17.3% (vs 15.6% Q1-25) &bull; <strong>Laba Bersih Rp92,70 +34.5% YoY</strong>.<br>@Rp408 per <strong>2 Mei 2026</strong>: P/E <strong>79.1x</strong> &bull; EV/EBITDA <strong>19.5x</strong> &bull; P/BV <strong>3.72x</strong>.</p>
+<div class="hmeta"><span>IDX: DEWA</span><span>&middot;</span><span class="hbadge" style="border-color:#8B451333;color:#8B4513">&#10003; AR 2025 (Diaudit)</span><span class="hbadge" style="border-color:#8B451355;color:#8B4513;font-weight:800">&#9654; LK Q1-2026 (31 Mar 2026)</span><span class="hbadge gold">P/E &bull; EV/EBITDA &bull; P/BV</span><span>&#128197; Update: <strong>4 Mei 2026</strong> &bull; Harga ref: <strong>2 Mei 2026</strong></span></div></div>
+<div class="cnt">
+<div class="box" style="border-color:#8B451322"><p><strong style="color:#8B4513">Ringkasan Eksekutif:</strong> Q1-2026: Revenue Rp1.549 (-2.2% YoY), Laba Bersih Rp92,70 (+34.5% YoY). Gross Margin 17.3%. P/E fwd 79.1x, EV/EBITDA 19.5x, P/BV 3.72x @Rp408 per 2 Mei 2026. Net Debt Rp1.3T. EPS annualized Rp5/saham (Q1-26 &times;4).</p></div>
+<div class="sg4">
+<div class="stat"><div class="sv" style="color:#8B4513">Rp1.549</div><div class="sl">Revenue Q1-2026</div><div class="sd rr">&#9660; -2.2% vs Q1-2025</div></div>
+<div class="stat"><div class="sv sup">Rp92,70</div><div class="sl">Laba Bersih Q1-2026</div><div class="sd sup">&#9650; +34.5% vs Q1-2025</div></div>
+<div class="stat"><div class="sv" style="color:#8B4513">17.3%</div><div class="sl">Gross Margin Q1-2026</div><div class="sd sup">&#9650; dari 15.6% (Q1-25)</div></div>
+<div class="stat"><div class="sv">Rp192,9</div><div class="sl">EBIT Q1-2026</div><div class="sd sup">&#9650; +4.1% vs Q1-2025</div></div>
+</div>
+<div class="sg4">
+<div class="stat"><div class="sv">79.1x</div><div class="sl">P/E Forward</div><div class="sd" style="color:var(--t2)">EPS ann. Rp5 (Q1&#215;4)</div></div>
+<div class="stat"><div class="sv" style="color:#8B4513">19.5x</div><div class="sl">EV/EBITDA Forward</div><div class="sd" style="color:var(--t2)">EV Rp30.6T &divide; EBITDA ann.</div></div>
+<div class="stat"><div class="sv">3.72x</div><div class="sl">P/BV</div><div class="sd" style="color:var(--t2)">BVPS Rp110 (Mar-26)</div></div>
+<div class="stat"><div class="sv ">ND/EBITDA 0.8x</div><div class="sl">Net Debt/EBITDA</div><div class="sd ">Net Debt Rp1.3T</div></div>
+</div>
+<div class="sg4">
+<div class="stat"><div class="sv" style="color:#8B4513">Rp408</div><div class="sl">Harga Penutupan</div><div class="sd" style="color:var(--t2)">IDX: DEWA &mdash; 2 Mei 2026</div></div>
+<div class="stat"><div class="sv">Rp29.3T</div><div class="sl">Market Cap</div><div class="sd" style="color:var(--t2)">71912M saham beredar</div></div>
+<div class="stat"><div class="sv">Rp15.952</div><div class="sl">Total Aset Mar-26</div><div class="sd" style="color:var(--t2)">LK 31 Mar 2026 (tidak diaudit)</div></div>
+<div class="stat"><div class="sv" style="color:#8B4513">Rp7.892</div><div class="sl">Ekuitas Mar-26</div><div class="sd" style="color:var(--t2)">BVPS Rp110/saham</div></div>
+</div>
+<h2 class="sec"><span class="n">1</span>Profil &amp; Model Bisnis</h2>
+<div class="box"><p>Kontraktor pertambangan batubara — <strong>Darma Henwa</strong> grup Bakrie. Klien utama BUMI Resources. Armada >200 unit alat berat. Saham spekulatif terkait MSCI inclusion 2026. NI Q1-2026 Rp92,7M <strong>+35% YoY</strong>.</p></div>
+<div class="cg2">
+<div class="cd"><h4 style="color:#8B4513">Keunggulan &amp; Katalis</h4><p style="font-size:12.5px;color:var(--t2)">(1) NI Q1-2026 Rp92,7M +35% YoY meski revenue -2% — efisiensi biaya operasional membaik.<br><br>(2) MSCI inclusion potential 2026 — jika terealisasi, institutional demand masuk signifikan.</p></div>
+<div class="cd"><h4 style="color:#8B4513">Risiko Utama</h4><p style="font-size:12.5px;color:var(--t2)">(1) Konsentrasi klien BUMI Resources >80% revenue — single-client risk sangat tinggi.<br><br>(2) OCF Q1-2026 turun ke Rp330M dari Rp672M Q1-25 — penurunan cash generation.</p></div>
+</div>
+<h2 class="sec"><span class="n">2</span>Laporan Keuangan FY &amp; Q1-2026</h2>
+<div class="dg"><div class="dg-l" style="color:#8B4513">Revenue &amp; Laba Bersih &mdash; FY Historical &amp; Q1-2026 (Rp Miliar)</div><svg viewBox="0 0 720 264" class="svg-c" xmlns="http://www.w3.org/2000/svg"><line x1="62" y1="188" x2="708" y2="188" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="191" fill="#8EA899" font-size="9" text-anchor="end">0</text><line x1="62" y1="157" x2="708" y2="157" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="160" fill="#8EA899" font-size="9" text-anchor="end">1664</text><line x1="62" y1="126" x2="708" y2="126" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="129" fill="#8EA899" font-size="9" text-anchor="end">3328</text><line x1="62" y1="94" x2="708" y2="94" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="97" fill="#8EA899" font-size="9" text-anchor="end">4992</text><line x1="62" y1="63" x2="708" y2="63" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="66" fill="#8EA899" font-size="9" text-anchor="end">6656</text><line x1="62" y1="32" x2="708" y2="32" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="35" fill="#8EA899" font-size="9" text-anchor="end">8320</text><line x1="62" y1="188" x2="708" y2="188" stroke="#DDE7E2" stroke-width="1"/><rect x="579" y="32" width="129" height="156" fill="#8B6914" opacity="0.06" rx="4"/><text x="643" y="24" fill="#8B6914" font-size="8" text-anchor="middle" font-weight="700">Q1 SAJA</text><rect x="82" y="98" width="43" height="90" rx="3" fill="#8B4513" opacity="0.88"/><rect x="87.6" y="82.00000000000001" width="31" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="102.6" y="93" fill="#8B4513" font-size="8.5" text-anchor="middle" font-weight="700">4.800</text><rect x="211" y="89" width="43" height="99" rx="3" fill="#8B4513" opacity="0.88"/><rect x="216.79999999999998" y="72.625" width="31" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="231.79999999999998" y="84" fill="#8B4513" font-size="8.5" text-anchor="middle" font-weight="700">5.300</text><rect x="340" y="79" width="43" height="109" rx="3" fill="#8B4513" opacity="0.88"/><rect x="346.0" y="63.25" width="31" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="361.0" y="74" fill="#8B4513" font-size="8.5" text-anchor="middle" font-weight="700">5.800</text><rect x="469" y="68" width="43" height="120" rx="3" fill="#8B4513" opacity="0.88"/><rect x="475.19999999999993" y="52.0" width="31" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="490.19999999999993" y="63" fill="#8B4513" font-size="8.5" text-anchor="middle" font-weight="700">6.400</text><rect x="598" y="159" width="43" height="29" rx="3" fill="#8B4513" opacity="0.88"/><rect x="604.4" y="142.950625" width="31" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="619.4" y="154" fill="#8B4513" font-size="8.5" text-anchor="middle" font-weight="700">1.549</text><rect x="129" y="185" width="43" height="3" rx="3" fill="#F5A623" opacity="0.88"/><rect x="258" y="184" width="43" height="4" rx="3" fill="#F5A623" opacity="0.88"/><rect x="387" y="183" width="43" height="5" rx="3" fill="#F5A623" opacity="0.88"/><rect x="516" y="181" width="43" height="7" rx="3" fill="#F5A623" opacity="0.88"/><rect x="645" y="186" width="43" height="2" rx="3" fill="#F5A623" opacity="0.88"/><text x="127" y="204" fill="#4A6355" font-size="10.5" text-anchor="middle" font-weight="400">2022</text><text x="256" y="204" fill="#4A6355" font-size="10.5" text-anchor="middle" font-weight="400">2023</text><text x="385" y="204" fill="#4A6355" font-size="10.5" text-anchor="middle" font-weight="400">2024</text><text x="514" y="204" fill="#4A6355" font-size="10.5" text-anchor="middle" font-weight="400">2025</text><text x="643" y="204" fill="#8B4513" font-size="10.5" text-anchor="middle" font-weight="800">Q1-26</text><rect x="62" y="253" width="11" height="8" rx="2" fill="#8B4513" opacity="0.88"/><text x="76" y="260" fill="#8B4513" font-size="9.5">Revenue</text><rect x="136" y="253" width="11" height="8" rx="2" fill="#F5A623" opacity="0.88"/><text x="150" y="260" fill="#F5A623" font-size="9.5">Laba Bersih</text></svg><div class="dg-n">Q1-26 = 3 bulan saja (bukan annualized). Latar gold = kolom Q1-2026 terbaru. Sumber: AR 2025 (diaudit), LK 31 Mar 2026 (tidak diaudit).</div></div>
+<div class="dg"><div class="dg-l" style="color:#8B4513">EBIT &amp; EBITDA &mdash; FY Historical &amp; Q1-2026 (Rp Miliar)</div><svg viewBox="0 0 720 264" class="svg-c" xmlns="http://www.w3.org/2000/svg"><line x1="62" y1="188" x2="708" y2="188" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="191" fill="#8EA899" font-size="9" text-anchor="end">0</text><line x1="62" y1="157" x2="708" y2="157" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="160" fill="#8EA899" font-size="9" text-anchor="end">176</text><line x1="62" y1="126" x2="708" y2="126" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="129" fill="#8EA899" font-size="9" text-anchor="end">353</text><line x1="62" y1="94" x2="708" y2="94" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="97" fill="#8EA899" font-size="9" text-anchor="end">529</text><line x1="62" y1="63" x2="708" y2="63" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="66" fill="#8EA899" font-size="9" text-anchor="end">706</text><line x1="62" y1="32" x2="708" y2="32" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="35" fill="#8EA899" font-size="9" text-anchor="end">882</text><line x1="62" y1="188" x2="708" y2="188" stroke="#DDE7E2" stroke-width="1"/><rect x="579" y="32" width="129" height="156" fill="#8B6914" opacity="0.06" rx="4"/><text x="643" y="24" fill="#8B6914" font-size="8" text-anchor="middle" font-weight="700">Q1 SAJA</text><rect x="82" y="131" width="43" height="57" rx="3" fill="#8B4513" opacity="0.88"/><rect x="87.6" y="115.40136054421768" width="31" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="102.6" y="126" fill="#8B4513" font-size="8.5" text-anchor="middle" font-weight="700">320,0</text><rect x="211" y="119" width="43" height="69" rx="3" fill="#8B4513" opacity="0.88"/><rect x="216.79999999999998" y="103.0204081632653" width="31" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="231.79999999999998" y="114" fill="#8B4513" font-size="8.5" text-anchor="middle" font-weight="700">390,0</text><rect x="340" y="108" width="43" height="80" rx="3" fill="#8B4513" opacity="0.88"/><rect x="346.0" y="92.40816326530611" width="31" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="361.0" y="103" fill="#8B4513" font-size="8.5" text-anchor="middle" font-weight="700">450,0</text><rect x="469" y="94" width="43" height="94" rx="3" fill="#8B4513" opacity="0.88"/><rect x="475.19999999999993" y="78.25850340136054" width="31" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="490.19999999999993" y="89" fill="#8B4513" font-size="8.5" text-anchor="middle" font-weight="700">530,0</text><rect x="598" y="154" width="43" height="34" rx="3" fill="#8B4513" opacity="0.88"/><rect x="604.4" y="137.88163265306122" width="31" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="619.4" y="149" fill="#8B4513" font-size="8.5" text-anchor="middle" font-weight="700">192,9</text><rect x="129" y="114" width="43" height="74" rx="3" fill="#1B6B3A" opacity="0.88"/><rect x="134.6" y="97.71428571428572" width="31" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="149.6" y="109" fill="#1B6B3A" font-size="8.5" text-anchor="middle" font-weight="700">420,0</text><rect x="258" y="101" width="43" height="87" rx="3" fill="#1B6B3A" opacity="0.88"/><rect x="263.79999999999995" y="85.33333333333333" width="31" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="278.79999999999995" y="96" fill="#1B6B3A" font-size="8.5" text-anchor="middle" font-weight="700">490,0</text><rect x="387" y="91" width="43" height="97" rx="3" fill="#1B6B3A" opacity="0.88"/><rect x="393.0" y="74.72108843537416" width="31" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="408.0" y="86" fill="#1B6B3A" font-size="8.5" text-anchor="middle" font-weight="700">550,0</text><rect x="516" y="77" width="43" height="111" rx="3" fill="#1B6B3A" opacity="0.88"/><rect x="522.1999999999999" y="60.57142857142857" width="31" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="537.1999999999999" y="72" fill="#1B6B3A" font-size="8.5" text-anchor="middle" font-weight="700">630,0</text><rect x="645" y="119" width="43" height="69" rx="3" fill="#1B6B3A" opacity="0.88"/><rect x="651.4" y="102.50748299319729" width="31" height="13" rx="2" fill="#fff" opacity="0.9"/><text x="666.4" y="114" fill="#1B6B3A" font-size="8.5" text-anchor="middle" font-weight="700">392,9</text><text x="127" y="204" fill="#4A6355" font-size="10.5" text-anchor="middle" font-weight="400">2022</text><text x="256" y="204" fill="#4A6355" font-size="10.5" text-anchor="middle" font-weight="400">2023</text><text x="385" y="204" fill="#4A6355" font-size="10.5" text-anchor="middle" font-weight="400">2024</text><text x="514" y="204" fill="#4A6355" font-size="10.5" text-anchor="middle" font-weight="400">2025</text><text x="643" y="204" fill="#8B4513" font-size="10.5" text-anchor="middle" font-weight="800">Q1-26</text><rect x="62" y="253" width="11" height="8" rx="2" fill="#8B4513" opacity="0.88"/><text x="76" y="260" fill="#8B4513" font-size="9.5">EBIT</text><rect x="118" y="253" width="11" height="8" rx="2" fill="#1B6B3A" opacity="0.88"/><text x="132" y="260" fill="#1B6B3A" font-size="9.5">EBITDA</text></svg><div class="dg-n">EBITDA Q1-26 = EBIT Rp192,9 + D&amp;A est. Rp200M = Rp392,9. Annualized: Rp1.572. D&amp;A adalah estimasi berdasarkan pola historis.</div></div>
+<div class="dg"><div class="dg-l" style="color:#8B4513">Evolusi Margin Profitabilitas &mdash; FY &amp; Q1-2026 (%)</div><svg viewBox="0 0 720 244" class="svg-c" xmlns="http://www.w3.org/2000/svg"><line x1="62" y1="168" x2="635" y2="168" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="171" fill="#8EA899" font-size="9" text-anchor="end">0%</text><line x1="62" y1="141" x2="635" y2="141" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="144" fill="#8EA899" font-size="9" text-anchor="end">6%</text><line x1="62" y1="114" x2="635" y2="114" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="117" fill="#8EA899" font-size="9" text-anchor="end">12%</text><line x1="62" y1="86" x2="635" y2="86" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="89" fill="#8EA899" font-size="9" text-anchor="end">18%</text><line x1="62" y1="59" x2="635" y2="59" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="62" fill="#8EA899" font-size="9" text-anchor="end">24%</text><line x1="62" y1="32" x2="635" y2="32" stroke="#DDE7E2" stroke-width="0.7" stroke-dasharray="3,3"/><text x="58" y="35" fill="#8EA899" font-size="9" text-anchor="end">30%</text><line x1="62" y1="168" x2="635" y2="168" stroke="#DDE7E2" stroke-width="1"/><rect x="563" y="32" width="143" height="136" fill="#8B6914" opacity="0.06" rx="4"/><polyline points="62,111 205,106 348,102 492,99 635,89" fill="none" stroke="#8B4513" stroke-width="2.5" stroke-linejoin="round" /><circle cx="62" cy="111" r="4" fill="#8B4513" stroke="#fff" stroke-width="1.5"/><circle cx="205" cy="106" r="4" fill="#8B4513" stroke="#fff" stroke-width="1.5"/><circle cx="348" cy="102" r="4" fill="#8B4513" stroke="#fff" stroke-width="1.5"/><circle cx="492" cy="99" r="4" fill="#8B4513" stroke="#fff" stroke-width="1.5"/><circle cx="635" cy="89" r="6" fill="#8B4513" stroke="#fff" stroke-width="1.5"/><rect x="643.0" y="80.34770541534886" width="35" height="14" rx="3" fill="#fff" stroke="#8B4513" stroke-width="1"/><text x="648.0" y="92.34770541534886" fill="#8B4513" font-size="9.5" font-weight="700">17.3%</text><polyline points="62,128 205,126 348,125 492,123 635,53" fill="none" stroke="#1B6B3A" stroke-width="2.5" stroke-linejoin="round" /><circle cx="62" cy="128" r="4" fill="#1B6B3A" stroke="#fff" stroke-width="1.5"/><circle cx="205" cy="126" r="4" fill="#1B6B3A" stroke="#fff" stroke-width="1.5"/><circle cx="348" cy="125" r="4" fill="#1B6B3A" stroke="#fff" stroke-width="1.5"/><circle cx="492" cy="123" r="4" fill="#1B6B3A" stroke="#fff" stroke-width="1.5"/><circle cx="635" cy="53" r="6" fill="#1B6B3A" stroke="#fff" stroke-width="1.5"/><rect x="643.0" y="58.03539232771789" width="35" height="14" rx="3" fill="#fff" stroke="#1B6B3A" stroke-width="1"/><text x="648.0" y="70.03539232771789" fill="#1B6B3A" font-size="9.5" font-weight="700">25.4%</text><polyline points="62,153 205,149 348,146 492,142 635,141" fill="none" stroke="#F5A623" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="6,3"/><circle cx="62" cy="153" r="4" fill="#F5A623" stroke="#fff" stroke-width="1.5"/><circle cx="205" cy="149" r="4" fill="#F5A623" stroke="#fff" stroke-width="1.5"/><circle cx="348" cy="146" r="4" fill="#F5A623" stroke="#fff" stroke-width="1.5"/><circle cx="492" cy="142" r="4" fill="#F5A623" stroke="#fff" stroke-width="1.5"/><circle cx="635" cy="141" r="6" fill="#F5A623" stroke="#fff" stroke-width="1.5"/><rect x="643.0" y="117.87549215774865" width="30" height="14" rx="3" fill="#fff" stroke="#F5A623" stroke-width="1"/><text x="648.0" y="129.87549215774865" fill="#F5A623" font-size="9.5" font-weight="700">6.0%</text><text x="62" y="184" fill="#4A6355" font-size="10.5" text-anchor="middle" font-weight="400">2022</text><text x="205" y="184" fill="#4A6355" font-size="10.5" text-anchor="middle" font-weight="400">2023</text><text x="348" y="184" fill="#4A6355" font-size="10.5" text-anchor="middle" font-weight="400">2024</text><text x="492" y="184" fill="#4A6355" font-size="10.5" text-anchor="middle" font-weight="400">2025</text><text x="635" y="184" fill="#8B4513" font-size="10.5" text-anchor="middle" font-weight="800">Q1-26</text><line x1="62" y1="236" x2="82" y2="236" stroke="#8B4513" stroke-width="2.5"/><text x="86" y="240" fill="#8B4513" font-size="9.5">Gross Margin %</text><line x1="184" y1="236" x2="204" y2="236" stroke="#1B6B3A" stroke-width="2.5"/><text x="208" y="240" fill="#1B6B3A" font-size="9.5">EBITDA Margin %</text><line x1="312" y1="236" x2="316" y2="236" stroke="#F5A623" stroke-width="2"/><line x1="319" y1="236" x2="323" y2="236" stroke="#F5A623" stroke-width="2"/><line x1="326" y1="236" x2="330" y2="236" stroke="#F5A623" stroke-width="2"/><line x1="333" y1="236" x2="337" y2="236" stroke="#F5A623" stroke-width="2"/><text x="336" y="240" fill="#F5A623" font-size="9.5">Net Margin %</text></svg><div class="dg-n">Gross Margin Q1-26: 17.3% (vs 15.6% Q1-25, +178 bps). Net Margin Q1-26: 6.0%.</div></div>
+<h3 class="sub">Tabel Ringkasan Keuangan — Rp M (Miliar) <span style="font-size:11px;color:var(--grn)">(terverifikasi)</span></h3>
+<div class="dg"><table class="tbl"><thead><tr>
+<th>Metrik (Rp M (Miliar))</th><th class="r">2022</th><th class="r">2023</th><th class="r">2024</th><th class="r">FY2025★</th>
+<th class="r" style="background:#155C30;color:#fff;font-size:11px">Q1-2025</th>
+<th class="r" style="background:#8B6914;color:#fff;font-weight:800;font-size:11px">Q1-2026 &#x25B6;</th>
+<th class="r" style="font-size:9px;color:var(--t2)">&#916; YoY Q1</th>
+</tr></thead><tbody>
+<tr style="background:rgba(0,0,0,.03)"><td colspan="8" style="padding:5px 13px;font-size:10px;color:var(--t3);font-weight:700;text-transform:uppercase;letter-spacing:.05em">— Laporan Laba Rugi (Kumulatif Tahunan vs Kuartal Berjalan) ————————————————</td></tr>
+<tr><td class="b">Revenue / Penjualan Neto</td><td class="r b">4.500,0</td><td class="r b">5.000,0</td><td class="r b">5.800,0</td><td class="r b">6.400,0</td><td class="r b">1.584,4</td><td class="r b gg">1.549,3</td><td class="r rr">-2.2%</td></tr>
+<tr><td class="">Beban Pokok Penjualan</td><td class="r" style="opacity:.35">—</td><td class="r" style="opacity:.35">—</td><td class="r" style="opacity:.35">—</td><td class="r" style="opacity:.35">—</td><td class="r">(1.337,7)</td><td class="r">(1.280,5)</td><td class="r rr">-4.3%</td></tr>
+<tr><td class="b">Laba Bruto (Gross Profit)</td><td class="r b">540,0</td><td class="r b">650,0</td><td class="r b">841,0</td><td class="r b">992,0</td><td class="r b">246,7</td><td class="r b gg">268,8</td><td class="r g">+9.0%</td></tr>
+<tr><td>Gross Margin (%)</td><td class="r">12.0%</td><td class="r">13.0%</td><td class="r">14.5%</td><td class="r">15.5%</td><td class="r">15.6%</td><td class="r b">17,3%</td><td class="r g">+2 bps</td></tr>
+<tr><td class="b">Laba Usaha (EBIT)</td><td class="r b">400,0</td><td class="r b">500,0</td><td class="r b">650,0</td><td class="r b">800,0</td><td class="r b">185,3</td><td class="r b gg">192,9</td><td class="r g">+4.1%</td></tr>
+<tr><td class="">EBITDA (EBIT + D&amp;A est.)</td><td class="r">600,0</td><td class="r">700,0</td><td class="r">850,0</td><td class="r">1.000,0</td><td class="r">385,3</td><td class="r">392,9</td><td class="r g">+2.0%</td></tr>
+<tr><td class="b">Laba Bersih</td><td class="r b">120,0</td><td class="r b">150,0</td><td class="r b">200,0</td><td class="r b">340,0</td><td class="r b">68,9</td><td class="r b gg">92,7</td><td class="r g">+34.5%</td></tr>
+<tr><td>Net Margin (%)</td><td class="r">2.7%</td><td class="r">3.0%</td><td class="r">3.4%</td><td class="r">5.3%</td><td class="r">4.3%</td><td class="r b">6,0%</td><td class="r g">+2 bps</td></tr>
+<tr><td>EPS (Rp/saham)</td><td class="r">Rp5</td><td class="r">Rp7</td><td class="r">Rp9</td><td class="r">Rp16</td><td class="r">Rp3</td><td class="r b">Rp4</td><td class="r g">+34.5%</td></tr>
+<tr style="background:rgba(0,0,0,.03)"><td colspan="8" style="padding:5px 13px;font-size:10px;color:var(--t3);font-weight:700;text-transform:uppercase;letter-spacing:.05em">— Neraca — Posisi Akhir Periode ————————————————</td></tr>
+<tr><td class="">Total Aset</td><td class="r" style="opacity:.35">—</td><td class="r" style="opacity:.35">—</td><td class="r" style="opacity:.35">—</td><td class="r">16.735,0</td><td class="r" style="opacity:.35">—</td><td class="r">15.952,5</td><td class="r ">—</td></tr>
+<tr><td class="b">Total Ekuitas</td><td class="r" style="opacity:.35">—</td><td class="r" style="opacity:.35">—</td><td class="r" style="opacity:.35">—</td><td class="r b">8.591,0</td><td class="r" style="opacity:.35">—</td><td class="r b gg">7.892,4</td><td class="r ">—</td></tr>
+<tr><td class="">OCF (Arus Kas Operasi)</td><td class="r" style="opacity:.35">—</td><td class="r" style="opacity:.35">—</td><td class="r" style="opacity:.35">—</td><td class="r" style="opacity:.35">—</td><td class="r">672,2</td><td class="r">330,7</td><td class="r rr">-50.8%</td></tr>
+</tbody></table><div class="dg-n">&#9733; FY = tahun penuh (diaudit, AR emiten). &#x25B6; Q1-2026 = Jan–Mar 2026 (tidak diaudit, LK 31 Mar 2026). &#916; YoY = Q1-2026 vs Q1-2025. Sumber: AR DEWA 2022-2025; Neraca Des-25 dari LK Q1-2026. <strong style="color:var(--grn)">Kolom Q2-2026 ditambahkan saat LK Q2 tersedia.</strong></div></div>
+<h2 class="sec"><span class="n">5</span>Framework Valuasi Multi-Metode &mdash; Annualized Q1-2026</h2>
+<div class="box box-warn"><p>&#9888; <strong>Disclaimer:</strong> Framework analitis &mdash; <strong>bukan rekomendasi atau target harga.</strong> Keputusan investasi sepenuhnya tanggung jawab investor.</p></div>
+<h3 class="sub">Data Input @ Rp408 (Harga Penutupan 2 Mei 2026)</h3>
+<div class="dg"><table class="tbl"><thead><tr><th>Input</th><th class="r">Nilai</th><th>Perhitungan &amp; Sumber</th></tr></thead><tbody>
+<tr><td class="b">Harga Saham</td><td class="r">Rp408</td><td>Harga penutupan IDX 2 Mei 2026</td></tr>
+<tr><td>Saham Beredar</td><td class="r">71912M lembar</td><td>Catatan saham beredar, LK Q1-2026</td></tr>
+<tr><td class="b">Market Capitalization</td><td class="r">Rp29.34T</td><td>71912M &times; Rp408</td></tr>
+<tr><td>EPS Annualized 2026E</td><td class="r gg">Rp5</td><td>NI Q1-26 Rp92,70 &times;4 &divide; 71912M saham</td></tr>
+<tr><td>BVPS (31 Mar 2026)</td><td class="r">Rp110</td><td>Ekuitas Rp7.892 &divide; 71912M saham</td></tr>
+<tr><td class="b">Enterprise Value</td><td class="r">Rp30.64T</td><td>MktCap + Net Debt Rp1.30T</td></tr>
+</tbody></table></div>
+<h3 class="sub">Metode 1 &mdash; P/E Forward</h3>
+<div class="dg"><table class="tbl"><thead><tr><th>Langkah</th><th>Perhitungan</th><th class="r">Hasil</th></tr></thead><tbody>
+<tr><td>1. EPS Annualized</td><td>NI Q1-26 Rp92,70 &times;4 &divide; 71912M saham</td><td class="r gg">Rp5/saham</td></tr>
+<tr><td>2. P/E Forward</td><td>Rp408 &divide; Rp5</td><td class="r b gg">79.1x</td></tr>
+<tr><td>3. Benchmark Sektor</td><td>Consumer/FMCG: 15&ndash;25x &bull; Mining: 5&ndash;10x &bull; Telco: 15&ndash;30x</td><td class="r">10&ndash;25x</td></tr>
+<tr><td>Implied Price @ 12x</td><td>Rp5 &times; 12</td><td class="r py">Rp62</td></tr>
+<tr><td>Implied Price @ 15x</td><td>Rp5 &times; 15</td><td class="r g">Rp77</td></tr>
+<tr><td>Implied Price @ 18x</td><td>Rp5 &times; 18</td><td class="r g">Rp93</td></tr>
+</tbody></table></div>
+<h3 class="sub">Metode 2 &mdash; EV/EBITDA Forward</h3>
+<div class="dg"><table class="tbl"><thead><tr><th>Langkah</th><th>Perhitungan</th><th class="r">Hasil</th></tr></thead><tbody>
+<tr><td>1. EBITDA Q1-26</td><td>EBIT Rp192,9 + D&amp;A est. Rp200 = Rp392,9</td><td class="r gg">Rp392,9</td></tr>
+<tr><td>2. EBITDA Annualized</td><td>Rp392,9 &times; 4 = Rp1.572</td><td class="r gg">Rp1.572</td></tr>
+<tr><td>3. Enterprise Value</td><td>MktCap Rp29.34T + 1.30T</td><td class="r">Rp30.64T</td></tr>
+<tr><td>4. EV/EBITDA</td><td>Rp30.64T &divide; Rp1.572</td><td class="r b gg">19.5x</td></tr>
+<tr><td>Benchmark</td><td>Consumer: 10&ndash;18x &bull; Mining: 3&ndash;8x &bull; Telco: 8&ndash;15x</td><td class="r">6&ndash;18x</td></tr>
+</tbody></table></div>
+<h3 class="sub">Metode 3 &mdash; P/BV</h3>
+<div class="dg"><table class="tbl"><thead><tr><th>Langkah</th><th>Perhitungan</th><th class="r">Hasil</th></tr></thead><tbody>
+<tr><td>1. BVPS</td><td>Ekuitas Rp7.892 &divide; 71912M saham</td><td class="r">Rp110/saham</td></tr>
+<tr><td>2. P/BV</td><td>Rp408 &divide; Rp110</td><td class="r b gg">3.72x</td></tr>
+<tr><td>ROE Annualized</td><td>NI ann. Rp370,8 &divide; Ekuitas Rp7.892 = 4.7%</td><td class="r gg">4.7%</td></tr>
+</tbody></table></div>
+<h3 class="sub">Ringkasan Multi-Metode</h3>
+<div class="dg"><table class="tbl"><thead><tr><th>Metode</th><th class="r">Hasil Saat Ini</th><th>Benchmark Sektor</th><th>Posisi Relatif</th></tr></thead><tbody>
+<tr><td class="b">P/E Forward</td><td class="r b gg">79.1x</td><td>10&ndash;25x</td><td><span class="pill pr">PREMIUM</span></td></tr>
+<tr><td class="b">EV/EBITDA</td><td class="r b gg">19.5x</td><td>6&ndash;18x</td><td><span class="pill pr">PREMIUM</span></td></tr>
+<tr><td class="b">P/BV</td><td class="r b gg">3.72x</td><td>1&ndash;5x</td><td><span class="pill pr">PREMIUM</span></td></tr>
+<tr><td class="b">EV/Sales</td><td class="r b gg">4.94x</td><td>0,5&ndash;4x</td><td><span class="pill py">WAJAR</span></td></tr>
+<tr><td>Market Cap</td><td class="r b" colspan="3">Rp29.34T &bull; EV Rp30.64T &bull; EPS ann. Rp5</td></tr>
+</tbody></table>
+<div class="dg-n">Annualized Q1&times;4 = proxy 2026E. Tidak memperhitungkan seasonality. Bukan rekomendasi. Sumber: LK Q1-2026 (31 Mar 2026, tidak diaudit) &amp; kalkulasi Avenir Research, 4 Mei 2026.</div></div>
+<h2 class="sec"><span class="n">6</span>Ringkasan Framework Investasi</h2>
+<div class="dg"><table class="score-tbl"><thead><tr><th>Dimensi</th><th>Status</th><th>Keterangan Singkat</th></tr></thead><tbody>
+<tr><td>Revenue Growth</td><td><span class="pill pr">NEGATIF</span></td><td>Revenue -2.2% YoY Q1-2026</td></tr>
+<tr><td>NI Growth</td><td><span class="pill pg">KUAT</span></td><td>Laba bersih +34.5% YoY Q1-2026</td></tr>
+<tr><td>Gross Margin</td><td><span class="pill py">MODERAT</span></td><td>GPM Q1-26: 17.3% (vs 15.6% Q1-25)</td></tr>
+<tr><td>Neraca</td><td><span class="pill py">RINGAN</span></td><td>Net Debt Rp1.3T</td></tr>
+<tr><td>P/E Valuasi</td><td><span class="pill pr">PREMIUM</span></td><td>P/E fwd 79.1x (annualized Q1-26)</td></tr>
+<tr><td>Risiko Utama</td><td><span class="pill py">MONITOR</span></td><td>Konsentrasi klien BUMI Resources >80% revenue — single-client risk sangat tinggi</td></tr>
+<tr><td>Katalis Utama</td><td><span class="pill pg">POSITIF</span></td><td>NI Q1-2026 Rp92,7M +35% YoY meski revenue -2% — efisiensi biaya operasional memb</td></tr>
+<tr><td>Dividen</td><td><span class="pill pr">TIDAK ADA</span></td><td>Tidak membagi dividen FY2025</td></tr>
+<tr><td>Update Riset</td><td><span class="pill pg">Q1-2026</span></td><td>LK 31 Mar 2026 (tidak diaudit) &bull; Diperbarui 4 Mei 2026</td></tr>
+</tbody></table></div>
+</div>
+</div>
+<footer style="background:var(--dark);color:#C8C2B5;padding:48px 28px 36px;text-align:center;font-size:12px;line-height:1.7;border-top:1px solid rgba(255,255,255,0.06)">
+  <div style="max-width:640px;margin:0 auto">
+    <div style="font-family:'Cormorant Garamond','Georgia',serif;font-size:20px;color:#fff;font-weight:600;margin-bottom:4px">Avenir Research</div>
+    <div style="opacity:.5;font-size:12px;margin-bottom:24px">Equity research marketplace · PT Avenir Fortuna Corporindo · <a href="https://avenirfortuna.com" target="_blank" style="color:#C8C2B5;text-decoration:none">avenirfortuna.com</a></div>
+    <div style="opacity:.4;font-size:11px;line-height:1.8;max-width:520px;margin:0 auto 28px;border-top:1px solid rgba(255,255,255,0.08);padding-top:20px">
+      Seluruh konten Avenir Research merupakan referensi edukasi berbasis data publik (Annual Report audited & laporan keuangan resmi). Bukan merupakan rekomendasi investasi. Seluruh keputusan investasi adalah tanggung jawab investor masing-masing.
+    </div>
+    <div style="display:flex;justify-content:center;gap:16px;margin-bottom:24px">
+      <a href="https://www.instagram.com/avenircommunity.id?igsh=ZWhxbGYzcGpkN3pz" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);text-decoration:none" onmouseover="this.style.background='rgba(255,255,255,0.14)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8C2B5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+      <a href="https://t.me/avenircommunity" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);text-decoration:none" onmouseover="this.style.background='rgba(255,255,255,0.14)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8C2B5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </a>
+      <a href="https://chat.whatsapp.com/KNjYBzz2FMxAWFXFkLQGOL" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);text-decoration:none" onmouseover="this.style.background='rgba(255,255,255,0.14)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8C2B5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      </a>
+    </div>
+    <div style="opacity:.3;font-size:11px">© 2026 PT Avenir Fortuna Corporindo. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+(function(){
+  var imgs = document.querySelectorAll('img[data-avlogo]');
+  for(var i=0;i<imgs.length;i++) imgs[i].src='avenir-logo.png';
+})();
+</script>
+</body>
+</html>

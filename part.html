@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>PT Mitra Pack (PART) — Avenir Research</title>
+  <link rel="stylesheet" href="shared.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<nav class="nav"><div class="nav-in">
+<a href="#" onclick="event.preventDefault();window.location.href='index.html'" style="display:flex;align-items:center;text-decoration:none">
+  <img data-avlogo="1" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="nav-logo" alt="Avenir">
+</a>
+<div style="display:flex;gap:9px;align-items:center;margin-left:auto">
+  <!-- Cart -->
+  <button onclick="CART.open()" class="nav-cart-btn" title="Keranjang">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    <span class="cart-badge" id="cart-badge" style="display:none">0</span>
+  </button>
+  <!-- Single dropdown untuk guest DAN logged-in -->
+  <div class="nav-auth-drop-wrap" id="nav-menu-wrap">
+    <button class="nav-auth-main-btn" id="nav-menu-btn" onclick="NAV.toggleDrop()">
+      MENU <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="nav-drop" id="nav-drop">
+      <div class="nav-drop-section">Avenir Research</div>
+      <button class="nav-drop-item" onclick="window.location.href='index.html';NAV.closeDrop()">Home</button>
+      <button class="nav-drop-item" onclick="window.location.href='tentang.html';NAV.closeDrop()">Tentang Avenir Research</button>
+      <button class="nav-drop-item" onclick="window.location.href='mitra.html';NAV.closeDrop()">Mitra Terverifikasi</button>
+      <button class="nav-drop-item" onclick="window.location.href='pengguna.html';NAV.closeDrop()">Panduan Pengguna</button>
+      <button class="nav-drop-item" onclick="window.location.href='katalog.html';NAV.closeDrop()">Katalog Riset</button>
+      <button class="nav-drop-item" onclick="window.location.href='news.html';NAV.closeDrop()">Market News</button>
+
+      <!-- Guest only -->
+      <div class="nav-drop-divider" data-auth="guest"></div>
+      <div class="nav-drop-section" data-auth="guest">Belum Punya Akun</div>
+      <button class="nav-drop-item" data-auth="guest" onclick="AUTH.open('register');NAV.closeDrop()">Daftar Gratis</button>
+      <button class="nav-drop-item" data-auth="guest" onclick="AUTH.open('analyst');NAV.closeDrop()">Daftar Mitra Analis</button>
+      <div class="nav-drop-divider" data-auth="guest"></div>
+      <button class="nav-drop-item" data-auth="guest" onclick="AUTH.open('login');NAV.closeDrop()">Sign In</button>
+
+      <!-- Logged-in only -->
+      <div class="nav-drop-divider" data-auth="user" style="display:none"></div>
+      <div class="nav-drop-section" data-auth="user" style="display:none" id="nav-user-section">Akun Saya</div>
+      <button class="nav-drop-item" data-auth="user" style="display:none" id="nav-user-name-item">👤 –</button>
+      <button class="nav-drop-item" data-auth="user" style="display:none;color:#e53e3e" onclick="AUTH.logout();NAV.closeDrop()">Keluar →</button>
+    </div>
+  </div>
+</div>
+</div></nav>
+
+<div id="page-part" class="page">
+<div class="pw-overlay" id="pw-part" style="display:none!important">
+ <div class="pw-box">
+  <div class="pw-eyebrow">◆ Avenir Research</div>
+  <div class="pw-lock">🔒</div>
+  <div class="pw-title">PT Cipta Perdana Lancar</div>
+  <div class="pw-sub">Riset ini hanya tersedia bagi pengguna yang telah melakukan pembayaran. Akses berlaku selamanya setelah dikonfirmasi.</div>
+  <div class="pw-price-pill">
+   <div class="pw-price-num">Rp5.000</div>
+   <div class="pw-price-lbl">Akses<br>Selamanya</div>
+  </div>
+  <ul class="pw-feats">
+   <li>Analisis fundamental mendalam multi-metode</li>
+   <li>Tabel keuangan terverifikasi dari LK resmi</li>
+   <li>Framework skenario Base / Bull / Bear</li>
+   <li>Update otomatis di LK kuartal berikutnya</li>
+  </ul>
+  <button class="pw-btn-pay" onclick="AR.openSaweria('part',5000)">Bayar via Saweria · Rp5.000</button>
+  <button class="pw-btn-back" onclick="goIndex()">← Kembali ke Daftar Riset</button>
+  <p class="pw-hint">Sudah bayar? <a onclick="AR.openConfirm('part',5000)">Masukkan kode konfirmasi</a></p>
+ </div>
+</div>
+
+
+<div class="overlay" id="ov-part" onclick="toggleDrawer('part')"></div>
+<nav class="drawer" id="dr-part">
+<div class="drawer-lbl">Navigasi</div>
+<ul class="drawer-menu">
+<li><a href="https://avenirfortuna.com" onclick="closeDrawer('part')">Home</a></li>
+<li><a href="#" onclick="goIndex();closeDrawer('part')">Semua Riset</a></li>
+<li><a href="#" onclick="window.location.href='wifi.html';closeDrawer('part')">Riset WIFI</a></li>
+<li><a href="#" onclick="window.location.href='ades.html';closeDrawer('part')">Riset ADES</a></li>
+</ul></nav>
+
+<div class="hero">
+<div class="htag"><span class="dot" style="background:#C97B1A"></span>AVENIR RESEARCH &middot; EQUITY DEEP DIVE &middot; IDX &middot; MANUFACTURING &amp; AUTOMOTIVE</div>
+<h1><span class="hl" style="color:#C97B1A">PT Cipta Perdana Lancar Tbk (PART)</span></h1>
+<p class="hsub">Produsen komponen &amp; suku cadang metal berbasis B2B ke OEM otomotif (roda 2 &amp; 4), elektronik, dan sanitasi. Didirikan 2009 di Tangerang, IPO BEI <strong>5 Juli 2024</strong> (harga perdana Rp105). Revenue FY2025 melonjak <strong>+38,2%</strong> ke Rp369,6M, laba bersih <strong>+30,0%</strong> ke Rp30,2M. Katalis baru: produksi <em>food tray</em> untuk program <strong>Makan Bergizi Gratis</strong> pemerintah. Target revenue Rp1 Triliun dicanangkan manajemen untuk 2025 &mdash; realisasi 37% dari target.</p>
+<div class="hmeta">
+<span>IDX: PART</span><span>&middot;</span><span>Sektor: Manufacturing &mdash; Komponen Otomotif &amp; Metal</span><span>&middot;</span>
+<span class="hbadge" style="background:rgba(201,123,26,.07);border-color:rgba(201,123,26,.2);color:#C97B1A">&#10003; LK 2025 (Audited 26 Mar 2026)</span>
+<span class="hbadge gold">P/E &amp; EV/EBIT Framework</span>
+<span>&#128197; Tanggal Riset: <strong>29 Maret 2026</strong></span>
+</div></div>
+
+<div class="cnt">
+<div class="box" style="background:rgba(201,123,26,.06);border-color:rgba(201,123,26,.18)">
+<p><strong style="color:#C97B1A">Ringkasan Eksekutif:</strong> PART membukukan tahun terbaik sejak berdiri: revenue Rp369,6M (+38,2% YoY), laba bersih Rp30,2M (+30,0%). Di harga Rp168, valuasi P/E 14,9x masih wajar untuk growth story ini. Namun ada dua risiko utama yang perlu dicermati: (1) kas sangat tipis Rp2,9M setelah capex agresif Rp72M, dan (2) target Rp1T jauh meleset &mdash; realisasi hanya 37%. Proyek food tray MBG menjadi kunci apakah akselerasi revenue 2026 bisa terwujud.</p>
+</div>
+<div class="sg4">
+<div class="stat"><div class="sv" style="color:#C97B1A">Rp369,6M</div><div class="sl">Revenue FY2025</div><div class="sd sup">&#9650; +38,2% YoY</div></div>
+<div class="stat"><div class="sv sup">Rp30,2M</div><div class="sl">Laba Bersih 2025</div><div class="sd sup">&#9650; +30,0% YoY</div></div>
+<div class="stat"><div class="sv">19,2%</div><div class="sl">Gross Margin</div><div class="sd rr">&#9660; dari 21,9% (2024)</div></div>
+<div class="stat"><div class="sv">8,2%</div><div class="sl">Net Margin</div><div class="sd" style="color:var(--t2)">Konsisten 8&ndash;9%</div></div>
+</div>
+<div class="sg4">
+<div class="stat"><div class="sv">14,9x</div><div class="sl">P/E @ Rp168</div><div class="sd" style="color:var(--t2)">EPS dasar Rp11,29</div></div>
+<div class="stat"><div class="sv" style="color:#C97B1A">2,49x</div><div class="sl">P/BV</div><div class="sd" style="color:var(--t2)">BVPS Rp67,41</div></div>
+<div class="stat"><div class="sv">0,82x</div><div class="sl">DER</div><div class="sd" style="color:var(--t2)">Mayoritas LT bank loan mesin</div></div>
+<div class="stat"><div class="sv rr">Rp2,9M</div><div class="sl">Kas &amp; Bank 2025</div><div class="sd rr">&#9660; Turun 95% &mdash; monitoring ketat!</div></div>
+</div>
+
+<h2 class="sec"><span class="n">1</span>Profil &amp; Model Bisnis</h2>
+<div class="box"><p><strong>PT Cipta Perdana Lancar Tbk (PART)</strong>, didirikan 5 Juni 2009 di Tangerang. Berdomisili di Jl. Prabu Siliwangi No. 5, Keroncong, Jatiuwung, Tangerang, Banten. Lahan sendiri 23.603 m&sup2;. Karyawan tetap: 205 orang (2025). Direktur Utama: <strong>Hamim</strong>. Direktur: Tjoeng Rino Saputra. Komisaris Utama: Syamsiah. Entitas induk: <strong>PT Cipta Investama Lancar</strong>. <strong>IPO BEI 5 Juli 2024</strong> @ Rp105/saham (680 juta saham + 680 juta Waran Seri I). Saham beredar per 31 Des 2025: <strong>2.742.123.779 lembar</strong>. LK diotorisasi 26 Maret 2026.</p></div>
+<div class="cg2">
+<div class="cd">
+<h4 style="color:#C97B1A">Produk &amp; Segmen Bisnis</h4>
+<p style="font-size:12.5px;color:var(--t2)">PART memproduksi komponen metal (stamping, die casting) untuk OEM secara B2B murni &mdash; tidak ada produk bermerek. Tiga segmen berdasarkan Pubex Q1 2025:</p>
+<table class="tbl" style="margin-top:8px;font-size:11.5px">
+<thead><tr><th>Segmen</th><th class="r">Rev Q1-2025</th><th class="r">Porsi</th></tr></thead>
+<tbody>
+<tr><td class="b" style="color:#C97B1A">Otomotif (roda 2 &amp; 4)</td><td class="r">Rp72,0M</td><td class="r gg">96,5%</td></tr>
+<tr><td>Elektronik</td><td class="r">Rp2,16M</td><td class="r">2,9%</td></tr>
+<tr><td>Sanitasi</td><td class="r">Rp0,46M</td><td class="r">0,6%</td></tr>
+<tr><td class="b">Total Q1-2025</td><td class="r b gg">Rp74,62M</td><td class="r g">+18,7% YoY</td></tr>
+</tbody></table>
+</div>
+<div class="cd">
+<h4 style="color:#C97B1A">Katalis Baru: Food Tray &amp; MBG</h4>
+<p style="font-size:12.5px;color:var(--t2)">Perseroan mendiversifikasi ke produksi <strong>food tray stainless</strong> untuk program <em>Makan Bergizi Gratis</em> pemerintah. Spesifikasi: tebal 0,4mm, material SUS304 (stainless lokal Morowali). Kerjasama aktif per Pubex Juni 2025.</p>
+<p style="font-size:12.5px;color:var(--t2);margin-top:8px">Pelanggan utama (dari LK 2025): <strong>PT Indocipta Hasta Perkasa, PT Kawasaki Motor Indonesia</strong> dan OEM otomotif lainnya. Dana IPO habis per 31 Maret 2025 &mdash; seluruhnya digunakan untuk Capex &amp; Opex sesuai prospektus.</p>
+<p style="font-size:12.5px;color:var(--t2);margin-top:8px"><strong>Waran Seri I:</strong> 680 juta waran @ exercise price Rp105, aktif <strong>7 Juli 2025 &ndash; 3 Juli 2026</strong>. Sebagian sudah dieksekusi (22,1 juta saham baru di 2025). Potensi dilusi jika sisanya dieksekusi masif.</p>
+</div>
+</div>
+
+<h2 class="sec"><span class="n">2</span>Laporan Keuangan FY2024&ndash;FY2025</h2>
+<div class="dg">
+<div class="dg-l" style="color:#C97B1A">Revenue &amp; Laba Bersih FY2024 vs FY2025 (Rp Miliar)</div>
+<svg viewBox="0 0 700 242" class="svg-c" xmlns="http://www.w3.org/2000/svg"><line x1="60" y1="174" x2="690" y2="174" stroke="#D8E5DC" stroke-width="1"/><line x1="60" y1="174" x2="690" y2="174" stroke="#D8E5DC" stroke-width="0.6" stroke-dasharray="3,3"/><text x="56" y="177" fill="#8AA090" font-size="9" text-anchor="end">0M</text><line x1="60" y1="145" x2="690" y2="145" stroke="#D8E5DC" stroke-width="0.6" stroke-dasharray="3,3"/><text x="56" y="148" fill="#8AA090" font-size="9" text-anchor="end">84M</text><line x1="60" y1="116" x2="690" y2="116" stroke="#D8E5DC" stroke-width="0.6" stroke-dasharray="3,3"/><text x="56" y="119" fill="#8AA090" font-size="9" text-anchor="end">168M</text><line x1="60" y1="86" x2="690" y2="86" stroke="#D8E5DC" stroke-width="0.6" stroke-dasharray="3,3"/><text x="56" y="89" fill="#8AA090" font-size="9" text-anchor="end">252M</text><line x1="60" y1="57" x2="690" y2="57" stroke="#D8E5DC" stroke-width="0.6" stroke-dasharray="3,3"/><text x="56" y="60" fill="#8AA090" font-size="9" text-anchor="end">336M</text><line x1="60" y1="28" x2="690" y2="28" stroke="#D8E5DC" stroke-width="0.6" stroke-dasharray="3,3"/><text x="56" y="31" fill="#8AA090" font-size="9" text-anchor="end">420M</text><rect x="160" y="81" width="56" height="93" rx="3" fill="#C97B1A" opacity="0.85"/><rect x="178.5" y="65.05361904761904" width="19" height="13" rx="2" fill="#FFFFFF" opacity="0.9"/><text x="187.5" y="76" fill="#C97B1A" font-size="8.5" text-anchor="middle" font-weight="700">267</text><rect x="474" y="46" width="56" height="128" rx="3" fill="#C97B1A" opacity="0.85"/><rect x="493.5" y="29.523476190476188" width="19" height="13" rx="2" fill="#FFFFFF" opacity="0.9"/><text x="502.5" y="41" fill="#C97B1A" font-size="8.5" text-anchor="middle" font-weight="700">370</text><rect x="220" y="166" width="56" height="8" rx="3" fill="#F5A623" opacity="0.85"/><rect x="240.5" y="149.92133333333334" width="14" height="13" rx="2" fill="#FFFFFF" opacity="0.9"/><text x="247.5" y="161" fill="#F5A623" font-size="8.5" text-anchor="middle" font-weight="700">23</text><rect x="534" y="163" width="56" height="11" rx="3" fill="#F5A623" opacity="0.85"/><rect x="555.5" y="147.49842857142858" width="14" height="13" rx="2" fill="#FFFFFF" opacity="0.9"/><text x="562.5" y="158" fill="#F5A623" font-size="8.5" text-anchor="middle" font-weight="700">30</text><text x="218" y="189" fill="#7A9A88" font-size="11" text-anchor="middle" font-weight="400">FY2024</text><text x="532" y="189" fill="#1B6B3A" font-size="11" text-anchor="middle" font-weight="700">FY2025*</text><rect x="60" y="229" width="11" height="8" rx="2" fill="#C97B1A" opacity="0.85"/><text x="74" y="236" fill="#C97B1A" font-size="9.5">Revenue (Rp M)</text><rect x="176" y="229" width="11" height="8" rx="2" fill="#F5A623" opacity="0.85"/><text x="190" y="236" fill="#F5A623" font-size="9.5">Laba Bersih (Rp M)</text></svg>
+<div class="dg-n">Revenue naik dari Rp267,4M ke Rp369,6M (+38,2%). Laba bersih +30,0% ke Rp30,2M. Pertumbuhan organik kuat dari ekspansi kapasitas dan penambahan pelanggan otomotif. Sumber: LK 2025 (Audited, 26 Maret 2026).</div>
+</div>
+<div class="dg">
+<div class="dg-l" style="color:#C97B1A">Laba Kotor, EBIT &amp; Laba Bersih FY2024 vs FY2025 (Rp Miliar)</div>
+<svg viewBox="0 0 700 242" class="svg-c" xmlns="http://www.w3.org/2000/svg"><line x1="60" y1="174" x2="690" y2="174" stroke="#D8E5DC" stroke-width="1"/><line x1="60" y1="174" x2="690" y2="174" stroke="#D8E5DC" stroke-width="0.6" stroke-dasharray="3,3"/><text x="56" y="177" fill="#8AA090" font-size="9" text-anchor="end">0M</text><line x1="60" y1="145" x2="690" y2="145" stroke="#D8E5DC" stroke-width="0.6" stroke-dasharray="3,3"/><text x="56" y="148" fill="#8AA090" font-size="9" text-anchor="end">16M</text><line x1="60" y1="116" x2="690" y2="116" stroke="#D8E5DC" stroke-width="0.6" stroke-dasharray="3,3"/><text x="56" y="119" fill="#8AA090" font-size="9" text-anchor="end">32M</text><line x1="60" y1="86" x2="690" y2="86" stroke="#D8E5DC" stroke-width="0.6" stroke-dasharray="3,3"/><text x="56" y="89" fill="#8AA090" font-size="9" text-anchor="end">48M</text><line x1="60" y1="57" x2="690" y2="57" stroke="#D8E5DC" stroke-width="0.6" stroke-dasharray="3,3"/><text x="56" y="60" fill="#8AA090" font-size="9" text-anchor="end">64M</text><line x1="60" y1="28" x2="690" y2="28" stroke="#D8E5DC" stroke-width="0.6" stroke-dasharray="3,3"/><text x="56" y="31" fill="#8AA090" font-size="9" text-anchor="end">80M</text><rect x="130" y="67" width="56" height="107" rx="3" fill="#C97B1A" opacity="0.85"/><rect x="150.5" y="51.18275" width="14" height="13" rx="2" fill="#FFFFFF" opacity="0.9"/><text x="157.5" y="62" fill="#C97B1A" font-size="8.5" text-anchor="middle" font-weight="700">59</text><rect x="444" y="45" width="56" height="129" rx="3" fill="#C97B1A" opacity="0.85"/><rect x="465.5" y="28.826499999999996" width="14" height="13" rx="2" fill="#FFFFFF" opacity="0.9"/><text x="472.5" y="40" fill="#C97B1A" font-size="8.5" text-anchor="middle" font-weight="700">71</text><rect x="190" y="117" width="56" height="57" rx="3" fill="#5CAB78" opacity="0.85"/><rect x="210.5" y="100.95049999999999" width="14" height="13" rx="2" fill="#FFFFFF" opacity="0.9"/><text x="217.5" y="112" fill="#5CAB78" font-size="8.5" text-anchor="middle" font-weight="700">31</text><rect x="504" y="100" width="56" height="74" rx="3" fill="#5CAB78" opacity="0.85"/><rect x="525.5" y="83.86850000000001" width="14" height="13" rx="2" fill="#FFFFFF" opacity="0.9"/><text x="532.5" y="95" fill="#5CAB78" font-size="8.5" text-anchor="middle" font-weight="700">41</text><rect x="250" y="132" width="56" height="42" rx="3" fill="#F5A623" opacity="0.85"/><rect x="270.5" y="115.58699999999999" width="14" height="13" rx="2" fill="#FFFFFF" opacity="0.9"/><text x="277.5" y="127" fill="#F5A623" font-size="8.5" text-anchor="middle" font-weight="700">23</text><rect x="564" y="119" width="56" height="55" rx="3" fill="#F5A623" opacity="0.85"/><rect x="585.5" y="102.86675" width="14" height="13" rx="2" fill="#FFFFFF" opacity="0.9"/><text x="592.5" y="114" fill="#F5A623" font-size="8.5" text-anchor="middle" font-weight="700">30</text><text x="218" y="189" fill="#7A9A88" font-size="11" text-anchor="middle" font-weight="400">FY2024</text><text x="532" y="189" fill="#1B6B3A" font-size="11" text-anchor="middle" font-weight="700">FY2025*</text><rect x="60" y="229" width="11" height="8" rx="2" fill="#C97B1A" opacity="0.85"/><text x="74" y="236" fill="#C97B1A" font-size="9.5">Laba Kotor (Rp M)</text><rect x="194" y="229" width="11" height="8" rx="2" fill="#5CAB78" opacity="0.85"/><text x="208" y="236" fill="#5CAB78" font-size="9.5">EBIT (Rp M)</text><rect x="292" y="229" width="11" height="8" rx="2" fill="#F5A623" opacity="0.85"/><text x="306" y="236" fill="#F5A623" font-size="9.5">Laba Bersih (Rp M)</text></svg>
+<div class="dg-n">Gross margin turun dari 21,9% ke 19,2% karena COGS naik lebih cepat (+43,1%) dari revenue (+38,2%), mencerminkan tekanan biaya bahan baku &amp; upah karyawan (+87,5% YoY ke Rp78M). EBIT margin 11,0% vs 11,7% di 2024. Net margin stabil 8,2%.</div>
+</div>
+
+<h3 class="sub">Tabel Ringkasan Keuangan (Rp Miliar, kecuali per saham)</h3>
+<div class="dg"><table class="tbl">
+<thead><tr><th>Metrik</th><th class="r">FY2024</th><th class="r">FY2025 &#9733;</th><th class="r">&#916; YoY</th></tr></thead>
+<tbody>
+<tr><td class="b">Penjualan Bersih</td><td class="r">267,38</td><td class="r b gg">369,59</td><td class="r g">+38,2%</td></tr>
+<tr><td>Beban Pokok Penjualan</td><td class="r">(208,84)</td><td class="r b">(298,81)</td><td class="r rr">+43,1%</td></tr>
+<tr><td class="b">Laba Kotor</td><td class="r">58,53</td><td class="r b gg">70,78</td><td class="r g">+20,9%</td></tr>
+<tr><td>Gross Margin</td><td class="r">21,9%</td><td class="r b">19,2%</td><td class="r rr">&minus;270 bps</td></tr>
+<tr><td>Beban Umum &amp; Administrasi</td><td class="r">(27,27)</td><td class="r b">(30,16)</td><td class="r rr">+10,6%</td></tr>
+<tr><td class="b">Laba Usaha (EBIT)</td><td class="r">31,26</td><td class="r b gg">40,62</td><td class="r g">+29,9%</td></tr>
+<tr><td>EBIT Margin</td><td class="r">11,7%</td><td class="r b">11,0%</td><td class="r rr">&minus;70 bps</td></tr>
+<tr><td>Penghasilan Keuangan</td><td class="r">0,22</td><td class="r">0,17</td><td class="r py">&minus;22%</td></tr>
+<tr><td>Penghasilan Lain-lain Bersih</td><td class="r g">9,30</td><td class="r g">9,07</td><td class="r py">&minus;2,5%</td></tr>
+<tr><td>Beban Keuangan</td><td class="r">(10,23)</td><td class="r">(11,05)</td><td class="r rr">+8,0%</td></tr>
+<tr><td>Beban Pajak</td><td class="r">(7,31)</td><td class="r">(8,60)</td><td class="r rr">+17,6%</td></tr>
+<tr><td class="b">Laba Bersih</td><td class="r">23,24</td><td class="r b gg">30,21</td><td class="r g">+30,0%</td></tr>
+<tr><td>Net Margin</td><td class="r">8,7%</td><td class="r b">8,2%</td><td class="r py">&minus;50 bps</td></tr>
+<tr><td>EPS Dasar (Rp/saham)</td><td class="r">10,71</td><td class="r b gg">11,29</td><td class="r g">+5,4%</td></tr>
+<tr><td>Total Aset</td><td class="r">300,99</td><td class="r b">335,71</td><td class="r g">+11,5%</td></tr>
+<tr><td>Aset Tetap Bersih</td><td class="r">161,16</td><td class="r b gg">218,98</td><td class="r g">+35,9%</td></tr>
+<tr><td>Total Ekuitas</td><td class="r">156,34</td><td class="r b gg">184,85</td><td class="r g">+18,2%</td></tr>
+<tr><td>Total Liabilitas</td><td class="r">144,65</td><td class="r b">150,86</td><td class="r py">+4,3%</td></tr>
+<tr><td>Utang Bank (ST + LT)</td><td class="r">(116,20)</td><td class="r b">(123,29)</td><td class="r rr">+6,1%</td></tr>
+<tr><td>Kas &amp; Bank</td><td class="r gg">55,18</td><td class="r b rr">2,93</td><td class="r rr">&minus;94,7%!</td></tr>
+<tr><td class="b">Operating Cash Flow</td><td class="r">13,90</td><td class="r b gg">15,49</td><td class="r g">+11,5%</td></tr>
+<tr><td>Capex (Perolehan Aset Tetap)</td><td class="r">(28,48)</td><td class="r b rr">(72,02)</td><td class="r rr">+152,8%!</td></tr>
+<tr><td>Dividen Dibayar</td><td class="r" style="color:var(--t3)">Nihil</td><td class="r b g">Rp4,65M</td><td class="r g">Pertama!</td></tr>
+</tbody></table>
+<div class="dg-n">&#9733; FY2025 = 31 Desember 2025. LK diotorisasi 26 Maret 2026. EPS dasar 2025 Rp11,29 vs Rp10,71 (2024) berdasarkan rata-rata tertimbang saham. Kas turun drastis karena capex Rp72M &gt; OCF Rp15,5M &mdash; selisih didanai kas IPO 2024 + pinjaman bank baru Rp33,6M. DER 0,82x seluruhnya bank loan (bunga 8&ndash;9%). Dividen perdana Rp4,65M (DPR &#8776;20% dari NI 2024) dibayar sesuai RUPS 30 Juni 2025.</div>
+</div>
+
+<div class="photo-band" style="background-image:url('https://images.pexels.com/photos/33192/pexels-photo-33192.jpeg?auto=compress&cs=tinysrgb&w=1400')">
+<div class="photo-band-overlay"></div>
+<span class="photo-band-caption">Metal Stamping & Pressing — Komponen Otomotif OEM</span>
+</div>
+<h2 class="sec"><span class="n">3</span>Paparan Publik Tahunan 2025</h2>
+<div class="box box-gold"><p><strong>Pubex Tahunan PART &mdash; 30 Juni 2025</strong>, Cyber 2 Tower Lt. 17, Jakarta Selatan. Hadir: <strong>Hamim</strong> (Direktur Utama) &amp; <strong>Tjoeng Rino Saputra</strong> (Direktur). 17 peserta.</p></div>
+<div class="cg2">
+<div class="cd">
+<h4 style="color:#C97B1A">Food Tray MBG &amp; Strategi Revenue Rp1T</h4>
+<p style="font-size:12.5px;color:var(--t2)"><strong>Q: Apakah proyek food tray MBG masih berjalan?</strong></p>
+<p style="font-size:12.5px;color:var(--t2)"><strong>A:</strong> &ldquo;Kerjasama Perseroan dengan pihak MBG masih berlangsung. Produk tray food sudah sesuai pesanan: tebal 0,4mm, material SUS304 lokal (Morowali).&rdquo;</p>
+<p style="font-size:12.5px;color:var(--t2);margin-top:8px"><strong>Q: Bagaimana mencapai target Rp1 Triliun 2025?</strong></p>
+<p style="font-size:12.5px;color:var(--t2)"><strong>A:</strong> &ldquo;Bisnis kami terus berkelanjutan, ada penawaran setiap bulan secara regular. Dengan proyek food tray, kami akan memperoleh tambahan pendapatan yang cukup besar per piece.&rdquo; <em>Realisasi: Rp369,6M = 37% dari target.</em></p>
+</div>
+<div class="cd">
+<h4 style="color:#C97B1A">Capex, IPO &amp; Dividen</h4>
+<p style="font-size:12.5px;color:var(--t2)"><strong>Q: Capex 2025 &amp; sumber dana?</strong></p>
+<p style="font-size:12.5px;color:var(--t2)"><strong>A:</strong> &ldquo;CAPEX yang dicadangkan sebesar Rp50&ndash;70 Miliar. Sumber dari <em>kas Perseroan dan pinjaman perbankan</em>.&rdquo; Realisasi capex: Rp72M (melebihi guidance).</p>
+<p style="font-size:12.5px;color:var(--t2);margin-top:8px"><strong>Q: Dana IPO &amp; dividen?</strong></p>
+<p style="font-size:12.5px;color:var(--t2)"><strong>A:</strong> &ldquo;Dana IPO habis per 31 Maret 2025 untuk Capex &amp; Opex sesuai prospektus.&rdquo; Dividen 20% dari NI 2024 = <strong>Rp4,65M</strong> total, dibayar sesuai RUPS 30 Juni 2025.</p>
+</div>
+</div>
+
+<h2 class="sec"><span class="n">4</span>Analisis Risiko</h2>
+<div class="risk"><div class="rdot rh"></div><div><div class="rt">Kas Sangat Rendah &mdash; Risiko Likuiditas</div><div class="rd">Kas hanya Rp2,93M per 31 Des 2025 (turun 94,7% dari Rp55,18M). Dengan utang jangka pendek Rp2,33M + kebutuhan modal kerja, perusahaan sangat bergantung pada kelancaran penerimaan dari pelanggan OEM dan fasilitas kredit bank. Jika revenue melambat, risiko likuiditas meningkat signifikan.</div></div></div>
+<div class="risk"><div class="rdot rh"></div><div><div class="rt">Target Rp1 Triliun Meleset Jauh &mdash; Kredibilitas Guidance</div><div class="rd">Realisasi FY2025 Rp369,6M = hanya 37% dari target Rp1T yang diumumkan manajemen. Artinya food tray MBG belum berkontribusi material, dan 10 pelanggan baru tidak secara dramatis mengungkit revenue. Investor perlu cautious terhadap forward guidance manajemen.</div></div></div>
+<div class="risk"><div class="rdot rm"></div><div><div class="rt">Dilusi Waran Seri I</div><div class="rd">Sisa &#8773;658 juta Waran Seri I masih dapat dieksekusi hingga 3 Juli 2026 @ Rp105. Jika dieksekusi penuh, saham beredar bertambah &#8773;24% dari 2,742M &rarr; &#8773;3,4M lembar. EPS akan terdilusi. Harga saham Rp168 masih di atas exercise price Rp105, insentif untuk eksekusi ada.</div></div></div>
+<div class="risk"><div class="rdot rm"></div><div><div class="rt">Margin Tertekan &amp; Konsentrasi Segmen</div><div class="rd">GPM turun 270 bps YoY karena kenaikan biaya bahan baku dan beban karyawan (+87% YoY). Biaya listrik dan upah minimum terus naik. Konsentrasi 96,5% di otomotif membuat revenue sangat sensitif terhadap kondisi industri kendaraan Indonesia.</div></div></div>
+<div class="risk"><div class="rdot rl"></div><div><div class="rt">Upside: MBG &amp; Pertumbuhan Otomotif Domestik</div><div class="rd">Program MBG pemerintah berpotensi menjadi revenue stream besar dan recurring jika kontrak terealisasi dalam skala besar. Pertumbuhan industri kendaraan roda 2 domestik yang stabil, ditambah mesin baru dari capex Rp72M, memberikan kapasitas produksi untuk melayani pelanggan lebih banyak.</div></div></div>
+
+<h2 class="sec"><span class="n">5</span>Framework Skenario 2026&ndash;2027</h2>
+<div class="sc-grid">
+<div class="sc sc-bull"><div class="sc-title">Bull Case (~25%)</div><ul>
+<li>Food tray MBG kontribusi besar</li>
+<li><strong>Revenue 2026E:</strong> Rp500&ndash;600M</li>
+<li><strong>NI Growth:</strong> +30&ndash;40%</li>
+<li>GPM recover ke 21&ndash;22%</li>
+<li>Waran tereksekusi = fresh capital</li>
+</ul><div class="sc-note">Driver: MBG ramp up + 10 new customers</div></div>
+<div class="sc sc-base"><div class="sc-title">Base Case (~50%)</div><ul>
+<li><strong>Revenue 2026E:</strong> Rp430&ndash;480M</li>
+<li><strong>NI Growth:</strong> +15&ndash;25%</li>
+<li>MBG: kontribusi moderat</li>
+<li>Capex menurun, OCF membaik</li>
+<li>Kas pulih perlahan</li>
+</ul><div class="sc-note">Driver: Organic otomotif + sebagian MBG</div></div>
+<div class="sc sc-bear"><div class="sc-title">Bear Case (~25%)</div><ul>
+<li>MBG proyek tertunda/batal</li>
+<li><strong>Revenue:</strong> +0&ndash;10%</li>
+<li>Likuiditas kas memburuk</li>
+<li>Margin berlanjut tertekan</li>
+<li>Refinancing bank diperlukan</li>
+</ul><div class="sc-note">Driver: Delay MBG + cost pressure</div></div>
+</div>
+
+<div class="photo-band" style="background-image:url('https://images.pexels.com/photos/2892618/pexels-photo-2892618.jpeg?auto=compress&cs=tinysrgb&w=1400')">
+<div class="photo-band-overlay"></div>
+<span class="photo-band-caption">Produksi Suku Cadang — Kawasaki & OEM Automotive</span>
+</div>
+<h2 class="sec"><span class="n">6</span>Framework Valuasi &mdash; P/E &amp; EV/EBIT</h2>
+<div class="box box-warn"><p>&#9888; <strong>Disclaimer:</strong> Framework analitis, <strong>bukan rekomendasi atau target harga.</strong> Keputusan investasi sepenuhnya tanggung jawab investor.</p></div>
+<div class="sg4">
+<div class="stat"><div class="sv" style="color:#C97B1A">Rp168</div><div class="sl">Harga Close 29/3/26</div><div class="sd" style="color:var(--t2)">IPO Jul 2024: Rp105</div></div>
+<div class="stat"><div class="sv">Rp461M</div><div class="sl">Market Cap</div><div class="sd" style="color:var(--t2)">2,742M saham &times; Rp168</div></div>
+<div class="stat"><div class="sv">14,9x</div><div class="sl">P/E Trailing</div><div class="sd" style="color:var(--t2)">EPS Rp11,29</div></div>
+<div class="stat"><div class="sv" style="color:#C97B1A">14,3x</div><div class="sl">EV/EBIT</div><div class="sd" style="color:var(--t2)">EV Rp581M / EBIT Rp40,6M</div></div>
+</div>
+<div class="dg">
+<div class="dg-l" style="color:#C97B1A">Tabel Sensitivitas P/E &rarr; Implied Price (EPS Dasar Rp11,29)</div>
+<div class="sens-wrap"><table class="sens-tbl">
+<thead><tr><th>Skenario NI</th><th>P/E 10x</th><th>P/E 12x</th><th>P/E 15x &#8592;Base</th><th>P/E 18x</th></tr></thead>
+<tbody><tr><td class="b">NI &minus;10% (EPS Rp10.16)</td><td class="bear-cell">Rp102</td><td class="">Rp122</td><td class="base-cell">Rp152&#9664;</td><td class="base-cell">Rp183&#9664;</td></tr>
+<tr><td class="b">NI Flat (EPS Rp11.29)</td><td class="bear-cell">Rp113</td><td class="">Rp135</td><td class="base-cell">Rp169&#9664;</td><td class="bull-cell">Rp203</td></tr>
+<tr><td class="b">NI +20% (EPS Rp13.55)</td><td class="">Rp135</td><td class="base-cell">Rp163&#9664;</td><td class="bull-cell">Rp203</td><td class="bull-cell">Rp244</td></tr>
+<tr><td class="b">NI +30% &#8592;Hist. (EPS Rp14.68)</td><td class="base-cell">Rp147&#9664;</td><td class="base-cell">Rp176&#9664;</td><td class="bull-cell">Rp220</td><td class="bull-cell">Rp264</td></tr>
+<tr><td class="b">NI +38% (EPS Rp15.58)</td><td class="base-cell">Rp156&#9664;</td><td class="base-cell">Rp187&#9664;</td><td class="bull-cell">Rp234</td><td class="bull-cell">Rp280</td></tr>
+</tbody></table></div>
+<div class="dg-n">P/E 14,9x trailing wajar untuk growth manufacturing +30% YoY. EV/EBIT 14,3x dalam range wajar vs peers komponen otomotif Asia (12&ndash;18x). Risiko utama yang menekan multiple: kas tipis, target meleset, dan potensi dilusi waran. &#9664; = mendekati harga pasar Rp168.</div>
+</div>
+
+<h2 class="sec"><span class="n">7</span>Ringkasan Framework Investasi</h2>
+<div class="dg"><table class="score-tbl">
+<thead><tr><th>Dimensi</th><th>Status</th><th>Keterangan</th></tr></thead>
+<tbody>
+<tr><td>Pertumbuhan Revenue</td><td><span class="pill pg">KUAT</span></td><td>+38,2% YoY, konsisten tumbuh sejak IPO 2024</td></tr>
+<tr><td>Profitabilitas</td><td><span class="pill py">MODERAT</span></td><td>Net margin 8,2%, GPM 19,2% &mdash; tekanan biaya karyawan &amp; bahan baku</td></tr>
+<tr><td>Posisi Kas</td><td><span class="pill pr">KETAT</span></td><td>Kas Rp2,9M &mdash; turun 95% dari IPO proceeds. Monitoring wajib setiap kuartal</td></tr>
+<tr><td>Leverage</td><td><span class="pill py">MODERAT</span></td><td>DER 0,82x, bank loan LT Rp121M @ 8&ndash;9%. Masih manageable jika revenue tumbuh</td></tr>
+<tr><td>Capex &amp; Aset Tetap</td><td><span class="pill pg">AGRESIF</span></td><td>Capex Rp72M di 2025 &mdash; ekspansi mesin baru, aset tetap +35,9% YoY</td></tr>
+<tr><td>Food Tray MBG</td><td><span class="pill py">PENDING</span></td><td>Kerjasama aktif, spek sesuai, tapi belum berkontribusi material di FY2025</td></tr>
+<tr><td>Target Rp1 Triliun</td><td><span class="pill pr">MISSED</span></td><td>Realisasi 37% dari target &mdash; perlu cautious terhadap forward guidance manajemen</td></tr>
+<tr><td>Waran Seri I</td><td><span class="pill py">MONITOR</span></td><td>Aktif s.d. Juli 2026 @Rp105. Potensi dilusi &#8773;24% jika seluruhnya dieksekusi</td></tr>
+<tr><td>Dividen</td><td><span class="pill pg">POSITIF</span></td><td>Dividen perdana Rp4,65M (DPR 20% dari NI 2024) &mdash; sinyal komitmen ke pemegang saham</td></tr>
+<tr><td>Track Record</td><td><span class="pill py">BARU IPO</span></td><td>Listing Juli 2024 &mdash; hanya 1 LK audited post-IPO tersedia. Riwayat masih singkat</td></tr>
+</tbody></table></div>
+</div>
+
+</div>
+<footer style="background:var(--dark);color:#C8C2B5;padding:48px 28px 36px;text-align:center;font-size:12px;line-height:1.7;border-top:1px solid rgba(255,255,255,0.06)">
+  <div style="max-width:640px;margin:0 auto">
+    <div style="font-family:'Cormorant Garamond','Georgia',serif;font-size:20px;color:#fff;font-weight:600;margin-bottom:4px">Avenir Research</div>
+    <div style="opacity:.5;font-size:12px;margin-bottom:24px">Equity research marketplace · PT Avenir Fortuna Corporindo · <a href="https://avenirfortuna.com" target="_blank" style="color:#C8C2B5;text-decoration:none">avenirfortuna.com</a></div>
+    <div style="opacity:.4;font-size:11px;line-height:1.8;max-width:520px;margin:0 auto 28px;border-top:1px solid rgba(255,255,255,0.08);padding-top:20px">
+      Seluruh konten Avenir Research merupakan referensi edukasi berbasis data publik (Annual Report audited & laporan keuangan resmi). Bukan merupakan rekomendasi investasi. Seluruh keputusan investasi adalah tanggung jawab investor masing-masing.
+    </div>
+    <div style="display:flex;justify-content:center;gap:16px;margin-bottom:24px">
+      <a href="https://www.instagram.com/avenircommunity.id?igsh=ZWhxbGYzcGpkN3pz" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);text-decoration:none" onmouseover="this.style.background='rgba(255,255,255,0.14)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8C2B5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+      <a href="https://t.me/avenircommunity" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);text-decoration:none" onmouseover="this.style.background='rgba(255,255,255,0.14)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8C2B5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </a>
+      <a href="https://chat.whatsapp.com/KNjYBzz2FMxAWFXFkLQGOL" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);text-decoration:none" onmouseover="this.style.background='rgba(255,255,255,0.14)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8C2B5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      </a>
+    </div>
+    <div style="opacity:.3;font-size:11px">© 2026 PT Avenir Fortuna Corporindo. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+(function(){
+  var imgs = document.querySelectorAll('img[data-avlogo]');
+  for(var i=0;i<imgs.length;i++) imgs[i].src='avenir-logo.png';
+})();
+</script>
+</body>
+</html>

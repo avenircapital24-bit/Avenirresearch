@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Windfall Tax Nikel — Avenir Research</title>
+  <link rel="stylesheet" href="shared.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<nav class="nav"><div class="nav-in">
+<a href="#" onclick="event.preventDefault();window.location.href='index.html'" style="display:flex;align-items:center;text-decoration:none">
+  <img data-avlogo="1" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="nav-logo" alt="Avenir">
+</a>
+<div style="display:flex;gap:9px;align-items:center;margin-left:auto">
+  <!-- Cart -->
+  <button onclick="CART.open()" class="nav-cart-btn" title="Keranjang">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    <span class="cart-badge" id="cart-badge" style="display:none">0</span>
+  </button>
+  <!-- Single dropdown untuk guest DAN logged-in -->
+  <div class="nav-auth-drop-wrap" id="nav-menu-wrap">
+    <button class="nav-auth-main-btn" id="nav-menu-btn" onclick="NAV.toggleDrop()">
+      MENU <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="nav-drop" id="nav-drop">
+      <div class="nav-drop-section">Avenir Research</div>
+      <button class="nav-drop-item" onclick="window.location.href='index.html';NAV.closeDrop()">Home</button>
+      <button class="nav-drop-item" onclick="window.location.href='tentang.html';NAV.closeDrop()">Tentang Avenir Research</button>
+      <button class="nav-drop-item" onclick="window.location.href='mitra.html';NAV.closeDrop()">Mitra Terverifikasi</button>
+      <button class="nav-drop-item" onclick="window.location.href='pengguna.html';NAV.closeDrop()">Panduan Pengguna</button>
+      <button class="nav-drop-item" onclick="window.location.href='katalog.html';NAV.closeDrop()">Katalog Riset</button>
+      <button class="nav-drop-item" onclick="window.location.href='news.html';NAV.closeDrop()">Market News</button>
+
+      <!-- Guest only -->
+      <div class="nav-drop-divider" data-auth="guest"></div>
+      <div class="nav-drop-section" data-auth="guest">Belum Punya Akun</div>
+      <button class="nav-drop-item" data-auth="guest" onclick="AUTH.open('register');NAV.closeDrop()">Daftar Gratis</button>
+      <button class="nav-drop-item" data-auth="guest" onclick="AUTH.open('analyst');NAV.closeDrop()">Daftar Mitra Analis</button>
+      <div class="nav-drop-divider" data-auth="guest"></div>
+      <button class="nav-drop-item" data-auth="guest" onclick="AUTH.open('login');NAV.closeDrop()">Sign In</button>
+
+      <!-- Logged-in only -->
+      <div class="nav-drop-divider" data-auth="user" style="display:none"></div>
+      <div class="nav-drop-section" data-auth="user" style="display:none" id="nav-user-section">Akun Saya</div>
+      <button class="nav-drop-item" data-auth="user" style="display:none" id="nav-user-name-item">👤 –</button>
+      <button class="nav-drop-item" data-auth="user" style="display:none;color:#e53e3e" onclick="AUTH.logout();NAV.closeDrop()">Keluar →</button>
+    </div>
+  </div>
+</div>
+</div></nav>
+
+<div id="page-news-windfall-tax-nikel" class="page">
+<div class="news-article">
+  <button class="news-article-back" onclick="window.location.href='news.html'">← Kembali ke News</button>
+  <div class="news-article-tag">Kebijakan Fiskal · Komoditas · IDX · 5 Mei 2026</div>
+  <h1>Purbaya Konfirmasi Windfall Tax dan Bea Keluar Nikel — Saham Sektor Tambang Tertekan, Tarif Masih Gelap</h1>
+  <div class="news-article-meta">
+    <span>Tim Avenir Research</span>
+    <span>·</span>
+    <span style="font-family:'JetBrains Mono',monospace">5 Mei 2026, 17:10 WIB</span>
+    <span>·</span>
+    <span style="color:var(--grn);font-weight:600">Akses Gratis</span>
+  </div>
+  <div class="news-article-body">
+
+    <div class="highlight">
+      Menteri Keuangan Purbaya Yudhi Sadewa mengonfirmasi pemerintah akan memberlakukan windfall tax dan bea keluar untuk komoditas nikel dan batu bara. Besaran tarif belum diumumkan, namun sinyal kebijakan ini sudah cukup untuk mengirim saham-saham tambang ke zona merah pada perdagangan hari ini.
+    </div>
+
+    <h2>Konfirmasi Resmi dari Bendahara Negara</h2>
+
+    <p>Jakarta, 5 Mei 2026 — Dalam taklimat media di Kantor Kementerian Keuangan pada Senin (4/5), Menteri Keuangan Purbaya Yudhi Sadewa secara tegas mengonfirmasi bahwa pemerintah akan segera menerapkan dua instrumen fiskal baru terhadap komoditas nikel dan batu bara: bea keluar dan windfall tax. Pernyataan ini menjadi kepastian pertama di level menteri setelah berbulan-bulan beredar sebagai wacana.</p>
+
+    <p>"Oh iya nanti ada. Tapi itu masih didudukkan dengan Kementerian ESDM. Saya terima aja pokoknya duitnya. Masih didiskusikan dengan menteri ESDM, tapi yang jelas cukup untuk menutup kenaikan subsidi APBN kita," ujar Purbaya di hadapan awak media.</p>
+
+    <p>Pernyataan itu singkat, namun dampaknya terasa langsung di pasar. Windfall tax dan bea keluar nikel telah menjadi isu yang membayangi sektor tambang sejak awal kuartal ini, dan konfirmasi resmi dari Menkeu menutup spekulasi bahwa kebijakan ini hanya sekadar wacana.</p>
+
+    <h2>Latar Belakang: Mengapa Sekarang?</h2>
+
+    <p>Keputusan ini tidak muncul dalam ruang hampa. Tekanan fiskal APBN akibat kenaikan harga minyak dunia — yang dipicu eskalasi konflik di Selat Hormuz — telah memaksa pemerintah mencari sumber penerimaan tambahan di luar pajak konvensional. Indonesian Crude Price (ICP) hingga Februari 2026 tercatat USD68,8 per barel, masih di bawah asumsi APBN USD70 per barel, namun volatilitasnya tinggi dan subsidi energi bengkak.</p>
+
+    <p>Selama ini, nikel dan batu bara tidak dikenakan bea keluar — tarif ekspor efektifnya nol persen. Purbaya mengungkap bahwa kondisi ini telah menciptakan celah pengawasan yang masif bagi Direktorat Jenderal Bea dan Cukai. Tanpa bea keluar, DJBC tidak memiliki landasan hukum yang kuat untuk memeriksa muatan sebelum kapal berangkat.</p>
+
+    <p>"Selama ini kalau ekspor batu bara, karena pajaknya nol, enggak ada bea keluar, Bea Cukai enggak bisa periksa sebelum barangnya berangkat. Jadi kita under-invoicing di situ besar sekali," tegas Purbaya. Dengan adanya bea keluar, ia berharap kebocoran dari praktik manipulasi nilai ekspor dapat ditekan secara signifikan.</p>
+
+    <h2>Dua Instrumen, Dua Tujuan Berbeda</h2>
+
+    <p>Penting untuk memahami bahwa windfall tax dan bea keluar adalah dua instrumen yang berbeda secara konseptual, meskipun keduanya akan dikenakan bersamaan:</p>
+
+    <table>
+      <tr><th>Instrumen</th><th>Definisi</th><th>Tujuan Utama</th></tr>
+      <tr><td>Windfall Tax</td><td>Pajak tambahan atas keuntungan luar biasa akibat lonjakan harga komoditas global</td><td>Penerimaan negara — mengambil sebagian "rezeki nomplok" eksportir saat harga global tinggi</td></tr>
+      <tr><td>Bea Keluar</td><td>Pungutan atas ekspor komoditas, besaran tetap atau berbasis harga</td><td>Pengawasan ekspor — memberi kewenangan Bea Cukai memeriksa muatan sebelum kapal berangkat</td></tr>
+    </table>
+
+    <p>Kombinasi keduanya, menurut Purbaya, akan memberi pemerintah kendali penuh atas aliran komoditas strategis — baik dari sisi fiskal maupun pengawasan fisik. Ini adalah pergeseran paradigma yang cukup signifikan dalam kebijakan ekspor komoditas Indonesia.</p>
+
+    <h2>Tarif: Masih Gelap</h2>
+
+    <p>Yang menjadi ketidakpastian utama bagi pasar adalah besaran tarif yang belum diumumkan. Purbaya hanya menegaskan bahwa angkanya "cukup untuk menutup kenaikan subsidi APBN" — sebuah framing yang memberi ruang interpretasi lebar bagi investor.</p>
+
+    <p>Sekretaris Umum Asosiasi Penambang Nikel Indonesia (APNI) Meidy Katrin Lengkey, dalam webinar Shanghai Metals Market (SMM) pada 28 April 2026, memberikan sinyal bahwa kebijakan ini memang sudah di depan pintu. "Saya tidak tahu persis rekomendasinya, berapa angka persentasenya, tetapi saya rasa itu akan datang segera. Mungkin besok, minggu depan, atau bulan depan, tetapi itu akan datang," ujar Meidy.</p>
+
+    <p>Celios, lembaga kajian ekonomi, memperkirakan windfall tax berpotensi menambah penerimaan negara hingga Rp66,03 triliun. Angka ini, jika benar, akan menjadi suntikan signifikan bagi kas negara yang sedang tertekan beban subsidi energi.</p>
+
+    <p>Dari sisi Kementerian ESDM, Menteri Bahlil Lahadalia pada 27 Maret 2026 menyebut fokus kajian diarahkan pada produk Nickel Pig Iron (NPI) — salah satu produk turunan pengolahan nikel yang selama ini diekspor dalam volume besar ke Tiongkok. "NPI produk daripada nikel lagi kita menghitung. Ini lagi kita menghitung ya. Sekali lagi, saya lagi menghitung tentang formulasi daripada pengenaan pajak NPI-nya," jelasnya.</p>
+
+    <h2>Respons Pasar: Saham Nikel Langsung Berguguran</h2>
+
+    <p>Pasar tidak menunggu detail tarif untuk bereaksi. Pada perdagangan Selasa (5/5/2026), saham-saham emiten tambang nikel menjadi yang paling terdampak:</p>
+
+    <table>
+      <tr><th>Emiten</th><th>Kode</th><th>Pergerakan Hari Ini</th><th>Konteks</th></tr>
+      <tr><td>Vale Indonesia</td><td>INCO</td><td class="tag-neg">−13,90%</td><td>Produsen nikel terbesar di IDX, paling terdampak</td></tr>
+      <tr><td>Merdeka Battery Materials</td><td>MBMA</td><td class="tag-neg">−8,89%</td><td>Produsen bahan baterai berbasis nikel</td></tr>
+      <tr><td>Trimegah Bangun Persada</td><td>NCKL</td><td class="tag-neg">−2,90%</td><td>Produsen nikel terintegrasi hulu-hilir</td></tr>
+      <tr><td>Aneka Tambang</td><td>ANTM</td><td class="tag-neg">−2,89%</td><td>Produsen nikel & emas BUMN</td></tr>
+      <tr><td>Central Omega Resources</td><td>DKFT</td><td class="tag-pos">+0,60%</td><td>Satu-satunya yang menguat — ekspektasi konversi ke hilirisasi</td></tr>
+    </table>
+
+    <p>INCO menjadi emiten yang paling terpukul dengan koreksi 13,90 persen — penurunan terbesar dalam satu sesi dalam beberapa bulan terakhir. Sebagai produsen nikel matte terbesar di Indonesia, seluruh produksi INCO berbasis ekspor sehingga ancaman bea keluar langsung menekan kalkulasi margin perseroan. MBMA menyusul dengan koreksi 8,89 persen, mencerminkan kekhawatiran investor terhadap dampak biaya tambahan pada rantai nilai baterai yang sedang dibangun perseroan. ANTM dan NCKL masing-masing terkoreksi di kisaran 2,89–2,90 persen.</p>
+
+    <p>Satu-satunya yang ditutup hijau adalah DKFT dengan penguatan tipis 0,60 persen. Pasar tampaknya memandang DKFT memiliki posisi yang relatif lebih aman — kemungkinan karena profil operasionalnya yang lebih kecil atau ekspektasi bahwa perseroan dapat menyesuaikan portofolio ke arah hilirisasi yang mendapat insentif dari pemerintah.</p>
+
+    <p>Tekanan jual paling dalam dirasakan INCO yang ambles 13,90 persen — koreksi terdalam di antara seluruh emiten nikel hari ini. Besarnya koreksi mencerminkan posisi INCO sebagai produsen nickel matte premium yang paling langsung terdampak bea keluar, mengingat seluruh produksinya diekspor. MBMA turut tertekan 8,89 persen karena model bisnisnya yang berfokus pada material katoda baterai EV sangat sensitif terhadap perubahan struktur biaya nikel hulu.</p>
+
+    <p>Satu pengecualian menarik adalah DKFT yang justru menguat tipis 0,60 persen — sinyal pasar bahwa perseroan dipandang relatif terisolir dari dampak langsung kebijakan ini.</p>
+
+    <p>Tekanan jual ini terjadi di tengah sentimen negatif ganda: konfirmasi windfall tax dan bea keluar nikel di satu sisi, serta ketegangan geopolitik di Selat Hormuz di sisi lain. PMI Manufaktur April 2026 yang turun ke 49,1 — level kontraksi terendah sejak Juni 2025 — juga menambah pesimisme pasar terhadap prospek permintaan nikel global jangka pendek.</p>
+
+    <h2>Silver Lining: Insentif Hilirisasi Baterai</h2>
+
+    <p>Di balik ancaman pajak tambahan, pemerintah menyisipkan "wortel" bagi industri. Purbaya memastikan bahwa seiring penerapan windfall tax dan bea keluar, pemerintah akan memberikan insentif bagi industri hilir nikel — terutama manufaktur baterai kendaraan listrik yang menggunakan nikel sebagai bahan baku utama.</p>
+
+    <p>"Kita akan dorong pertumbuhan industri baterai di sini juga dengan insentif tertentu supaya nikelnya juga laku. Pokoknya nanti produk yang memakai bahan baku dalam negeri dia akan mendapat insentif lebih," kata Purbaya.</p>
+
+    <p>Strategi ini sejalan dengan agenda hilirisasi pemerintahan Prabowo yang menargetkan Indonesia bukan sekadar eksportir bahan mentah, melainkan pemain dalam rantai nilai baterai global. Jika insentif ini terealisasi dengan baik, emiten yang memiliki segmen produksi baterai atau material katoda berpotensi mendapat angin segar, bahkan di tengah tekanan bea keluar pada segmen hulu.</p>
+
+    <h2>Yang Perlu Dicermati Investor</h2>
+
+    <p>Ketidakpastian tarif adalah risiko utama saat ini. Tanpa angka konkret, pasar cenderung mengasumsikan skenario terburuk — yang biasanya berlebihan. Begitu besaran tarif resmi diumumkan, volatilitas bisa mereda dan terjadi koreksi balik jika angkanya lebih ringan dari ekspektasi pasar.</p>
+
+    <p>Beberapa variabel yang perlu dipantau dalam beberapa pekan ke depan: hasil rapat koordinasi Kemenkeu-ESDM, keputusan Presiden mengenai formula final tarif, dan respons asosiasi industri terhadap rancangan regulasi. Perlu juga dicermati apakah kebijakan ini akan berlaku retroaktif atau hanya berlaku prospektif — perbedaan yang akan sangat material bagi laba emiten kuartal berjalan.</p>
+
+    <div class="highlight">
+      <strong>Perspektif Avenir Research:</strong> Konfirmasi Menkeu menghilangkan risiko "wacana" — kebijakan ini akan terjadi, hanya soal waktu dan besaran. Bagi investor saham nikel, kuncinya kini adalah menunggu kepastian tarif sebelum mengambil posisi baru. Sell-off paling dalam terjadi justru di emiten hilirisasi baterai (ICON −13,90%, MBMA −8,89%) — ironis mengingat pemerintah berjanji memberikan insentif bagi industri ini. Pasar tampaknya lebih fokus pada risiko pajak jangka pendek ketimbang insentif jangka menengah yang masih belum konkret. DKFT yang bergerak hijau mengonfirmasi bahwa emiten hulu ore lebih defensif dalam skenario ini. Begitu besaran tarif resmi diumumkan dan lebih ringan dari ekspektasi, emiten hilirisasi berpotensi rebound paling kuat.
+    </div>
+
+  </div>
+  <div class="news-disclaimer">
+    <strong>Disclaimer:</strong> Konten ini bersifat informatif dan edukatif, bukan merupakan rekomendasi investasi. Avenir Research tidak bertanggung jawab atas keputusan investasi yang diambil berdasarkan informasi di atas. Selalu lakukan riset mandiri dan konsultasikan dengan profesional keuangan sebelum mengambil keputusan investasi.
+  </div>
+</div>
+</div>
+<footer style="background:var(--dark);color:#C8C2B5;padding:48px 28px 36px;text-align:center;font-size:12px;line-height:1.7;border-top:1px solid rgba(255,255,255,0.06)">
+  <div style="max-width:640px;margin:0 auto">
+    <div style="font-family:'Cormorant Garamond','Georgia',serif;font-size:20px;color:#fff;font-weight:600;margin-bottom:4px">Avenir Research</div>
+    <div style="opacity:.5;font-size:12px;margin-bottom:24px">Equity research marketplace · PT Avenir Fortuna Corporindo · <a href="https://avenirfortuna.com" target="_blank" style="color:#C8C2B5;text-decoration:none">avenirfortuna.com</a></div>
+    <div style="opacity:.4;font-size:11px;line-height:1.8;max-width:520px;margin:0 auto 28px;border-top:1px solid rgba(255,255,255,0.08);padding-top:20px">
+      Seluruh konten Avenir Research merupakan referensi edukasi berbasis data publik (Annual Report audited & laporan keuangan resmi). Bukan merupakan rekomendasi investasi. Seluruh keputusan investasi adalah tanggung jawab investor masing-masing.
+    </div>
+    <div style="display:flex;justify-content:center;gap:16px;margin-bottom:24px">
+      <a href="https://www.instagram.com/avenircommunity.id?igsh=ZWhxbGYzcGpkN3pz" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);text-decoration:none" onmouseover="this.style.background='rgba(255,255,255,0.14)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8C2B5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+      <a href="https://t.me/avenircommunity" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);text-decoration:none" onmouseover="this.style.background='rgba(255,255,255,0.14)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8C2B5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </a>
+      <a href="https://chat.whatsapp.com/KNjYBzz2FMxAWFXFkLQGOL" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);text-decoration:none" onmouseover="this.style.background='rgba(255,255,255,0.14)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8C2B5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      </a>
+    </div>
+    <div style="opacity:.3;font-size:11px">© 2026 PT Avenir Fortuna Corporindo. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+(function(){
+  var imgs = document.querySelectorAll('img[data-avlogo]');
+  for(var i=0;i<imgs.length;i++) imgs[i].src='avenir-logo.png';
+})();
+</script>
+</body>
+</html>
