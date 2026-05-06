@@ -7,6 +7,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Avenir Research</title>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Avenir Research">
+<meta property="og:title" content="SMAR — PT Sinar Mas Agro Resources | Avenir Research">
+<meta property="og:description" content="Riset ekuitas mendalam SMAR: kelapa sawit, agribusiness.">
+<meta property="og:url" content="https://avenirresearch.app/katalog/smar">
+<meta property="og:image" content="https://avenirresearch.app/og-cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SMAR — PT Sinar Mas Agro Resources | Avenir Research">
+<meta name="twitter:description" content="Riset ekuitas mendalam SMAR: kelapa sawit, agribusiness.">
+<meta name="description" content="Riset ekuitas mendalam SMAR: kelapa sawit, agribusiness.">
 
 <style>
 
@@ -3598,18 +3608,13 @@ function showPage(id){
 }
 
 window.addEventListener('popstate', function(e){
- const id = e.state?.page || location.hash.slice(1) || 'home';
+ const id = e.state?.page || 'home'; // no hash routing
  showPage(id);
 });
 
 // Init: baca hash saat pertama kali load
 (function initFromHash(){
- const hash = window.location.hash.slice(1); // hapus #
- const validPage = pages.includes(hash) ? hash : 'home';
- 
- // Set initial history state
- /* AVENIR: no hash routing */ // history.replaceState removed;
- 
+ // hash routing removed
  // Tampilkan halaman yang sesuai
  pages.forEach(p=>{
   const el=document.getElementById('page-'+p);
@@ -3952,7 +3957,7 @@ const AUTH = {
     const { data, error } = await _sb.auth.signUp({
       email, password: pass,
       options: {
-        emailRedirectTo: window.location.origin + window.location.pathname + '#home',
+        emailRedirectTo: window.location.origin + window.location.pathname,
         data: { nama_depan: fn, nama_belakang: ln, profil_investor: profil }
       }
     });
