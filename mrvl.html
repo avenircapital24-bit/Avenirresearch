@@ -2828,6 +2828,44 @@ text-shadow: none;
 /* ═══ SUPABASE CLIENT ═══ */
 const _sb = supabase.createClient('https://wkcqnqtwuxzcjagitkmk.supabase.co', 'sb_publishable_YYtylX5tqzI0Xdy3OrQPgQ_YIXP2zSM');
 </script>
+
+<style>
+/* === Mobile table scroll - tabel fixed width, scroll horizontal === */
+@media (max-width: 820px) {
+  /* Wrap setiap table jadi scroll container */
+  table {
+    display: block;
+    width: 100% !important;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    border-collapse: collapse;
+    margin-bottom: 12px;
+    /* Visual hint: subtle gradient shadow di edge */
+    background: 
+      linear-gradient(to right, white 30%, rgba(255,255,255,0)),
+      linear-gradient(to right, rgba(0,0,0,.08), rgba(255,255,255,0) 30%) 0 100%,
+      radial-gradient(farthest-side at 0 50%, rgba(0,0,0,.15), rgba(0,0,0,0)),
+      radial-gradient(farthest-side at 100% 50%, rgba(0,0,0,.15), rgba(0,0,0,0)) 100%;
+    background-attachment: local, local, scroll, scroll;
+    background-repeat: no-repeat;
+    background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
+    background-color: white;
+  }
+  /* Table cells tetap tidak wrap (paksa horizontal scroll) */
+  table td, table th {
+    white-space: nowrap;
+    min-width: max-content;
+  }
+  /* Khusus tabel "Identitas Perusahaan" yang 2 kolom — boleh wrap */
+  .box table[style*="width:100%"]:not(.tbl) td:first-child,
+  .box table[style*="width:100%"]:not(.tbl) td:nth-child(2) {
+    white-space: normal;
+  }
+}
+</style>
+
 </head>
 <body>
 <nav class="nav-global" style="position:sticky;top:0;z-index:500;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-bottom:1px solid #e5e7eb;box-shadow:0 1px 3px rgba(0,0,0,.04)">
@@ -3409,7 +3447,8 @@ Keduanya memperkuat posisi di AI scale-up networking market</p>
 
 </div>
 </div>
-<footer style="background:#0f172a;color:#94a3b8;padding:48px 24px 24px;margin-top:80px">
+<div class="footer-spacer" style="clear:both;height:0;width:100%"></div>
+<footer style="display:block!important;visibility:visible!important;background:#0f172a;color:#94a3b8;padding:48px 24px 24px;margin-top:80px">
   <div style="max-width:1280px;margin:0 auto">
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;margin-bottom:32px">
       <div>
