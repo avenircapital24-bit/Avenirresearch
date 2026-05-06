@@ -6,7 +6,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Katalog Riset — Avenir Research</title>
+<title>Avenir Research &amp; Publikasi — PTRO | CMRY | AVIA</title>
 
 <style>
 
@@ -2829,7 +2829,6 @@ text-shadow: none;
 const _sb = supabase.createClient('https://wkcqnqtwuxzcjagitkmk.supabase.co', 'sb_publishable_YYtylX5tqzI0Xdy3OrQPgQ_YIXP2zSM');
 </script>
 </head>
-
 <body>
 <nav class="nav"><div class="nav-in">
 <a href="#" onclick="event.preventDefault();window.location.href='index.html'" style="display:flex;align-items:center;text-decoration:none">
@@ -3533,7 +3532,7 @@ const AR = (() => {
  function updateAllButtons() {
 
   const FREE_RESEARCH = ['smar','mrvl','crm','ptro','cmry','avia','nisp','bbri','asgr','dewa','ades','wifi','part'];
-  Object.keys(RESEARCH).forEach(ticker => {
+  FREE_RESEARCH.forEach(ticker => {
    const btn = document.getElementById("btn-" + ticker);
    const pw = document.getElementById("pw-" + ticker);
    if (!btn) return;
@@ -3546,7 +3545,7 @@ const AR = (() => {
     btn.style.background = 'var(--grn)';
     btn.style.color = '#fff';
     if (isLoggedIn) {
-      btn.innerHTML = 'Login untuk Membaca Riset';
+      btn.innerHTML = 'Baca Riset →';
       btn.onclick = () => showPage(ticker);
     } else {
       btn.innerHTML = 'Login untuk Akses';
@@ -3559,7 +3558,7 @@ const AR = (() => {
     btn.style.color = '#fff';
     const isLoggedIn = typeof AUTH !== 'undefined' && AUTH.currentUser;
     if (isLoggedIn) {
-      btn.innerHTML = 'Login untuk Membaca Riset';
+      btn.innerHTML = 'Baca Riset →';
       btn.onclick = () => showPage(ticker);
     } else {
       btn.innerHTML = 'Login untuk Akses';
