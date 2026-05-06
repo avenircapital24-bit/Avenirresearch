@@ -3353,8 +3353,8 @@ const AR = (() => {
       btn.innerHTML = 'Baca Riset →';
       btn.onclick = () => showPage(ticker);
     } else {
-      btn.innerHTML = 'Login untuk Akses';
-      btn.onclick = () => (typeof AUTH !== 'undefined' ? AUTH.open('login') : null);
+      btn.innerHTML = 'Baca Riset →';
+      btn.onclick = () => showPage(ticker);
     }
     } else {
     // Semua riset sementara free — login only
@@ -3366,8 +3366,8 @@ const AR = (() => {
       btn.innerHTML = 'Baca Riset →';
       btn.onclick = () => showPage(ticker);
     } else {
-      btn.innerHTML = 'Login untuk Akses';
-      btn.onclick = () => (typeof AUTH !== 'undefined' ? AUTH.open('login') : null);
+      btn.innerHTML = 'Baca Riset →';
+      btn.onclick = () => showPage(ticker);
     }
    }
   });
