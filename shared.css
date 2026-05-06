@@ -2806,3 +2806,23 @@ text-shadow: none;
   .cnt { padding-left: 18px !important; padding-right: 18px !important; }
   .idx-hero { padding-left: 18px !important; padding-right: 18px !important; }
 }
+
+/* ── Card Cover Image ── */
+.card-cover {
+  width: calc(100% + 28px);
+  margin: -14px -14px 14px -14px;
+  height: 160px;
+  overflow: hidden;
+  border-radius: 10px 10px 0 0;
+  display: block;
+}
+.card-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+  filter: brightness(0.9) contrast(1.05);
+  transition: transform .3s ease;
+}
+.card:hover .card-cover img { transform: scale(1.04); }
