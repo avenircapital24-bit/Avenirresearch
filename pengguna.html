@@ -3096,14 +3096,7 @@ const _sb = supabase.createClient('https://wkcqnqtwuxzcjagitkmk.supabase.co', 's
 </footer>
 <script>
 function showPage(id){
-  var m={'home':'index.html','index':'katalog.html','news':'news.html',
-    'news-pdb-q1-2026':'news-pdb-q1-2026.html',
-    'news-windfall-tax-nikel':'news-windfall-tax-nikel.html',
-    'news-tpia-force-majeure':'news-tpia-force-majeure.html',
-    'ptro':'ptro.html','cmry':'cmry.html','avia':'avia.html','mrvl':'mrvl.html',
-    'nisp':'nisp.html','bbri':'bbri.html','asgr':'asgr.html','dewa':'dewa.html',
-    'ades':'ades.html','wifi':'wifi.html','part':'part.html','smar':'smar.html',
-    'crm':'crm.html','tentang':'tentang.html','mitra':'mitra.html','pengguna':'pengguna.html'};
+  var m={'home':'index.html', 'index': 'katalog.html', 'news': 'news.html', 'news-pdb-q1-2026': 'news-pdb-q1-2026.html', 'news-windfall-tax-nikel': 'news-windfall-tax-nikel.html', 'news-tpia-force-majeure': 'news-tpia-force-majeure.html', 'ptro': 'ptro.html', 'cmry': 'cmry.html', 'avia': 'avia.html', 'mrvl': 'mrvl.html', 'nisp': 'nisp.html', 'bbri': 'bbri.html', 'asgr': 'asgr.html', 'dewa': 'dewa.html', 'ades': 'ades.html', 'wifi': 'wifi.html', 'part': 'part.html', 'smar': 'smar.html', 'crm': 'crm.html', 'tentang': 'tentang.html', 'mitra': 'mitra.html', 'pengguna': 'pengguna.html'};
   if(m[id]) window.location.href=m[id];
 }
 function showNewsArticle(id){showPage('news-'+id);}
@@ -3416,7 +3409,7 @@ const AUTH = {
     }
     _sb.auth.onAuthStateChange(async (event, session) => {
       AUTH.currentUser = session?.user || null;
-      try { AUTH.refreshUI(); } catch(e) { console.warn('refreshUI error:', e); }
+      AUTH.refreshUI();
     });
   },
 
@@ -3508,24 +3501,13 @@ const AUTH = {
 
     AUTH.err('reg-err', 'Mendaftarkan akun...', 'var(--grn)');
 
-    let data, error;
-    try {
-      const regPromise = _sb.auth.signUp({
+    const { data, error } = await _sb.auth.signUp({
       email, password: pass,
       options: {
         emailRedirectTo: window.location.origin + window.location.pathname + '#home',
         data: { nama_depan: fn, nama_belakang: ln, profil_investor: profil }
       }
     });
-      const timeoutPromise = new Promise(function(_, reject){
-        setTimeout(function(){ reject(new Error('Request timeout - cek Supabase config')); }, 15000);
-      });
-      const res = await Promise.race([regPromise, timeoutPromise]);
-      data = res.data; error = res.error;
-    } catch(e) {
-      console.error('[AUTH.register] Error:', e);
-      return AUTH.err('register-err', e.message || 'Tidak bisa terhubung. Cek console.');
-    }
 
     if (error) return AUTH.err('reg-err', 'Error: ' + error.message);
 
@@ -3551,21 +3533,9 @@ const AUTH = {
 
     AUTH.err('login-err', 'Masuk...', 'var(--grn)');
 
-    var loginPromise = _sb.auth.signInWithPassword({ email, password: pass });
-    var timeoutPromise = new Promise(function(_, reject){
-      setTimeout(function(){ reject(new Error('Request timeout - cek koneksi atau Supabase Site URL belum diset ke domain ini')); }, 10000);
-    });
-    let data, error;
-    try {
-      const result = await Promise.race([loginPromise, timeoutPromise]);
-      data = result.data; error = result.error;
-    } catch(e) {
-      console.error('[AUTH.login] Network/timeout error:', e);
-      return AUTH.err('login-err', e.message || 'Tidak bisa terhubung ke server. Cek console (F12).');
-    }
+    const { data, error } = await _sb.auth.signInWithPassword({ email, password: pass });
 
     if (error) {
-      console.error('[AUTH.login] Supabase error:', error);
       const msg = error.message.includes('Email not confirmed')
         ? 'Email belum dikonfirmasi. Cek inbox/spam.'
         : error.message.includes('invalid_credentials') || error.message.includes('Invalid login')
@@ -3577,7 +3547,7 @@ const AUTH = {
     // Login berhasil - tutup modal
     AUTH.currentUser = data.user;
     AUTH.close();
-    try { AUTH.refreshUI(); } catch(e) { console.warn('refreshUI error:', e); }
+    AUTH.refreshUI();
   },
 
   // Logout
@@ -3810,60 +3780,65 @@ document.addEventListener('click', function(e) {
   }
 });
 </script>
-
 <script>
-/* Nav active state + user menu */
+/* ══ Diagnostic: untuk debug issue login. Cek tab Console (F12) ══ */
 (function(){
-  var path = window.location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.nav-link').forEach(function(link){
-    var href = link.getAttribute('href');
-    if (href === path || (path === '' && href === 'index.html')) {
-      link.classList.add('active');
-    }
+  // Catch semua error
+  window.addEventListener('error', function(e){
+    console.error('[DIAG] Window error:', e.message, 'at', e.filename + ':' + e.lineno);
   });
-  // Click outside user dropdown to close
-  document.addEventListener('click', function(e){
-    var dd = document.getElementById('user-dropdown');
-    var wrap = document.getElementById('user-menu-wrap');
-    if (dd && wrap && !wrap.contains(e.target)) dd.style.display = 'none';
+  window.addEventListener('unhandledrejection', function(e){
+    console.error('[DIAG] Unhandled rejection:', e.reason);
   });
-})();
-</script>
-
-
-<script>
-/* Patch: update user name pada nav baru saat auth state berubah */
-(function(){
-  function updateUserName(){
-    if (typeof AUTH === 'undefined') return;
-    var user = AUTH.currentUser;
-    var nameEl = document.getElementById('nav-user-name');
-    if (nameEl && user) {
-      nameEl.textContent = user.user_metadata?.nama_depan || user.email?.split('@')[0] || 'Akun';
+  
+  // Wrap AUTH.login dengan diagnostic
+  document.addEventListener('DOMContentLoaded', function(){
+    if (typeof AUTH === 'undefined') {
+      console.error('[DIAG] AUTH module tidak terdefinisi! Script gagal load.');
+      return;
     }
-  }
-  // Wait for AUTH to be ready
-  if (typeof AUTH !== 'undefined') {
-    var origRefresh = AUTH.refreshUI;
-    AUTH.refreshUI = async function(){
-      try { await origRefresh.apply(AUTH, arguments); } catch(e) { console.warn(e); }
-      updateUserName();
-    };
-    setTimeout(updateUserName, 500);
-  } else {
-    document.addEventListener('DOMContentLoaded', function(){
-      if (typeof AUTH !== 'undefined') {
-        var origRefresh = AUTH.refreshUI;
-        AUTH.refreshUI = async function(){
-          try { await origRefresh.apply(AUTH, arguments); } catch(e) { console.warn(e); }
-          updateUserName();
-        };
-        setTimeout(updateUserName, 500);
+    if (typeof _sb === 'undefined') {
+      console.error('[DIAG] _sb (Supabase client) tidak terdefinisi!');
+      return;
+    }
+    console.log('[DIAG] AUTH ready, _sb ready, modules loaded');
+    
+    // Wrap login untuk diagnostic
+    var origLogin = AUTH.login.bind(AUTH);
+    AUTH.login = async function(){
+      console.log('[DIAG] AUTH.login() called');
+      var emailEl = document.getElementById('l-email');
+      var passEl = document.getElementById('l-pass');
+      console.log('[DIAG] email field:', emailEl ? 'found, value=' + emailEl.value : 'NOT FOUND');
+      console.log('[DIAG] password field:', passEl ? 'found, length=' + passEl.value.length : 'NOT FOUND');
+      
+      try {
+        // Test basic connectivity ke Supabase BEFORE login
+        console.log('[DIAG] Testing Supabase connectivity...');
+        var testStart = Date.now();
+        var testFetch = await fetch('https://wkcqnqtwuxzcjagitkmk.supabase.co/auth/v1/health', {
+          method: 'GET',
+          headers: {'apikey': 'sb_publishable_YYtylX5tqzI0XdyaSRLfgQ_VV6OrQPgQ_YIXP2zSM'}
+        }).catch(function(e){ return null; });
+        console.log('[DIAG] Connectivity test:', testFetch ? 'OK (' + (Date.now()-testStart) + 'ms, status ' + testFetch.status + ')' : 'FAILED');
+        
+        // Set 15-sec timeout via Promise.race
+        var loginP = origLogin();
+        var timeoutP = new Promise(function(_, reject){
+          setTimeout(function(){ reject(new Error('TIMEOUT 15 detik — login tidak respons')); }, 15000);
+        });
+        await Promise.race([loginP, timeoutP]);
+      } catch(e) {
+        console.error('[DIAG] Login error caught:', e);
+        var errEl = document.getElementById('login-err');
+        if (errEl) {
+          errEl.textContent = e.message || 'Error: ' + e;
+          errEl.style.color = '#dc2626';
+        }
       }
-    });
-  }
+    };
+  });
 })();
 </script>
-
 </body>
 </html>

@@ -1,14 +1,16 @@
-# Avenir Research & Publication
+# Avenir Research
+
+## Diagnostic Login Bug
+Buka website → F12 → Console tab → coba login.
+Console akan show:
+- `[DIAG] AUTH ready, _sb ready, modules loaded` ← module load OK
+- `[DIAG] AUTH.login() called` ← button click ter-handle
+- `[DIAG] email field: ... password field: ...` ← form field readable
+- `[DIAG] Connectivity test: OK/FAILED` ← apakah Supabase reachable
+- `[DIAG] Login error caught: <error>` ← error sebenarnya
+- `TIMEOUT 15 detik — login tidak respons` ← kalau hang lebih dari 15 detik
+
+Screenshot console output kalau masih bermasalah.
 
 ## Deploy
-1. Extract ZIP → folder `Avenir_Research/`
-2. Push ke GitHub
-3. Connect ke Vercel (auto-detect static site)
-4. Setelah dapat domain Vercel, set di Supabase Dashboard → Authentication → URL Configuration:
-   - Site URL: `https://[project].vercel.app`
-   - Redirect URLs: `https://[project].vercel.app/*`
-
-## Catatan
-- Tiap file HTML self-contained (CSS, JS, gambar inline)
-- Auth flow butuh deployed (Supabase tidak bekerja di file://)
-- DEWA & PART card belum punya cover image
+Push ke GitHub → Connect Vercel → set Site URL di Supabase Dashboard.
