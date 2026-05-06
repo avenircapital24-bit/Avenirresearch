@@ -3861,5 +3861,57 @@ document.addEventListener('click', function(e) {
   });
 })();
 </script>
+<div id="saweria-balloon" style="
+  position:fixed; bottom:24px; right:24px; z-index:90;
+  display:flex; flex-direction:column; align-items:flex-end; gap:8px;
+">
+  <!-- Tooltip — muncul saat diklik -->
+  <div id="saw-tooltip" style="
+    display:none;
+    background:#fff; color:#1a1a1a; font-size:13px; font-weight:500;
+    padding:12px 16px; border-radius:12px; max-width:200px; text-align:center;
+    box-shadow:0 8px 32px rgba(0,0,0,.15); line-height:1.6;
+    border:1px solid #f0f0f0;
+  ">
+    Suka riset Avenir?<br>Support kami via Saweria!<br>
+    <a href="https://saweria.co/Avenir" target="_blank" style="
+      display:inline-block;margin-top:8px;
+      background:#F97316;color:#fff;
+      padding:6px 14px;border-radius:20px;
+      text-decoration:none;font-size:12px;font-weight:700;
+    ">Donasi Sekarang →</a>
+  </div>
+
+  <!-- Tombol bulat logo Saweria -->
+  <button onclick="
+    const t = document.getElementById('saw-tooltip');
+    t.style.display = t.style.display === 'none' ? 'block' : 'none';
+  " style="
+    width:48px; height:48px; border-radius:50%;
+    background:#fff; border:none; cursor:pointer; padding:0;
+    box-shadow:0 4px 16px rgba(0,0,0,.18);
+    display:flex; align-items:center; justify-content:center;
+    transition:transform .2s, box-shadow .2s;
+  "
+  onmouseover="this.style.transform='scale(1.08)';this.style.boxShadow='0 6px 24px rgba(0,0,0,.24)'"
+  onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 16px rgba(0,0,0,.18)'"
+  title="Support Avenir via Saweria">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="#e53e3e">
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+    </svg>
+  </button>
+</div>
+<script>
+/* ═══ OVERRIDE: showPage HARUS navigate URL (multi-page architecture) ═══ */
+window.showPage = function(id){
+  var m = {"home": "index.html", "index": "katalog.html", "news": "news.html", "news-pdb-q1-2026": "news-pdb-q1-2026.html", "news-windfall-tax-nikel": "news-windfall-tax-nikel.html", "news-tpia-force-majeure": "news-tpia-force-majeure.html", "ptro": "ptro.html", "cmry": "cmry.html", "avia": "avia.html", "mrvl": "mrvl.html", "nisp": "nisp.html", "bbri": "bbri.html", "asgr": "asgr.html", "dewa": "dewa.html", "ades": "ades.html", "wifi": "wifi.html", "part": "part.html", "smar": "smar.html", "crm": "crm.html", "tentang": "tentang.html", "mitra": "mitra.html", "pengguna": "pengguna.html"};
+  if (m[id]) {
+    window.location.href = m[id];
+  }
+};
+window.showNewsArticle = function(id){ window.showPage('news-' + id); };
+window.showNewsList = function(){ window.showPage('news'); };
+</script>
+
 </body>
 </html>
