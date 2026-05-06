@@ -2866,6 +2866,16 @@ const _sb = supabase.createClient('https://wkcqnqtwuxzcjagitkmk.supabase.co', 's
 }
 </style>
 
+<style>
+/* AVENIR: Force footer always visible — override SPA legacy JS */
+body > footer {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  z-index: 10 !important;
+}
+</style>
 </head>
 <body>
 <nav class="nav-global" style="position:sticky;top:0;z-index:500;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-bottom:1px solid #e5e7eb;box-shadow:0 1px 3px rgba(0,0,0,.04)">
@@ -3271,7 +3281,7 @@ function showPage(id){
   const navEl    = document.querySelector('.nav');
   const footerEl = document.querySelector('footer');
   if (navEl)    navEl.style.display    = (id === 'home') ? 'none' : 'flex';
-  if (footerEl) footerEl.style.display = (id === 'home') ? 'none' : 'block';
+  if (footerEl) footerEl.style.display = 'block'; /* AVENIR: always show footer */
   window.scrollTo(0,0);
 }
 
@@ -3297,7 +3307,7 @@ window.addEventListener('popstate', function(e){
  const _nav = document.querySelector('.nav');
  const _footer = document.querySelector('footer');
  if (_nav)    _nav.style.display    = (validPage === 'home') ? 'none' : 'flex';
- if (_footer) _footer.style.display = (validPage === 'home') ? 'none' : 'block';
+ if (_footer) _footer.style.display = 'block'; /* AVENIR: always show footer */
 
 })();
 
@@ -4016,6 +4026,27 @@ window.showPage = function(id){
 };
 window.showNewsArticle = function(id){ window.showPage('news-' + id); };
 window.showNewsList = function(){ window.showPage('news'); };
+</script>
+
+<script>
+/* AVENIR: Force footer visible setelah semua init script jalan */
+(function(){
+  function forceFooter(){
+    document.querySelectorAll('body > footer').forEach(function(f){
+      f.style.setProperty('display', 'block', 'important');
+      f.style.setProperty('visibility', 'visible', 'important');
+    });
+  }
+  // Run beberapa kali untuk pastikan tidak di-override
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', forceFooter);
+  } else {
+    forceFooter();
+  }
+  setTimeout(forceFooter, 100);
+  setTimeout(forceFooter, 500);
+  setTimeout(forceFooter, 1500);
+})();
 </script>
 
 </body>
