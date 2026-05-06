@@ -2830,47 +2830,63 @@ const _sb = supabase.createClient('https://wkcqnqtwuxzcjagitkmk.supabase.co', 's
 </script>
 </head>
 <body>
-<nav class="nav"><div class="nav-in">
-<a href="#" onclick="event.preventDefault();window.location.href='index.html'" style="display:flex;align-items:center;text-decoration:none">
-  <img data-avlogo="1" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="nav-logo" alt="Avenir">
-</a>
-<div style="display:flex;gap:9px;align-items:center;margin-left:auto">
-  <!-- Cart -->
-  <button onclick="CART.open()" class="nav-cart-btn" title="Keranjang">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-    <span class="cart-badge" id="cart-badge" style="display:none">0</span>
-  </button>
-  <!-- Single dropdown untuk guest DAN logged-in -->
-  <div class="nav-auth-drop-wrap" id="nav-menu-wrap">
-    <button class="nav-auth-main-btn" id="nav-menu-btn" onclick="NAV.toggleDrop()">
-      MENU <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-    </button>
-    <div class="nav-drop" id="nav-drop">
-      <div class="nav-drop-section">Avenir Research</div>
-      <button class="nav-drop-item" onclick="window.location.href='index.html';NAV.closeDrop()">Home</button>
-      <button class="nav-drop-item" onclick="window.location.href='tentang.html';NAV.closeDrop()">Tentang Avenir Research</button>
-      <button class="nav-drop-item" onclick="window.location.href='mitra.html';NAV.closeDrop()">Mitra Terverifikasi</button>
-      <button class="nav-drop-item" onclick="window.location.href='pengguna.html';NAV.closeDrop()">Panduan Pengguna</button>
-      <button class="nav-drop-item" onclick="window.location.href='katalog.html';NAV.closeDrop()">Katalog Riset</button>
-      <button class="nav-drop-item" onclick="window.location.href='news.html';NAV.closeDrop()">Market News</button>
+<nav class="nav-global" style="position:sticky;top:0;z-index:500;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-bottom:1px solid #e5e7eb;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+  <div style="max-width:1280px;margin:0 auto;padding:0 24px;display:flex;align-items:center;height:64px;gap:32px">
+    <!-- Logo -->
+    <a href="index.html" style="display:flex;align-items:center;text-decoration:none;flex-shrink:0">
+      <img data-avlogo="1" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Avenir Research" style="height:32px;width:auto">
+    </a>
 
-      <!-- Guest only -->
-      <div class="nav-drop-divider" data-auth="guest"></div>
-      <div class="nav-drop-section" data-auth="guest">Belum Punya Akun</div>
-      <button class="nav-drop-item" data-auth="guest" onclick="AUTH.open('register');NAV.closeDrop()">Daftar Gratis</button>
-      <button class="nav-drop-item" data-auth="guest" onclick="AUTH.open('analyst');NAV.closeDrop()">Daftar Mitra Analis</button>
-      <div class="nav-drop-divider" data-auth="guest"></div>
-      <button class="nav-drop-item" data-auth="guest" onclick="AUTH.open('login');NAV.closeDrop()">Sign In</button>
+    <!-- Menu links VISIBLE (tidak dropdown) -->
+    <div class="nav-links" style="display:flex;gap:4px;flex:1;align-items:center" id="nav-links-main">
+      <a href="index.html" class="nav-link">Beranda</a>
+      <a href="katalog.html" class="nav-link">Katalog Riset</a>
+      <a href="news.html" class="nav-link">Market News</a>
+      <a href="tentang.html" class="nav-link">Tentang</a>
+      <a href="mitra.html" class="nav-link">Mitra</a>
+    </div>
 
-      <!-- Logged-in only -->
-      <div class="nav-drop-divider" data-auth="user" style="display:none"></div>
-      <div class="nav-drop-section" data-auth="user" style="display:none" id="nav-user-section">Akun Saya</div>
-      <button class="nav-drop-item" data-auth="user" style="display:none" id="nav-user-name-item">👤 –</button>
-      <button class="nav-drop-item" data-auth="user" style="display:none;color:#e53e3e" onclick="AUTH.logout();NAV.closeDrop()">Keluar →</button>
+    <!-- Right side: Cart + Auth -->
+    <div style="display:flex;gap:8px;align-items:center;flex-shrink:0">
+      <button onclick="CART.open()" class="nav-icon-btn" title="Keranjang" style="background:transparent;border:1px solid #e5e7eb;border-radius:8px;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span class="cart-badge" id="cart-badge" style="display:none;position:absolute;top:-4px;right:-4px;background:#dc2626;color:#fff;font-size:10px;font-weight:700;padding:2px 5px;border-radius:10px;min-width:18px;text-align:center">0</span>
+      </button>
+
+      <!-- Guest buttons -->
+      <button data-auth="guest" onclick="AUTH.open('login')" class="btn-secondary" style="padding:8px 16px;background:transparent;border:1px solid #d1d5db;border-radius:8px;font-size:13px;font-weight:600;color:#374151;cursor:pointer;font-family:inherit">Sign In</button>
+      <button data-auth="guest" onclick="AUTH.open('register')" class="btn-primary" style="padding:8px 16px;background:#1B6B3A;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Daftar</button>
+
+      <!-- User menu -->
+      <div data-auth="user" style="display:none;position:relative" id="user-menu-wrap">
+        <button onclick="document.getElementById('user-dropdown').style.display=document.getElementById('user-dropdown').style.display==='block'?'none':'block'" style="padding:8px 14px;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;font-family:inherit" id="nav-user-name-item">
+          👤 <span id="nav-user-name">Akun</span>
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div id="user-dropdown" style="display:none;position:absolute;top:100%;right:0;margin-top:6px;background:#fff;border:1px solid #e5e7eb;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.1);min-width:180px;overflow:hidden">
+          <a href="pengguna.html" style="display:block;padding:10px 14px;text-decoration:none;color:#374151;font-size:13px;font-weight:500">Akun Saya</a>
+          <button onclick="AUTH.logout();document.getElementById('user-dropdown').style.display='none'" style="display:block;width:100%;text-align:left;padding:10px 14px;background:transparent;border:none;border-top:1px solid #f3f4f6;color:#dc2626;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit">Keluar →</button>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-</div></nav>
+</nav>
+
+<style>
+  .nav-link {
+    padding: 8px 14px; border-radius: 6px; text-decoration: none; 
+    color: #4b5563; font-size: 13px; font-weight: 600;
+    transition: all .15s ease;
+  }
+  .nav-link:hover { background: #f3f4f6; color: #1B6B3A; }
+  .nav-link.active { background: #ecfdf5; color: #1B6B3A; }
+  .nav-icon-btn:hover { background: #f3f4f6 !important; }
+  .btn-primary:hover { background: #155028 !important; transform: translateY(-1px); }
+  .btn-secondary:hover { background: #f9fafb !important; border-color: #1B6B3A !important; color: #1B6B3A !important; }
+  @media (max-width: 768px) {
+    .nav-links { display: none !important; }
+  }
+</style>
 <div class="auth-overlay" id="auth-overlay" onclick="AUTH.closeOutside(event)">
  <div class="auth-box">
   <button class="auth-close" onclick="AUTH.close()">✕</button>
@@ -3041,25 +3057,36 @@ const _sb = supabase.createClient('https://wkcqnqtwuxzcjagitkmk.supabase.co', 's
   </div>
 </div>
 </div>
-<footer style="background:var(--dark);color:#C8C2B5;padding:48px 28px 36px;text-align:center;font-size:12px;line-height:1.7;border-top:1px solid rgba(255,255,255,0.06)">
-  <div style="max-width:640px;margin:0 auto">
-    <div style="font-family:'Cormorant Garamond','Georgia',serif;font-size:20px;color:#fff;font-weight:600;margin-bottom:4px">Avenir Research</div>
-    <div style="opacity:.5;font-size:12px;margin-bottom:24px">Equity research marketplace · PT Avenir Fortuna Corporindo · <a href="https://avenirfortuna.com" target="_blank" style="color:#C8C2B5;text-decoration:none">avenirfortuna.com</a></div>
-    <div style="opacity:.4;font-size:11px;line-height:1.8;max-width:520px;margin:0 auto 28px;border-top:1px solid rgba(255,255,255,0.08);padding-top:20px">
-      Seluruh konten Avenir Research merupakan referensi edukasi berbasis data publik (Annual Report audited & laporan keuangan resmi). Bukan merupakan rekomendasi investasi. Seluruh keputusan investasi adalah tanggung jawab investor masing-masing.
+<footer style="background:#0f172a;color:#94a3b8;padding:48px 24px 24px;margin-top:80px">
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;margin-bottom:32px">
+      <div>
+        <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;font-weight:600;color:#fff;margin-bottom:12px;letter-spacing:.02em">Avenir Research</div>
+        <p style="font-size:13px;line-height:1.7;color:#94a3b8;margin:0">
+          Riset ekuitas independen oleh PT Avenir Fortuna Corporindo. Berbasis laporan keuangan audited.
+        </p>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:.1em;color:#cbd5e1;text-transform:uppercase;margin-bottom:14px">Riset</div>
+        <a href="katalog.html" style="display:block;font-size:13px;color:#94a3b8;text-decoration:none;margin-bottom:8px">Katalog Riset</a>
+        <a href="news.html" style="display:block;font-size:13px;color:#94a3b8;text-decoration:none;margin-bottom:8px">Market News</a>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:.1em;color:#cbd5e1;text-transform:uppercase;margin-bottom:14px">Perusahaan</div>
+        <a href="tentang.html" style="display:block;font-size:13px;color:#94a3b8;text-decoration:none;margin-bottom:8px">Tentang Avenir</a>
+        <a href="mitra.html" style="display:block;font-size:13px;color:#94a3b8;text-decoration:none;margin-bottom:8px">Mitra Terverifikasi</a>
+        <a href="pengguna.html" style="display:block;font-size:13px;color:#94a3b8;text-decoration:none;margin-bottom:8px">Panduan Pengguna</a>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:.1em;color:#cbd5e1;text-transform:uppercase;margin-bottom:14px">Kontak</div>
+        <a href="https://avenirfortuna.com" target="_blank" style="display:block;font-size:13px;color:#94a3b8;text-decoration:none;margin-bottom:8px">avenirfortuna.com</a>
+        <p style="font-size:12px;color:#64748b;line-height:1.6;margin:8px 0 0">PT Avenir Fortuna Corporindo<br>IDX Tower, Jakarta</p>
+      </div>
     </div>
-    <div style="display:flex;justify-content:center;gap:16px;margin-bottom:24px">
-      <a href="https://www.instagram.com/avenircommunity.id?igsh=ZWhxbGYzcGpkN3pz" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);text-decoration:none" onmouseover="this.style.background='rgba(255,255,255,0.14)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8C2B5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-      </a>
-      <a href="https://t.me/avenircommunity" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);text-decoration:none" onmouseover="this.style.background='rgba(255,255,255,0.14)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8C2B5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-      </a>
-      <a href="https://chat.whatsapp.com/KNjYBzz2FMxAWFXFkLQGOL" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);text-decoration:none" onmouseover="this.style.background='rgba(255,255,255,0.14)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8C2B5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-      </a>
+    <div style="border-top:1px solid #1e293b;padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+      <div style="font-size:12px;color:#64748b">© 2026 PT Avenir Fortuna Corporindo. Semua hak dilindungi.</div>
+      <div style="font-size:11px;color:#64748b;font-style:italic">Riset bersifat informatif & edukatif — bukan rekomendasi investasi.</div>
     </div>
-    <div style="opacity:.3;font-size:11px">© 2026 PT Avenir Fortuna Corporindo. All rights reserved.</div>
   </div>
 </footer>
 <script>
@@ -3384,7 +3411,7 @@ const AUTH = {
     }
     _sb.auth.onAuthStateChange(async (event, session) => {
       AUTH.currentUser = session?.user || null;
-      AUTH.refreshUI();
+      try { AUTH.refreshUI(); } catch(e) { console.warn('refreshUI error:', e); }
     });
   },
 
@@ -3522,7 +3549,7 @@ const AUTH = {
     // Login berhasil - tutup modal
     AUTH.currentUser = data.user;
     AUTH.close();
-    AUTH.refreshUI();
+    try { AUTH.refreshUI(); } catch(e) { console.warn('refreshUI error:', e); }
   },
 
   // Logout
@@ -3755,5 +3782,60 @@ document.addEventListener('click', function(e) {
   }
 });
 </script>
+
+<script>
+/* Nav active state + user menu */
+(function(){
+  var path = window.location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.nav-link').forEach(function(link){
+    var href = link.getAttribute('href');
+    if (href === path || (path === '' && href === 'index.html')) {
+      link.classList.add('active');
+    }
+  });
+  // Click outside user dropdown to close
+  document.addEventListener('click', function(e){
+    var dd = document.getElementById('user-dropdown');
+    var wrap = document.getElementById('user-menu-wrap');
+    if (dd && wrap && !wrap.contains(e.target)) dd.style.display = 'none';
+  });
+})();
+</script>
+
+
+<script>
+/* Patch: update user name pada nav baru saat auth state berubah */
+(function(){
+  function updateUserName(){
+    if (typeof AUTH === 'undefined') return;
+    var user = AUTH.currentUser;
+    var nameEl = document.getElementById('nav-user-name');
+    if (nameEl && user) {
+      nameEl.textContent = user.user_metadata?.nama_depan || user.email?.split('@')[0] || 'Akun';
+    }
+  }
+  // Wait for AUTH to be ready
+  if (typeof AUTH !== 'undefined') {
+    var origRefresh = AUTH.refreshUI;
+    AUTH.refreshUI = async function(){
+      try { await origRefresh.apply(AUTH, arguments); } catch(e) { console.warn(e); }
+      updateUserName();
+    };
+    setTimeout(updateUserName, 500);
+  } else {
+    document.addEventListener('DOMContentLoaded', function(){
+      if (typeof AUTH !== 'undefined') {
+        var origRefresh = AUTH.refreshUI;
+        AUTH.refreshUI = async function(){
+          try { await origRefresh.apply(AUTH, arguments); } catch(e) { console.warn(e); }
+          updateUserName();
+        };
+        setTimeout(updateUserName, 500);
+      }
+    });
+  }
+})();
+</script>
+
 </body>
 </html>
