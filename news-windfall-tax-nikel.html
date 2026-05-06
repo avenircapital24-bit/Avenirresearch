@@ -2819,6 +2819,10 @@ text-shadow: none;
   .cnt { padding-left: 18px !important; padding-right: 18px !important; }
   .idx-hero { padding-left: 18px !important; padding-right: 18px !important; }
 }
+
+/* Card cover landscape fix */
+.card-cover{width:calc(100% + 28px);margin:-14px -14px 14px -14px;height:160px;overflow:hidden;border-radius:10px 10px 0 0;display:block;}
+.card-cover img{width:100%;height:100%;object-fit:cover;object-position:center center;display:block;}
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -2872,6 +2876,109 @@ const _sb = supabase.createClient('https://wkcqnqtwuxzcjagitkmk.supabase.co', 's
   </div>
 </div>
 </div></nav>
+<div class="auth-overlay" id="auth-overlay" onclick="AUTH.closeOutside(event)">
+ <div class="auth-box">
+  <button class="auth-close" onclick="AUTH.close()">✕</button>
+
+  <!-- LOGIN -->
+  <div class="auth-view active" id="auth-login">
+   <h3>Selamat Datang</h3>
+   <p class="auth-sub">Masuk untuk mengakses riset yang sudah Anda beli</p>
+   <div class="auth-err" id="login-err"></div>
+   <div class="auth-fg"><label>EMAIL</label><input type="email" id="l-email" placeholder="email@anda.com" autocomplete="email"></div>
+   <div class="auth-fg"><label>PASSWORD</label><input type="password" id="l-pass" placeholder="••••••••" autocomplete="current-password"></div>
+   <button class="auth-submit grn" onclick="AUTH.login()">Masuk →</button>
+   <div class="auth-sep">Belum punya akun?</div>
+   <button class="auth-submit" style="background:transparent;border:1px solid var(--bd);color:var(--t2);font-weight:600;padding:11px;border-radius:50px;width:100%;cursor:pointer;font-family:inherit" onclick="AUTH.show('register')">Daftar Gratis</button>
+  </div>
+
+  <!-- REGISTER -->
+  <div class="auth-view" id="auth-register">
+   <h3>Buat Akun</h3>
+   <p class="auth-sub">Daftar gratis untuk mulai mengakses riset premium</p>
+   <div class="auth-err" id="reg-err"></div>
+   <div class="auth-2col">
+    <div class="auth-fg"><label>NAMA DEPAN</label><input type="text" id="r-fname" placeholder="Budi"></div>
+    <div class="auth-fg"><label>NAMA BELAKANG</label><input type="text" id="r-lname" placeholder="Santoso"></div>
+   </div>
+   <div class="auth-fg"><label>EMAIL</label><input type="email" id="r-email" placeholder="email@anda.com" autocomplete="email"></div>
+   <div class="auth-fg"><label>PASSWORD</label><input type="password" id="r-pass" placeholder="Min. 8 karakter" autocomplete="new-password"></div>
+   <div class="auth-fg">
+    <label>PROFIL INVESTOR</label>
+    <select id="r-profile">
+     <option>Investor Individu</option>
+     <option>Trader Aktif</option>
+     <option>Fund Manager</option>
+     <option>Institusi / Perusahaan</option>
+    </select>
+   </div>
+   <button class="auth-submit grn" onclick="AUTH.register()">Daftar Sekarang →</button>
+   <div class="auth-toggle">Sudah punya akun? <a onclick="AUTH.show('login')">Masuk</a></div>
+  </div>
+
+  <!-- DAFTAR MITRA ANALIS -->
+  <div class="auth-view" id="auth-analyst">
+   <h3>Pendaftaran Mitra Analis</h3>
+   <p class="auth-sub">Kirimkan aplikasi Anda sebagai analis riset freelance Avenir</p>
+   <div class="auth-info-box">
+    Setiap riset yang diterima akan ditinjau oleh tim editorial kami untuk penetapan tarif <strong>Rp5.000–Rp15.000</strong>. Analis mitra mendapatkan <strong>bagi hasil 40%</strong> dari setiap akses riset, dibayarkan bulanan. (60% untuk Avenir mencakup platform, kurasi, marketing & pengembangan)
+   </div>
+   <div class="auth-err" id="analyst-err"></div>
+   <div class="auth-2col">
+    <div class="auth-fg"><label>NAMA DEPAN</label><input type="text" id="a-fname" placeholder="Dewi"></div>
+    <div class="auth-fg"><label>NAMA BELAKANG</label><input type="text" id="a-lname" placeholder="Kusuma, CFA"></div>
+   </div>
+   <div class="auth-fg"><label>EMAIL PROFESIONAL</label><input type="email" id="a-email" placeholder="dewi@perusahaan.com"></div>
+   <div class="auth-fg"><label>NO. HANDPHONE / WA</label><input type="tel" id="a-phone" placeholder="08xx-xxxx-xxxx"></div>
+   <div class="auth-2col">
+    <div class="auth-fg">
+     <label>SERTIFIKASI UTAMA</label>
+     <select id="a-cert">
+      <option>CFA Charterholder</option>
+      <option>CFA Level 1</option>
+      <option>CFA Level 2</option>
+      <option>WPPE</option>
+      <option>WPEE</option>
+      <option>WPMPM</option>
+      <option>Lainnya</option>
+     </select>
+    </div>
+    <div class="auth-fg">
+     <label>SEKTOR SPESIALISASI</label>
+     <select id="a-sector">
+      <option>Banking & Finance</option>
+      <option>Consumer & Retail</option>
+      <option>Energy & Mining</option>
+      <option>Technology & Telco</option>
+      <option>Healthcare & Pharma</option>
+      <option>Infrastruktur & Properti</option>
+      <option>Multi-sektor</option>
+     </select>
+    </div>
+   </div>
+   <div class="auth-fg">
+    <label>INSTITUSI / AFILIASI SAAT INI</label>
+    <input type="text" id="a-company" placeholder="Nama perusahaan atau 'Independen'">
+   </div>
+   <div class="auth-fg">
+    <label>LINK CONTOH RISET (Google Drive / Scribd / LinkedIn)</label>
+    <input type="url" id="a-portfolio" placeholder="https://...">
+   </div>
+   <button class="auth-submit gold" onclick="AUTH.submitAnalyst()">Kirim Aplikasi →</button>
+   <div class="auth-toggle" style="margin-top:12px;font-size:11px">Tim kami akan menghubungi Anda dalam <strong>5–7 hari kerja</strong></div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="auth-view" id="auth-success">
+   <div class="auth-success-icon" id="success-icon">✅</div>
+   <h3 style="text-align:center" id="success-title">Berhasil!</h3>
+   <p class="auth-sub" style="text-align:center" id="success-msg">Selamat datang di Avenir Research.</p>
+   <button class="auth-submit grn" onclick="AUTH.close()">Mulai Jelajahi Riset →</button>
+  </div>
+
+ </div>
+</div>
+
 
 <div id="page-news-windfall-tax-nikel" class="page" style="display:block">
 <div class="news-article">
