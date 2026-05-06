@@ -3385,21 +3385,20 @@ window.addEventListener('popstate', function(e){
  showPage(id);
 });
 
-// Init: baca hash saat pertama kali load
-(function initFromHash(){
- // hash routing removed
- // Tampilkan halaman yang sesuai
- pages.forEach(p=>{
-  const el=document.getElementById('page-'+p);
-  if(el) el.classList.toggle('active', p===validPage);
- });
- // Init nav & footer visibility
- const _nav = document.querySelector('.nav');
- const _footer = document.querySelector('footer');
- if (_nav)    _nav.style.display    = (validPage === 'home') ? 'none' : 'flex';
- if (_footer) _footer.style.display = 'block'; /* AVENIR: always show footer */
-
-})();
+// AVENIR INIT: multi-page architecture - ensure page visible
+(function initPage(){
+  var pageId = 'part';
+  var el = document.getElementById('page-' + pageId);
+  if (el) {
+    el.style.display = 'block';
+    // JANGAN add 'active' class — itu trigger CSS .active{display:flex!important} yang break layout
+  }
+  // Show nav & footer
+  var nav = document.querySelector('.nav');
+  var footer = document.querySelector('footer');
+  if (nav) nav.style.display = (pageId === 'home') ? 'none' : 'flex';
+  if (footer) footer.style.setProperty('display', 'block', 'important');
+})();;
 
 function goIndex(){showPage('index');}
 
@@ -3496,10 +3495,10 @@ const AR = (() => {
     btn.style.color = '#fff';
     if (isLoggedIn) {
       btn.innerHTML = 'Baca Riset →';
-      btn.onclick = () => showPage(ticker);
+      btn.onclick = () => { window.location.href = '/katalog/' + ticker; };
     } else {
       btn.innerHTML = 'Baca Riset →';
-      btn.onclick = () => showPage(ticker);
+      btn.onclick = () => { window.location.href = '/katalog/' + ticker; };
     }
     } else {
     // Semua riset sementara free — login only
@@ -3509,10 +3508,10 @@ const AR = (() => {
     const isLoggedIn = typeof AUTH !== 'undefined' && AUTH.currentUser;
     if (isLoggedIn) {
       btn.innerHTML = 'Baca Riset →';
-      btn.onclick = () => showPage(ticker);
+      btn.onclick = () => { window.location.href = '/katalog/' + ticker; };
     } else {
       btn.innerHTML = 'Baca Riset →';
-      btn.onclick = () => showPage(ticker);
+      btn.onclick = () => { window.location.href = '/katalog/' + ticker; };
     }
    }
   });
