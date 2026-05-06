@@ -2687,27 +2687,6 @@ text-shadow: none;
 }
 .nav-cart-btn:hover { color: var(--grn); }
 
-/* ── News Banner di Index ── */
-.idx-news-banner {
-  display: flex; align-items: center; gap: 10px;
-  background: linear-gradient(135deg, #0E1411 0%, #1B3A2A 100%);
-  border: 1px solid rgba(27,107,58,.3);
-  border-radius: 10px; padding: 12px 18px;
-  margin-bottom: 20px; cursor: pointer;
-  transition: border-color .2s;
-}
-.idx-news-banner:hover { border-color: var(--grn); }
-.idx-news-tag {
-  font-size: 10px; font-weight: 700; letter-spacing: .1em;
-  color: var(--grn); background: rgba(27,107,58,.15);
-  padding: 3px 8px; border-radius: 4px; flex-shrink: 0;
-}
-.idx-news-text {
-  font-size: 13px; color: #e8e2d6; flex: 1;
-  font-family: 'Inter', sans-serif;
-}
-.idx-news-arrow { color: var(--grn); font-size: 16px; flex-shrink: 0; }
-
 /* ── News Page ── */
 .news-page { max-width: 860px; margin: 0 auto; padding: 40px 24px 80px; }
 .news-page-header { margin-bottom: 40px; }
@@ -3093,16 +3072,11 @@ body > footer {
 </div>
 <div id="page-index" class="page" style="display:block">
 <div class="idx-hero">
- <div class="idx-news-banner" onclick="window.location.href='news.html'">
-  <span class="idx-news-tag">NEWS</span>
-  <span class="idx-news-text">Terbaru: Purbaya Konfirmasi Windfall Tax Nikel — ANTM −2,63%, INCO −2,55%</span>
-  <span class="idx-news-arrow">→</span>
-</div>
-<div class="idx-tag"><span class="dot"></span>AVENIR RESEARCH · EQUITY ANALYSIS</div>
+ <div class="idx-tag"><span class="dot"></span>AVENIR RESEARCH · EQUITY ANALYSIS</div>
  <h1>Riset &amp; <span class="hl">Publikasi</span></h1>
  <p>Laporan riset ekuitas mendalam berbasis Annual Report audited. Data terverifikasi, valuasi FCFE tiga skenario.</p>
  <div class="idx-stats">
-  <div><div class="is-v">13</div><div class="is-l">Riset Tersedia</div></div>
+  <div><div class="is-v" data-auto-count="research">13</div><div class="is-l">Riset Tersedia</div></div>
   <div><div class="is-v">4 Tahun</div><div class="is-l">Data Historis</div></div>
   <div><div class="is-v">FCFE</div><div class="is-l">Model Valuasi</div></div>
   <div><div class="is-v">100%</div><div class="is-l">AR Audited</div></div>
@@ -4405,6 +4379,19 @@ window.showNewsList = function(){ window.showPage('news'); };
   setTimeout(forceFooter, 100);
   setTimeout(forceFooter, 500);
   setTimeout(forceFooter, 1500);
+})();
+</script>
+
+
+<script>
+(function(){
+  function updateCount(){
+    var cards = document.querySelectorAll('.card[data-tags]');
+    var el = document.querySelector('[data-auto-count="research"]');
+    if (el && cards.length > 0) el.textContent = cards.length;
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', updateCount);
+  else updateCount();
 })();
 </script>
 

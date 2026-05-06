@@ -3239,42 +3239,42 @@ body > footer {
  <div class="hc-eyebrow">◆ COVERAGE SEKTORAL</div>
  <h2 class="hc-title">8 Sektor IDX yang <span class="hl">Kami Liput</span></h2>
  <div class="hc-grid">
-  <div class="hc-item" onclick="window.location.href='katalog.html'">
+  <div class="hc-item" data-cat-match="mining" onclick="window.location.href='katalog.html'">
    <div class="hc-icon" style="background:#FEF3E2;color:#C97B1A">⛏</div>
    <div class="hc-name">Mining & EPC</div>
    <div class="hc-count">2 riset</div>
   </div>
-  <div class="hc-item" onclick="window.location.href='katalog.html'">
+  <div class="hc-item" data-cat-match="consumer" onclick="window.location.href='katalog.html'">
    <div class="hc-icon" style="background:#FFF8E1;color:#8B6914">🥛</div>
    <div class="hc-name">Consumer</div>
    <div class="hc-count">3 riset</div>
   </div>
-  <div class="hc-item" onclick="window.location.href='katalog.html'">
+  <div class="hc-item" data-cat-match="banking" onclick="window.location.href='katalog.html'">
    <div class="hc-icon" style="background:#E3F2FD;color:#1976D2">🏦</div>
    <div class="hc-name">Banking</div>
    <div class="hc-count">2 riset</div>
   </div>
-  <div class="hc-item" onclick="window.location.href='katalog.html'">
+  <div class="hc-item" data-cat-match="tech|semiconductor" onclick="window.location.href='katalog.html'">
    <div class="hc-icon" style="background:#F3E5F5;color:#7B1FA2">💻</div>
    <div class="hc-name">Tech & AI</div>
    <div class="hc-count">2 riset</div>
   </div>
-  <div class="hc-item" onclick="window.location.href='katalog.html'">
+  <div class="hc-item" data-cat-match="telco" onclick="window.location.href='katalog.html'">
    <div class="hc-icon" style="background:#E0F2F1;color:#00897B">📡</div>
    <div class="hc-name">Telco & Infra</div>
    <div class="hc-count">1 riset</div>
   </div>
-  <div class="hc-item" onclick="window.location.href='katalog.html'">
+  <div class="hc-item" data-cat-match="manufacturing" onclick="window.location.href='katalog.html'">
    <div class="hc-icon" style="background:#FFEBEE;color:#C62828">🏭</div>
    <div class="hc-name">Manufacturing</div>
    <div class="hc-count">1 riset</div>
   </div>
-  <div class="hc-item" onclick="window.location.href='katalog.html'">
+  <div class="hc-item" data-cat-match="agribusiness" onclick="window.location.href='katalog.html'">
    <div class="hc-icon" style="background:#E8F5E9;color:#2E7D32">🌴</div>
    <div class="hc-name">Agribusiness</div>
    <div class="hc-count">1 riset (gratis)</div>
   </div>
-  <div class="hc-item" onclick="window.location.href='katalog.html'">
+  <div class="hc-item" data-cat-match="us-stock|global" onclick="window.location.href='katalog.html'">
    <div class="hc-icon" style="background:#F5F5F5;color:#616161">🌐</div>
    <div class="hc-name">US Listed</div>
    <div class="hc-count">1 riset</div>
@@ -3381,7 +3381,7 @@ body > footer {
 </footer>
 <script>
 function showPage(id){
-  var m={'home':'index.html', 'index': 'katalog.html', 'news': 'news.html', 'news-pdb-q1-2026': 'news-pdb-q1-2026.html', 'news-windfall-tax-nikel': 'news-windfall-tax-nikel.html', 'news-tpia-force-majeure': 'news-tpia-force-majeure.html', 'ptro': 'ptro.html', 'cmry': 'cmry.html', 'avia': 'avia.html', 'mrvl': 'mrvl.html', 'nisp': 'nisp.html', 'bbri': 'bbri.html', 'asgr': 'asgr.html', 'gfs': 'gfs.html', 'dmas': 'dmas.html', 'dewa': 'dewa.html', 'ades': 'ades.html', 'wifi': 'wifi.html', 'part': 'part.html', 'smar': 'smar.html', 'crm': 'crm.html', 'tentang': 'tentang.html', 'mitra': 'mitra.html', 'pengguna': 'pengguna.html'};
+  var m={'home':'index.html', 'index': 'katalog.html', 'news': 'news.html', 'news-pdb-q1-2026': 'news-pdb-q1-2026.html', 'news-windfall-tax-nikel': 'news-windfall-tax-nikel.html', 'news-tpia-force-majeure': 'news-tpia-force-majeure.html', 'ptro': 'ptro.html', 'cmry': 'cmry.html', 'avia': 'avia.html', 'mrvl': 'mrvl.html', 'nisp': 'nisp.html', 'bbri': 'bbri.html', 'asgr': 'asgr.html', 'gfs': 'gfs.html', 'pyfa': 'pyfa.html', 'dmas': 'dmas.html', 'dewa': 'dewa.html', 'ades': 'ades.html', 'wifi': 'wifi.html', 'part': 'part.html', 'smar': 'smar.html', 'crm': 'crm.html', 'tentang': 'tentang.html', 'mitra': 'mitra.html', 'pengguna': 'pengguna.html'};
   if(m[id]) window.location.href=m[id];
 }
 function showNewsArticle(id){showPage('news-'+id);}
@@ -4180,6 +4180,46 @@ window.showNewsList = function(){ window.showPage('news'); };
   setTimeout(forceFooter, 100);
   setTimeout(forceFooter, 500);
   setTimeout(forceFooter, 1500);
+})();
+</script>
+
+
+<script>
+/* Auto-counter — Per Kategori Riset di Homepage.
+   Fetch katalog.html, hitung card per kategori berdasarkan data-tags.
+   Saat user tambah card baru di katalog, counter di sini auto-update.
+   Fallback: angka hardcoded (kalau fetch gagal di file:// local). */
+(function(){
+  async function updateCounts(){
+    try {
+      var res = await fetch('katalog.html');
+      if (!res.ok) return;
+      var html = await res.text();
+      var parser = new DOMParser();
+      var doc = parser.parseFromString(html, 'text/html');
+      var cards = Array.from(doc.querySelectorAll('.card[data-tags]'));
+      if (cards.length === 0) return;
+      
+      document.querySelectorAll('.hc-item[data-cat-match]').forEach(function(item){
+        var match = item.getAttribute('data-cat-match');
+        var patterns = match.split('|').map(function(p){ return p.toLowerCase().trim(); });
+        var count = cards.filter(function(c){
+          var tags = (c.getAttribute('data-tags') || '').toLowerCase();
+          return patterns.some(function(p){ return tags.indexOf(p) !== -1; });
+        }).length;
+        var countEl = item.querySelector('.hc-count');
+        if (countEl) {
+          var wasFree = countEl.textContent.indexOf('gratis') !== -1;
+          countEl.textContent = count + ' riset' + (wasFree ? ' (gratis)' : '');
+        }
+      });
+      
+      var totalEl = document.querySelector('[data-auto-count="research"]');
+      if (totalEl) totalEl.textContent = cards.length;
+    } catch(e) {}
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', updateCounts);
+  else updateCounts();
 })();
 </script>
 
