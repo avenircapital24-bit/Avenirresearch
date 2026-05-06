@@ -3706,13 +3706,24 @@ const AUTH = {
 
     AUTH.err('reg-err', 'Mendaftarkan akun...', 'var(--grn)');
 
-    const { data, error } = await _sb.auth.signUp({
+    let data, error;
+    try {
+      const regPromise = _sb.auth.signUp({
       email, password: pass,
       options: {
         emailRedirectTo: window.location.origin + window.location.pathname + '#home',
         data: { nama_depan: fn, nama_belakang: ln, profil_investor: profil }
       }
     });
+      const timeoutPromise = new Promise(function(_, reject){
+        setTimeout(function(){ reject(new Error('Request timeout - cek Supabase config')); }, 15000);
+      });
+      const res = await Promise.race([regPromise, timeoutPromise]);
+      data = res.data; error = res.error;
+    } catch(e) {
+      console.error('[AUTH.register] Error:', e);
+      return AUTH.err('register-err', e.message || 'Tidak bisa terhubung. Cek console.');
+    }
 
     if (error) return AUTH.err('reg-err', 'Error: ' + error.message);
 
@@ -3738,9 +3749,21 @@ const AUTH = {
 
     AUTH.err('login-err', 'Masuk...', 'var(--grn)');
 
-    const { data, error } = await _sb.auth.signInWithPassword({ email, password: pass });
+    var loginPromise = _sb.auth.signInWithPassword({ email, password: pass });
+    var timeoutPromise = new Promise(function(_, reject){
+      setTimeout(function(){ reject(new Error('Request timeout - cek koneksi atau Supabase Site URL belum diset ke domain ini')); }, 10000);
+    });
+    let data, error;
+    try {
+      const result = await Promise.race([loginPromise, timeoutPromise]);
+      data = result.data; error = result.error;
+    } catch(e) {
+      console.error('[AUTH.login] Network/timeout error:', e);
+      return AUTH.err('login-err', e.message || 'Tidak bisa terhubung ke server. Cek console (F12).');
+    }
 
     if (error) {
+      console.error('[AUTH.login] Supabase error:', error);
       const msg = error.message.includes('Email not confirmed')
         ? 'Email belum dikonfirmasi. Cek inbox/spam.'
         : error.message.includes('invalid_credentials') || error.message.includes('Invalid login')
