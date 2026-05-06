@@ -6,7 +6,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tentang Avenir — Avenir Research</title>
+<title>Tentang — Avenir Research</title>
 
 <style>
 
@@ -2819,10 +2819,6 @@ text-shadow: none;
   .cnt { padding-left: 18px !important; padding-right: 18px !important; }
   .idx-hero { padding-left: 18px !important; padding-right: 18px !important; }
 }
-
-/* Card cover landscape fix */
-.card-cover{width:calc(100% + 28px);margin:-14px -14px 14px -14px;height:160px;overflow:hidden;border-radius:10px 10px 0 0;display:block;}
-.card-cover img{width:100%;height:100%;object-fit:cover;object-position:center center;display:block;}
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -2978,8 +2974,6 @@ const _sb = supabase.createClient('https://wkcqnqtwuxzcjagitkmk.supabase.co', 's
 
  </div>
 </div>
-
-
 <div id="page-tentang" class="page" style="display:block">
 <div class="info-page">
  <div class="ip-eyebrow">◆ Tentang Kami</div>
@@ -3055,12 +3049,141 @@ function showPage(id){
   if(m[id]) window.location.href=m[id];
 }
 function showNewsArticle(id){showPage('news-'+id);}
-function showNewsList(){window.location.href='news.html';}
+function showNewsList(){showPage('news');}
 </script>
 <script>
 const FREE_RESEARCH = ['smar','mrvl','crm','ptro','cmry','avia','nisp','bbri','asgr','dewa','ades','wifi','part'];
 
+const pages=['home','index','news','news-pdb-q1-2026','news-windfall-tax-nikel','news-tpia-force-majeure','ptro','cmry','avia','mrvl','nisp','bbri','asgr','dewa','ades','wifi','part','smar','crm','tentang','mitra','pengguna'];
 
+function showPage(id){
+ // Tutup dropdown menu kalau terbuka
+ const _drop = document.getElementById('nav-drop');
+ const _btn  = document.querySelector('.nav-auth-main-btn');
+ if (_drop) _drop.classList.remove('open');
+ if (_btn)  _btn.classList.remove('open');
+
+ // Semua riset butuh login
+ const ALL_RESEARCH_PAGES = ['smar','mrvl','crm','ptro','cmry','avia','nisp','bbri','asgr','dewa','ades','wifi','part'];
+ if (ALL_RESEARCH_PAGES.includes(id) && typeof AUTH !== 'undefined' && !AUTH.currentUser) {
+   AUTH.open('login');
+   return;
+ }
+ // Pastikan paywall hidden saat sudah login
+ const _pw = document.getElementById('pw-' + id);
+ if (_pw) _pw.style.display = 'none';
+
+ // Validasi page ID
+ if(!pages.includes(id)) id='home';
+ 
+ // Toggle visibility
+ pages.forEach(p=>{
+  const el=document.getElementById('page-'+p);
+  if(el) el.classList.toggle('active', p===id);
+ });
+ 
+ // Update URL hash tanpa trigger reload
+ const newHash = '#'+id;
+ if(window.location.hash !== newHash){
+  history.pushState({page:id}, '', newHash);
+ }
+ 
+ // Scroll ke atas
+ if(typeof updateMineFilter==='function'&&document.getElementById('filter-mine')) updateMineFilter();
+  // Show/hide nav & footer: hidden di home, visible di semua page lain
+  const navEl    = document.querySelector('.nav');
+  const footerEl = document.querySelector('footer');
+  if (navEl)    navEl.style.display    = (id === 'home') ? 'none' : 'flex';
+  if (footerEl) footerEl.style.display = (id === 'home') ? 'none' : 'block';
+  window.scrollTo(0,0);
+}
+
+window.addEventListener('popstate', function(e){
+ const id = e.state?.page || location.hash.slice(1) || 'home';
+ showPage(id);
+});
+
+// Init: baca hash saat pertama kali load
+(function initFromHash(){
+ const hash = window.location.hash.slice(1); // hapus #
+ const validPage = pages.includes(hash) ? hash : 'home';
+ 
+ // Set initial history state
+ history.replaceState({page:validPage}, '', '#'+validPage);
+ 
+ // Tampilkan halaman yang sesuai
+ pages.forEach(p=>{
+  const el=document.getElementById('page-'+p);
+  if(el) el.classList.toggle('active', p===validPage);
+ });
+ // Init nav & footer visibility
+ const _nav = document.querySelector('.nav');
+ const _footer = document.querySelector('footer');
+ if (_nav)    _nav.style.display    = (validPage === 'home') ? 'none' : 'flex';
+ if (_footer) _footer.style.display = (validPage === 'home') ? 'none' : 'block';
+
+})();
+
+function goIndex(){showPage('index');}
+
+function filterCards(cat, btn){
+ document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+ btn.classList.add('active');
+
+ const unlocked = JSON.parse(localStorage.getItem('ar_unlocked') || '[]');
+
+ const free = (typeof FREE_RESEARCH !== 'undefined') ? FREE_RESEARCH : ['smar','mrvl','crm'];
+    const myTickers = [...new Set([...unlocked, ...free])];
+ document.querySelectorAll('.card').forEach(c=>{
+  const tags = (c.dataset.tags || c.dataset.cat || '').toLowerCase();
+  // Cari ticker dari onclick tombol
+  const btn = c.querySelector('button[id^="btn-"]');
+  const ticker = btn ? btn.id.replace('btn-','') : '';
+  let show;
+  if (cat === 'all') show = true;
+  else if (cat === 'mine') show = myTickers.includes(ticker);
+  else show = (tags === cat || tags.includes(cat));
+  c.style.display = show ? '' : 'none';
+ });
+}
+
+function updateMineFilter() {
+
+  const free = (typeof FREE_RESEARCH !== 'undefined') ? FREE_RESEARCH : ['smar','mrvl','crm'];
+  const unlocked = JSON.parse(localStorage.getItem('ar_unlocked') || '[]');
+  const myTickers = [...new Set([...unlocked, ...free])];
+  const myCount = myTickers.length;
+  const filterMine = document.getElementById('filter-mine');
+  const countEl = document.getElementById('filter-mine-count');
+  // Selalu tampil karena ada free research
+  if (filterMine) filterMine.style.display = '';
+  if (countEl) countEl.textContent = '(' + myCount + ')';
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  updateMineFilter();
+});
+
+function toggleDrawer(id){
+ const dr=document.getElementById('dr-'+id);
+ const ov=document.getElementById('ov-'+id);
+ const btn=document.getElementById('btn-'+id);
+ if(dr){dr.classList.toggle('open');}
+ if(ov){ov.classList.toggle('open');}
+ if(btn){btn.classList.toggle('open');}
+}
+
+function closeDrawer(id){
+ const dr=document.getElementById('dr-'+id);
+ const ov=document.getElementById('ov-'+id);
+ const btn=document.getElementById('btn-'+id);
+ if(dr){dr.classList.remove('open');}
+ if(ov){ov.classList.remove('open');}
+ if(btn){btn.classList.remove('open');}
+}
+
+/* ── News navigation ── */
+;
 
 const AR = (() => {
  // Helpers
@@ -3079,7 +3202,151 @@ const AR = (() => {
   document.addEventListener("keydown", e => { if (e.key === "Escape") close(); });
  }
 
- function updateAllButtons(){}
+ function updateAllButtons() {
+
+  const FREE_RESEARCH = ['smar','mrvl','crm','ptro','cmry','avia','nisp','bbri','asgr','dewa','ades','wifi','part'];
+  Object.keys(RESEARCH).forEach(ticker => {
+   const btn = document.getElementById("btn-" + ticker);
+   const pw = document.getElementById("pw-" + ticker);
+   if (!btn) return;
+
+   if (FREE_RESEARCH.includes(ticker)) {
+    // Free research: pw-overlay selalu tersembunyi
+    // Login enforcement dilakukan oleh showPage guard
+    if (pw) pw.style.display = 'none';
+    const isLoggedIn = typeof AUTH !== 'undefined' && AUTH.currentUser;
+    btn.style.background = 'var(--grn)';
+    btn.style.color = '#fff';
+    if (isLoggedIn) {
+      btn.innerHTML = 'Login untuk Membaca Riset';
+      btn.onclick = () => showPage(ticker);
+    } else {
+      btn.innerHTML = 'Login untuk Akses';
+      btn.onclick = () => (typeof AUTH !== 'undefined' ? AUTH.open('login') : null);
+    }
+    } else {
+    // Semua riset sementara free — login only
+    if (pw) pw.style.display = 'none';
+    btn.style.background = 'var(--grn)';
+    btn.style.color = '#fff';
+    const isLoggedIn = typeof AUTH !== 'undefined' && AUTH.currentUser;
+    if (isLoggedIn) {
+      btn.innerHTML = 'Login untuk Membaca Riset';
+      btn.onclick = () => showPage(ticker);
+    } else {
+      btn.innerHTML = 'Login untuk Akses';
+      btn.onclick = () => (typeof AUTH !== 'undefined' ? AUTH.open('login') : null);
+    }
+   }
+  });
+  updateChip();
+  if (typeof updateMineFilter === 'function') updateMineFilter();
+ }
+
+ function updateChip() {
+  const ul = getUnlocked();
+  const chip = document.getElementById("nav-chip");
+  if (!chip) return;
+  if (ul.length > 0) {
+   chip.style.display = "inline-flex";
+   document.getElementById("chip-init").textContent = ul.length;
+   document.getElementById("chip-name").textContent = ul.length + " riset";
+  } else {
+   chip.style.display = "none";
+  }
+ }
+
+ function showUnlocked() {
+  const ul = getUnlocked();
+  if (ul.length === 0) { alert("Anda belum memiliki riset."); return; }
+  const names = ul.map(t => "• " + (RESEARCH[t] ? RESEARCH[t].name : t)).join("\n");
+  alert("Riset yang sudah Anda buka:\n\n" + names);
+ }
+
+ function tap(ticker) {
+  // SMAR = free, langsung buka
+  if (ticker === 'smar' || isUnlocked(ticker)) { showPage(ticker); return; }
+
+  showPage(ticker);
+ }
+
+ function openConfirm(ticker, price) {
+  activeTicker = ticker;
+  const info = RESEARCH[ticker];
+  // Set modal content
+  document.getElementById("ms-price").textContent = fmt(price);
+  document.getElementById("ms-name").textContent = info ? info.name : ticker.toUpperCase();
+
+  const msg = encodeURIComponent("Avenir Research - " + ticker.toUpperCase());
+  document.getElementById("saw-link").href =
+   "https://saweria.co/" + SAWERIA_USER + "?amount=" + price + "&message=" + msg;
+  // Reset UI
+  document.getElementById("ar-code").value = "";
+  document.getElementById("ar-err").style.display = "none";
+  document.getElementById("ar-step1").style.display = "block";
+  document.getElementById("ar-step2").style.display = "none";
+  // Open modal
+  document.getElementById("ar-overlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+ }
+
+ function openSaweria(ticker, price) {
+  openConfirm(ticker, price);
+
+  setTimeout(() => { document.getElementById("saw-link").click(); }, 400);
+ }
+
+ function verify() {
+  const code = (document.getElementById("ar-code").value || "").trim();
+  const errEl = document.getElementById("ar-err");
+  errEl.style.display = "none";
+
+  if (!code) {
+   errEl.textContent = "Harap masukkan Donation ID dari email Saweria Anda.";
+   errEl.style.display = "block";
+   return;
+  }
+  if (code.length < 5) {
+   errEl.textContent = "Donation ID terlalu pendek. Periksa kembali email Saweria Anda.";
+   errEl.style.display = "block";
+   return;
+  }
+
+  // Unlock semua item (single atau batch)
+  const toUnlock = window._batchTickers && window._batchTickers.length > 0
+   ? window._batchTickers : [activeTicker];
+  toUnlock.forEach(t => {
+    addUnlock(t);
+    // Sync ke Supabase kalau user sudah login
+    if (typeof AUTH !== 'undefined' && AUTH.currentUser) AUTH.unlock(t);
+  });
+  window._batchTickers = null;
+  if (window.CART) { CART.updateCartBtns(); CART.renderBadge(); }
+  updateAllButtons();
+  // Show success
+  document.getElementById("ar-step1").style.display = "none";
+  document.getElementById("ar-step2").style.display = "block";
+ }
+
+ function enter() {
+  close();
+  if (activeTicker) { showPage(activeTicker); activeTicker = null; }
+ }
+
+ function close() {
+  const overlay = document.getElementById('auth-overlay');
+  if (overlay) overlay.classList.remove('open');
+  document.body.style.overflow = '';
+ }
+
+ document.addEventListener("DOMContentLoaded", init);
+ // Expose updateAllButtons globally supaya AUTH.logout bisa reset state
+window.updateAllButtons = updateAllButtons;
+return { tap, openSaweria, openConfirm, verify, enter, close, showUnlocked, updateAllButtons };
+})();
+</script>
+<script>
+/* ═══ SUPABASE AUTH MODULE v2 ═══ */
 const AUTH = {
   currentUser: null,
 
@@ -3331,7 +3598,7 @@ const CART = (() => {
     <div class="cart-empty-icon">🛒</div>
     <div style="font-size:15px;font-weight:600;color:var(--t)">Keranjang kosong</div>
     <div style="font-size:13px;color:var(--t3)">Tambahkan riset dari halaman katalog</div>
-    <button onclick="CART.close();window.location.href='katalog.html'" style="margin-top:8px;padding:9px 22px;border-radius:50px;border:1px solid var(--bd);background:transparent;color:var(--t2);cursor:pointer;font-family:inherit;font-size:13px;font-weight:600">Lihat Katalog Riset</button>
+    <button onclick="CART.close();showPage('index')" style="margin-top:8px;padding:9px 22px;border-radius:50px;border:1px solid var(--bd);background:transparent;color:var(--t2);cursor:pointer;font-family:inherit;font-size:13px;font-weight:600">Lihat Katalog Riset</button>
    </div>`;
    if (footer) footer.classList.add("empty");
    return;
