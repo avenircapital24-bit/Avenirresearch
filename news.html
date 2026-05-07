@@ -2886,6 +2886,122 @@ body > footer {
   z-index: 10 !important;
 }
 </style>
+<style>
+/* Sticky footer pattern - footer always at bottom of viewport */
+html, body { min-height: 100vh; }
+body { display: flex; flex-direction: column; }
+body > nav, body > .nav-global { flex-shrink: 0; }
+body > .page { flex: 1 0 auto; }
+body > .footer-spacer { flex: 0 0 auto; }
+body > footer { flex-shrink: 0; margin-top: auto; }
+
+/* ── Guest Paywall Lock ── */
+.guest-lock-wrap { position: relative; min-height: 600px; }
+.guest-lock-wrap.is-guest .guest-lock-content { 
+  filter: blur(6px); 
+  pointer-events: none; 
+  user-select: none;
+  max-height: 700px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 60%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 60%, transparent 100%);
+}
+.guest-lock-overlay { display: none; }
+.guest-lock-wrap.is-guest .guest-lock-overlay { 
+  display: flex; 
+  position: absolute; 
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, #FFFFFF 0%, #FBFAF6 100%);
+  border: 1px solid var(--bd, #DDE7E2);
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0,0,0,.15);
+  padding: 36px 40px;
+  max-width: 460px;
+  width: calc(100% - 40px);
+  flex-direction: column;
+  text-align: center;
+  z-index: 10;
+}
+.gl-icon { 
+  width: 56px; height: 56px; 
+  background: var(--grn-gl, rgba(27,107,58,.07));
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 16px;
+  font-size: 26px;
+}
+.gl-title { 
+  font-family: 'Cormorant Garamond', Georgia, serif; 
+  font-size: 24px; 
+  font-weight: 600; 
+  color: var(--t, #18211D);
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+.gl-sub { 
+  font-size: 14px; 
+  line-height: 1.6; 
+  color: var(--t2, #4A6355);
+  margin: 0 0 20px;
+}
+.gl-price { 
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; 
+  color: var(--grn-d, #114523);
+  margin-bottom: 18px;
+  font-weight: 600;
+}
+.gl-price strong { font-size: 18px; }
+.gl-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.gl-btn-primary { 
+  background: var(--grn-d, #114523); 
+  color: #fff; 
+  border: none; 
+  padding: 12px 22px; 
+  font-size: 13px; 
+  font-weight: 700; 
+  letter-spacing: .04em; 
+  border-radius: 8px; 
+  cursor: pointer; 
+  text-transform: uppercase;
+  transition: all .2s;
+}
+.gl-btn-primary:hover { background: var(--grn, #1B6B3A); }
+.gl-btn-secondary { 
+  background: transparent; 
+  color: var(--grn-d, #114523); 
+  border: 1px solid var(--grn-d, #114523); 
+  padding: 12px 22px; 
+  font-size: 13px; 
+  font-weight: 700; 
+  letter-spacing: .04em; 
+  border-radius: 8px; 
+  cursor: pointer; 
+  text-transform: uppercase;
+  transition: all .2s;
+}
+.gl-btn-secondary:hover { background: var(--grn-gl, rgba(27,107,58,.07)); }
+.gl-link { 
+  font-size: 12px; 
+  color: var(--t3, #8EA899); 
+  margin-top: 14px; 
+  line-height: 1.5;
+}
+.gl-link a { color: var(--grn, #1B6B3A); text-decoration: none; font-weight: 600; }
+@media (max-width: 600px) {
+  .guest-lock-overlay { padding: 28px 22px; }
+  .gl-title { font-size: 20px; }
+}
+
+
+.auth-trial-banner { display: flex; gap: 10px; align-items: center; background: var(--grn-gl, rgba(27,107,58,.07)); border: 1px solid rgba(27,107,58,.2); border-radius: 8px; padding: 10px 14px; margin: 10px 0 18px; }
+.auth-trial-icon { font-size: 22px; line-height: 1; }
+.auth-trial-text { font-size: 13px; line-height: 1.45; color: var(--t); }
+.auth-trial-text strong { color: var(--grn-d); font-size: 13.5px; }
+
+</style>
 </head>
 <body>
 <nav class="nav-global" style="position:sticky;top:0;z-index:500;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-bottom:1px solid #e5e7eb;box-shadow:0 1px 3px rgba(0,0,0,.04)">
@@ -2896,6 +3012,7 @@ body > footer {
     <div class="nav-links-desktop" style="display:flex;gap:2px;flex:1;align-items:center">
       <a href="index.html" class="nav-link">Beranda</a>
       <a href="katalog.html" class="nav-link">Katalog</a>
+      <a href="artikel.html" class="nav-link">Artikel</a>
       <a href="news.html" class="nav-link">News</a>
       <a href="tentang.html" class="nav-link">Tentang</a>
       <a href="mitra.html" class="nav-link">Mitra</a>
@@ -2925,6 +3042,7 @@ body > footer {
   <div id="mobile-drawer" class="mobile-drawer">
     <a href="index.html" class="mob-link">Beranda</a>
     <a href="katalog.html" class="mob-link">Katalog Riset</a>
+    <a href="artikel.html" class="mob-link">Artikel</a>
     <a href="news.html" class="mob-link">Market News</a>
     <a href="tentang.html" class="mob-link">Tentang Avenir</a>
     <a href="mitra.html" class="mob-link">Mitra Terverifikasi</a>
@@ -2992,7 +3110,11 @@ body > footer {
   <!-- REGISTER -->
   <div class="auth-view" id="auth-register">
    <h3>Buat Akun</h3>
-   <p class="auth-sub">Daftar gratis untuk mulai mengakses riset premium</p>
+   <p class="auth-sub">Akun baru otomatis mendapat akses penuh selama 7 hari — tanpa kartu kredit, tanpa komitmen.</p>
+   <div class="auth-trial-banner">
+    <div class="auth-trial-icon">🎁</div>
+    <div class="auth-trial-text"><strong>7 Hari Akses Gratis</strong><br><span style="font-size:11px;color:var(--t2)">Mulai aktif segera setelah Anda mengonfirmasi email.</span></div>
+   </div>
    <div class="auth-err" id="reg-err"></div>
    <div class="auth-2col">
     <div class="auth-fg"><label>NAMA DEPAN</label><input type="text" id="r-fname" placeholder="Budi"></div>
@@ -3076,6 +3198,9 @@ body > footer {
  </div>
 </div>
 <div id="page-news" class="page" style="display:block">
+<div class="guest-lock-wrap">
+<div class="guest-lock-content">
+
 <!-- News list view -->
 <div id="news-list-view">
 <div class="news-page">
@@ -3086,6 +3211,21 @@ body > footer {
   </div>
   <div class="news-grid">
     <!-- Article 3: TPIA Force Majeure -->
+    <div class="news-card" onclick="window.location.href='news-ctth-pubex-insidental-mei2026.html'">
+      <div class="news-card-body">
+        <div class="news-card-cat">Korporasi · Material &amp; Konstruksi · IDX</div>
+        <div class="news-card-title">Citatah (CTTH) di Persimpangan: Suspensi BEI, Rugi Melebar Dua Kali Lipat, dan Taruhan US$18 Juta di Industri Quicklime</div>
+        <div class="news-card-excerpt">PT Citatah Tbk menggelar Public Expose Insidental 5 Mei 2026 setelah BEI menjatuhkan suspensi cooling down. Manajemen mempertahankan target penjualan Rp 140 miliar meski Q1 baru terealisasi 12 persen, sembari mempersiapkan JV quicklime dengan Chememan Thailand bernilai US$18 juta yang dirancang tanpa kas keluar.</div>
+        <div class="news-card-meta">
+          <span class="news-card-date">6 Mei 2026, 09:30 WIB</span>
+          <span>·</span>
+          <span>Tim Avenir Research</span>
+          <span>·</span>
+          <span class="news-card-free">Akses Gratis</span>
+        </div>
+      </div>
+    </div>
+
     <div class="news-card" onclick="window.location.href='news-tpia-force-majeure.html'">
       <div class="news-card-body">
         <div class="news-card-cat">Korporasi · Petrokimia · IDX</div>
@@ -3139,6 +3279,20 @@ body > footer {
 </div>
 
 <!-- Article views -->
+
+</div>
+<div class="guest-lock-overlay" data-auth="guest">
+  <div class="gl-icon">🔒</div>
+  <div class="gl-title">Daftar Gratis untuk Mulai Akses</div>
+  <div class="gl-sub">Daftar sekarang dan dapatkan <strong>7 hari uji coba gratis</strong> ke seluruh market news dan analisis editorial Avenir Research.</div>
+  <div class="gl-price">Setelah trial: mulai <strong>Rp 69.000</strong> / bulan</div>
+  <div class="gl-actions">
+    <button class="gl-btn-primary" onclick="AUTH.open('register')">Mulai Trial 7 Hari</button>
+    <button class="gl-btn-secondary" onclick="AUTH.open('login')">Sudah Punya Akun</button>
+  </div>
+  <div class="gl-link">Lihat detail paket di <a href="index.html#pricing">homepage</a></div>
+</div>
+</div>
 </div>
 <div class="footer-spacer" style="clear:both;height:0;width:100%"></div>
 <footer style="display:block!important;visibility:visible!important;background:#0f172a;color:#94a3b8;padding:48px 24px 24px;margin-top:80px">
@@ -3175,7 +3329,7 @@ body > footer {
 </footer>
 <script>
 function showPage(id){
-  var m={'home':'index.html', 'index': 'katalog.html', 'news': 'news.html', 'news-pdb-q1-2026': 'news-pdb-q1-2026.html', 'news-windfall-tax-nikel': 'news-windfall-tax-nikel.html', 'news-tpia-force-majeure': 'news-tpia-force-majeure.html', 'ptro': 'ptro.html', 'cmry': 'cmry.html', 'avia': 'avia.html', 'mrvl': 'mrvl.html', 'nisp': 'nisp.html', 'bbri': 'bbri.html', 'asgr': 'asgr.html', 'gfs': 'gfs.html', 'pyfa': 'pyfa.html', 'dmas': 'dmas.html', 'dewa': 'dewa.html', 'ades': 'ades.html', 'wifi': 'wifi.html', 'part': 'part.html', 'smar': 'smar.html', 'crm': 'crm.html', 'tentang': 'tentang.html', 'mitra': 'mitra.html', 'pengguna': 'pengguna.html'};
+  var m={'home':'index.html', 'index': 'katalog.html', 'news': 'news.html', 'artikel-adro-corporate-history': 'artikel-adro-corporate-history.html', 'artikel-tpia-corporate-history': 'artikel-tpia-corporate-history.html', 'news-pdb-q1-2026': 'news-pdb-q1-2026.html', 'news-windfall-tax-nikel': 'news-windfall-tax-nikel.html', 'news-tpia-force-majeure': 'news-tpia-force-majeure.html', 'ptro': 'ptro.html', 'cmry': 'cmry.html', 'avia': 'avia.html', 'mrvl': 'mrvl.html', 'nisp': 'nisp.html', 'bbri': 'bbri.html', 'asgr': 'asgr.html', 'gfs': 'gfs.html', 'pyfa': 'pyfa.html', 'dmas': 'dmas.html', 'dewa': 'dewa.html', 'ades': 'ades.html', 'wifi': 'wifi.html', 'part': 'part.html', 'smar': 'smar.html', 'crm': 'crm.html', 'tentang': 'tentang.html', 'mitra': 'mitra.html', 'pengguna': 'pengguna.html'};
   if(m[id]) window.location.href=m[id];
 }
 function showNewsArticle(id){showPage('news-'+id);}
@@ -3464,17 +3618,87 @@ return { tap, openSaweria, openConfirm, verify, enter, close, showUnlocked, upda
 /* ═══ SUPABASE AUTH MODULE v2 ═══ */
 const AUTH = {
   currentUser: null,
+  profile: null,
+
 
   async init() {
     const { data: { session } } = await _sb.auth.getSession();
     if (session?.user) {
       AUTH.currentUser = session.user;
+      await AUTH.loadProfile();
       AUTH.refreshUI();
     }
     _sb.auth.onAuthStateChange(async (event, session) => {
       AUTH.currentUser = session?.user || null;
+      if (AUTH.currentUser) await AUTH.loadProfile();
+      else AUTH.profile = null;
       AUTH.refreshUI();
     });
+  },
+
+  // Load profile data including trial/subscription dates
+  async loadProfile() {
+    if (!AUTH.currentUser) { AUTH.profile = null; return; }
+    const { data, error } = await _sb.from('profiles').select('*').eq('id', AUTH.currentUser.id).maybeSingle();
+    AUTH.profile = data || null;
+  },
+
+
+
+  // ─── Subscription Status ──
+  // Return true jika user punya akses aktif (trial 7 hari ATAU paid subscription)
+  isSubscriptionActive() {
+    if (!AUTH.currentUser) return false;
+    if (!AUTH.profile) return false;
+    
+    const now = new Date();
+    
+    // 1. Check paid subscription
+    if (AUTH.profile.subscription_until) {
+      const until = new Date(AUTH.profile.subscription_until);
+      if (now < until) return true;
+    }
+    
+    // 2. Check 7-day trial
+    if (AUTH.profile.trial_started_at) {
+      const trialStart = new Date(AUTH.profile.trial_started_at);
+      const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+      if (now < trialEnd) return true;
+    }
+    
+    return false;
+  },
+
+  // Return status string: 'guest' | 'trial' | 'active' | 'expired_trial' | 'expired_paid'
+  getSubscriptionStatus() {
+    if (!AUTH.currentUser) return 'guest';
+    if (!AUTH.profile) return 'guest';
+    
+    const now = new Date();
+    
+    if (AUTH.profile.subscription_until) {
+      const until = new Date(AUTH.profile.subscription_until);
+      if (now < until) return 'active';
+      return 'expired_paid';
+    }
+    
+    if (AUTH.profile.trial_started_at) {
+      const trialStart = new Date(AUTH.profile.trial_started_at);
+      const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+      if (now < trialEnd) return 'trial';
+      return 'expired_trial';
+    }
+    
+    return 'expired_trial';
+  },
+
+  // Return remaining trial days (number, can be negative)
+  getTrialDaysRemaining() {
+    if (!AUTH.profile?.trial_started_at) return null;
+    const trialStart = new Date(AUTH.profile.trial_started_at);
+    const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+    const now = new Date();
+    return Math.ceil((trialEnd - now) / (24 * 60 * 60 * 1000));
   },
 
   // Update semua UI setelah login/logout
@@ -3577,7 +3801,8 @@ const AUTH = {
 
     if (data.user) {
       await _sb.from('profiles').upsert({
-        id: data.user.id, nama_depan: fn, nama_belakang: ln, profil_investor: profil
+        id: data.user.id, nama_depan: fn, nama_belakang: ln, profil_investor: profil,
+        trial_started_at: new Date().toISOString()
       });
     }
 
@@ -3977,5 +4202,69 @@ window.showNewsList = function(){ window.showPage('news'); };
 })();
 </script>
 
+<script>
+(function() {
+  function getStatus() {
+    if (!window.AUTH) return 'guest';
+    if (typeof AUTH.getSubscriptionStatus === 'function') return AUTH.getSubscriptionStatus();
+    return AUTH.currentUser ? 'active' : 'guest';
+  }
+  
+  function updateOverlayContent() {
+    const status = getStatus();
+    const overlay = document.querySelector('.guest-lock-overlay');
+    if (!overlay) return;
+    
+    const titleEl = overlay.querySelector('.gl-title');
+    const subEl = overlay.querySelector('.gl-sub');
+    const priceEl = overlay.querySelector('.gl-price');
+    const actionsEl = overlay.querySelector('.gl-actions');
+    
+    if (!titleEl || !subEl || !actionsEl) return;
+    
+    if (status === 'expired_trial') {
+      titleEl.textContent = 'Masa Uji Coba Gratis Telah Berakhir';
+      subEl.textContent = '7 hari uji coba gratis Anda sudah habis. Berlangganan sekarang untuk lanjut akses semua riset dan analisis.';
+      if (priceEl) priceEl.style.display = '';
+      actionsEl.innerHTML = '<button class="gl-btn-primary" onclick="window.location.href=\'index.html#pricing\'">Lihat Paket Langganan</button>';
+    } else if (status === 'expired_paid') {
+      titleEl.textContent = 'Langganan Anda Telah Berakhir';
+      subEl.textContent = 'Periode langganan Anda sudah selesai. Perpanjang sekarang untuk lanjutkan akses tanpa kehilangan riwayat.';
+      if (priceEl) priceEl.style.display = '';
+      actionsEl.innerHTML = '<button class="gl-btn-primary" onclick="window.location.href=\'index.html#pricing\'">Perpanjang Langganan</button>';
+    } else if (status === 'guest') {
+      // default — keep original text
+    }
+  }
+  
+  function applyLock() {
+    const status = getStatus();
+    const isLocked = (status === 'guest' || status === 'expired_trial' || status === 'expired_paid');
+    
+    document.querySelectorAll('.guest-lock-wrap').forEach(el => {
+      if (isLocked) el.classList.add('is-guest');
+      else el.classList.remove('is-guest');
+    });
+    
+    if (isLocked) updateOverlayContent();
+  }
+  
+  applyLock();
+  document.addEventListener('DOMContentLoaded', applyLock);
+  setTimeout(applyLock, 800);
+  setTimeout(applyLock, 2000);
+  
+  if (window.AUTH) {
+    const origRefresh = window.AUTH.refreshUI;
+    if (origRefresh) {
+      window.AUTH.refreshUI = async function() {
+        const r = await origRefresh.apply(this, arguments);
+        applyLock();
+        return r;
+      };
+    }
+  }
+})();
+</script>
 </body>
 </html>

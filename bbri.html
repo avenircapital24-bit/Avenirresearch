@@ -2886,6 +2886,21 @@ body > footer {
   z-index: 10 !important;
 }
 </style>
+<style>
+/* Sticky footer pattern - footer always at bottom of viewport */
+html, body { min-height: 100vh; }
+body { display: flex; flex-direction: column; }
+body > nav, body > .nav-global { flex-shrink: 0; }
+body > .page { flex: 1 0 auto; }
+body > .footer-spacer { flex: 0 0 auto; }
+body > footer { flex-shrink: 0; margin-top: auto; }
+
+.auth-trial-banner { display: flex; gap: 10px; align-items: center; background: var(--grn-gl, rgba(27,107,58,.07)); border: 1px solid rgba(27,107,58,.2); border-radius: 8px; padding: 10px 14px; margin: 10px 0 18px; }
+.auth-trial-icon { font-size: 22px; line-height: 1; }
+.auth-trial-text { font-size: 13px; line-height: 1.45; color: var(--t); }
+.auth-trial-text strong { color: var(--grn-d); font-size: 13.5px; }
+
+</style>
 </head>
 <body>
 <nav class="nav-global" style="position:sticky;top:0;z-index:500;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-bottom:1px solid #e5e7eb;box-shadow:0 1px 3px rgba(0,0,0,.04)">
@@ -2896,6 +2911,7 @@ body > footer {
     <div class="nav-links-desktop" style="display:flex;gap:2px;flex:1;align-items:center">
       <a href="index.html" class="nav-link">Beranda</a>
       <a href="katalog.html" class="nav-link">Katalog</a>
+      <a href="artikel.html" class="nav-link">Artikel</a>
       <a href="news.html" class="nav-link">News</a>
       <a href="tentang.html" class="nav-link">Tentang</a>
       <a href="mitra.html" class="nav-link">Mitra</a>
@@ -2925,6 +2941,7 @@ body > footer {
   <div id="mobile-drawer" class="mobile-drawer">
     <a href="index.html" class="mob-link">Beranda</a>
     <a href="katalog.html" class="mob-link">Katalog Riset</a>
+    <a href="artikel.html" class="mob-link">Artikel</a>
     <a href="news.html" class="mob-link">Market News</a>
     <a href="tentang.html" class="mob-link">Tentang Avenir</a>
     <a href="mitra.html" class="mob-link">Mitra Terverifikasi</a>
@@ -2992,7 +3009,11 @@ body > footer {
   <!-- REGISTER -->
   <div class="auth-view" id="auth-register">
    <h3>Buat Akun</h3>
-   <p class="auth-sub">Daftar gratis untuk mulai mengakses riset premium</p>
+   <p class="auth-sub">Akun baru otomatis mendapat akses penuh selama 7 hari — tanpa kartu kredit, tanpa komitmen.</p>
+   <div class="auth-trial-banner">
+    <div class="auth-trial-icon">🎁</div>
+    <div class="auth-trial-text"><strong>7 Hari Akses Gratis</strong><br><span style="font-size:11px;color:var(--t2)">Mulai aktif segera setelah Anda mengonfirmasi email.</span></div>
+   </div>
    <div class="auth-err" id="reg-err"></div>
    <div class="auth-2col">
     <div class="auth-fg"><label>NAMA DEPAN</label><input type="text" id="r-fname" placeholder="Budi"></div>
@@ -3244,7 +3265,7 @@ body > footer {
 </footer>
 <script>
 function showPage(id){
-  var m={'home':'index.html', 'index': 'katalog.html', 'news': 'news.html', 'news-pdb-q1-2026': 'news-pdb-q1-2026.html', 'news-windfall-tax-nikel': 'news-windfall-tax-nikel.html', 'news-tpia-force-majeure': 'news-tpia-force-majeure.html', 'ptro': 'ptro.html', 'cmry': 'cmry.html', 'avia': 'avia.html', 'mrvl': 'mrvl.html', 'nisp': 'nisp.html', 'bbri': 'bbri.html', 'asgr': 'asgr.html', 'gfs': 'gfs.html', 'pyfa': 'pyfa.html', 'dmas': 'dmas.html', 'dewa': 'dewa.html', 'ades': 'ades.html', 'wifi': 'wifi.html', 'part': 'part.html', 'smar': 'smar.html', 'crm': 'crm.html', 'tentang': 'tentang.html', 'mitra': 'mitra.html', 'pengguna': 'pengguna.html'};
+  var m={'home':'index.html', 'index': 'katalog.html', 'news': 'news.html', 'artikel-adro-corporate-history': 'artikel-adro-corporate-history.html', 'artikel-tpia-corporate-history': 'artikel-tpia-corporate-history.html', 'news-pdb-q1-2026': 'news-pdb-q1-2026.html', 'news-windfall-tax-nikel': 'news-windfall-tax-nikel.html', 'news-tpia-force-majeure': 'news-tpia-force-majeure.html', 'ptro': 'ptro.html', 'cmry': 'cmry.html', 'avia': 'avia.html', 'mrvl': 'mrvl.html', 'nisp': 'nisp.html', 'bbri': 'bbri.html', 'asgr': 'asgr.html', 'gfs': 'gfs.html', 'pyfa': 'pyfa.html', 'dmas': 'dmas.html', 'dewa': 'dewa.html', 'ades': 'ades.html', 'wifi': 'wifi.html', 'part': 'part.html', 'smar': 'smar.html', 'crm': 'crm.html', 'tentang': 'tentang.html', 'mitra': 'mitra.html', 'pengguna': 'pengguna.html'};
   if(m[id]) window.location.href=m[id];
 }
 function showNewsArticle(id){showPage('news-'+id);}
@@ -3533,17 +3554,87 @@ return { tap, openSaweria, openConfirm, verify, enter, close, showUnlocked, upda
 /* ═══ SUPABASE AUTH MODULE v2 ═══ */
 const AUTH = {
   currentUser: null,
+  profile: null,
+
 
   async init() {
     const { data: { session } } = await _sb.auth.getSession();
     if (session?.user) {
       AUTH.currentUser = session.user;
+      await AUTH.loadProfile();
       AUTH.refreshUI();
     }
     _sb.auth.onAuthStateChange(async (event, session) => {
       AUTH.currentUser = session?.user || null;
+      if (AUTH.currentUser) await AUTH.loadProfile();
+      else AUTH.profile = null;
       AUTH.refreshUI();
     });
+  },
+
+  // Load profile data including trial/subscription dates
+  async loadProfile() {
+    if (!AUTH.currentUser) { AUTH.profile = null; return; }
+    const { data, error } = await _sb.from('profiles').select('*').eq('id', AUTH.currentUser.id).maybeSingle();
+    AUTH.profile = data || null;
+  },
+
+
+
+  // ─── Subscription Status ──
+  // Return true jika user punya akses aktif (trial 7 hari ATAU paid subscription)
+  isSubscriptionActive() {
+    if (!AUTH.currentUser) return false;
+    if (!AUTH.profile) return false;
+    
+    const now = new Date();
+    
+    // 1. Check paid subscription
+    if (AUTH.profile.subscription_until) {
+      const until = new Date(AUTH.profile.subscription_until);
+      if (now < until) return true;
+    }
+    
+    // 2. Check 7-day trial
+    if (AUTH.profile.trial_started_at) {
+      const trialStart = new Date(AUTH.profile.trial_started_at);
+      const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+      if (now < trialEnd) return true;
+    }
+    
+    return false;
+  },
+
+  // Return status string: 'guest' | 'trial' | 'active' | 'expired_trial' | 'expired_paid'
+  getSubscriptionStatus() {
+    if (!AUTH.currentUser) return 'guest';
+    if (!AUTH.profile) return 'guest';
+    
+    const now = new Date();
+    
+    if (AUTH.profile.subscription_until) {
+      const until = new Date(AUTH.profile.subscription_until);
+      if (now < until) return 'active';
+      return 'expired_paid';
+    }
+    
+    if (AUTH.profile.trial_started_at) {
+      const trialStart = new Date(AUTH.profile.trial_started_at);
+      const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+      if (now < trialEnd) return 'trial';
+      return 'expired_trial';
+    }
+    
+    return 'expired_trial';
+  },
+
+  // Return remaining trial days (number, can be negative)
+  getTrialDaysRemaining() {
+    if (!AUTH.profile?.trial_started_at) return null;
+    const trialStart = new Date(AUTH.profile.trial_started_at);
+    const trialEnd = new Date(trialStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+    const now = new Date();
+    return Math.ceil((trialEnd - now) / (24 * 60 * 60 * 1000));
   },
 
   // Update semua UI setelah login/logout
@@ -3646,7 +3737,8 @@ const AUTH = {
 
     if (data.user) {
       await _sb.from('profiles').upsert({
-        id: data.user.id, nama_depan: fn, nama_belakang: ln, profil_investor: profil
+        id: data.user.id, nama_depan: fn, nama_belakang: ln, profil_investor: profil,
+        trial_started_at: new Date().toISOString()
       });
     }
 
